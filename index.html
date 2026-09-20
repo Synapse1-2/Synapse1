@@ -855,6 +855,40 @@
   .em-result-stat{display:flex; gap:10px; padding:0 20px 16px;}
   .em-result-stat .stat-card{padding:14px 8px;}
 
+  /* ---------- STUDY ROOMS ---------- */
+  #screen-rooms{padding:0 0 90px;}
+  #screen-room{padding:0 0 90px;}
+  .room-input-row{display:flex; gap:8px; margin-bottom:12px;}
+  .room-input-row input{
+    flex:1; padding:12px 14px; border-radius:12px; border:1px solid var(--line);
+    background:var(--surface-2); color:var(--text); font-size:14px; font-family:'Nunito',sans-serif;
+  }
+  .room-list-card{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:14px 16px; margin-bottom:8px; cursor:pointer;
+  }
+  .room-list-card .rlc-name{font-weight:700; font-size:14px;}
+  .room-list-card .rlc-meta{font-size:11.5px; color:var(--text-dim); margin-top:2px;}
+  .room-code-display{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    background:var(--surface-2); border:1px dashed var(--line); border-radius:14px;
+    padding:14px; margin:0 20px 16px; font-family:'Nunito',sans-serif;
+    font-size:22px; font-weight:800; letter-spacing:4px; color:var(--violet);
+  }
+  .room-copy-btn{font-size:12px; font-weight:700; color:var(--text-dim); letter-spacing:0; cursor:pointer;}
+  .room-member-row{
+    display:flex; align-items:center; gap:12px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:12px 16px; margin-bottom:8px;
+  }
+  .room-member-row .rm-avatar{
+    width:38px; height:38px; border-radius:50%; background:var(--violet); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex:0 0 auto;
+  }
+  .room-member-row .rm-name{font-weight:700; font-size:13.5px;}
+  .room-member-row .rm-crown{font-size:13px; margin-left:6px;}
+
   /* ---------- READ ALOUD (ACCESSIBILITY) ---------- */
   .read-aloud-btn{
     background:var(--surface-2); border:1px solid var(--line); border-radius:50px;
@@ -1116,7 +1150,7 @@
         <div class="quick-item" onclick="openQuiz()"><span class="icon-badge badge-violet"><span class="qi-icon">📝</span></span>Quiz</div>
         <div class="quick-item" onclick="openFocus()"><span class="icon-badge badge-orange"><span class="qi-icon">⏱️</span></span>Focus</div>
         <div class="quick-item" onclick="openStats()"><span class="icon-badge badge-green"><span class="qi-icon">📊</span></span>Stats</div>
-        <div class="quick-item" onclick="requireGoogleAuth('Study Rooms', () => alert('Study Rooms — coming next.'))"><span class="icon-badge badge-blue"><span class="qi-icon">👥</span></span>Rooms</div>
+        <div class="quick-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())"><span class="icon-badge badge-blue"><span class="qi-icon">👥</span></span>Rooms</div>
       </div>
     </div>
 
@@ -1553,7 +1587,7 @@
         <div class="more-item" onclick="openExamModeSetup()">
           <span class="icon-badge badge-red"><span class="mi-icon">⏱️</span></span><span class="mi-label">Exam Mode</span><span class="mi-chevron">›</span>
         </div>
-        <div class="more-item" onclick="requireGoogleAuth('Study Rooms', () => alert('Study Rooms — coming soon.'))">
+        <div class="more-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())">
           <span class="icon-badge badge-blue"><span class="mi-icon">👥</span></span><span class="mi-label">Study Rooms</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="alert('Light mode — coming soon. Currently dark mode only.')">
@@ -1707,6 +1741,66 @@
     </div>
     <div class="dash-section">
       <button class="btn btn-primary" onclick="goTo('screen-dashboard')">Back to dashboard</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDY ROOMS: SETUP ============ -->
+<section id="screen-rooms" class="screen">
+  <div class="container-max">
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="syllabus-top">
+      <div class="stitle">Study Rooms</div>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-title">Create a room</div>
+      <div class="room-input-row">
+        <input type="text" id="room-create-name-input" placeholder="Room name, e.g. JEE Physics">
+      </div>
+      <button class="btn btn-primary" onclick="createRoom()">Create Room</button>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-title">Join a room</div>
+      <div class="room-input-row">
+        <input type="text" id="room-join-code-input" placeholder="Enter 6-character code" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn btn-primary" style="width:auto; padding:12px 18px;" onclick="joinRoomByCode()">Join</button>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-title">My rooms</div>
+      <div id="my-rooms-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDY ROOMS: ROOM ============ -->
+<section id="screen-room" class="screen">
+  <div class="container-max">
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="leaveRoomScreen()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="syllabus-top">
+      <div class="stitle" id="room-title">Room</div>
+    </div>
+
+    <div class="room-code-display">
+      <span id="room-code-text">------</span>
+      <span class="room-copy-btn" onclick="copyRoomCode()">📋 Copy</span>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-title" id="room-member-count">Members</div>
+      <div id="room-member-list"></div>
+    </div>
+
+    <div class="dash-section">
+      <div class="empty-note">Chat and a shared board are coming soon to Study Rooms.</div>
+    </div>
+
+    <div class="dash-section" style="display:flex; gap:10px;">
+      <button class="btn" style="flex:1;" onclick="leaveRoomScreen()">Leave Room</button>
+      <button class="btn" id="room-end-btn" style="flex:1; display:none; color:#E63950; border-color:#E63950;" onclick="endRoomForEveryone()">End Room</button>
     </div>
   </div>
 </section>
@@ -3491,6 +3585,175 @@ function performGlobalSearch(query){
           </div>
         </div>
       `).join('');
+}
+
+// =========================================================
+// STUDY ROOMS
+// Real Firestore-backed rooms — create/join, 6-member cap,
+// owner controls. Requires a signed-in (non-guest) account,
+// already enforced by requireGoogleAuth() at both entry points.
+// =========================================================
+let currentRoomCode = null;
+let roomUnsubscribe = null;
+
+function generateRoomCode(){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no O/0/I/1 to avoid confusion
+  let code = '';
+  for(let i=0;i<6;i++) code += chars[Math.floor(Math.random()*chars.length)];
+  return code;
+}
+
+function getCurrentUser(){
+  return JSON.parse(localStorage.getItem('synapse12_user') || 'null');
+}
+
+function openRoomsSetup(){
+  document.getElementById('room-create-name-input').value = '';
+  document.getElementById('room-join-code-input').value = '';
+  renderMyRooms();
+  goTo('screen-rooms');
+}
+
+function renderMyRooms(){
+  const user = getCurrentUser();
+  const listEl = document.getElementById('my-rooms-list');
+  if(!user){ listEl.innerHTML = ''; return; }
+  db.collection('rooms').where('memberUids', 'array-contains', user.uid).get().then((snapshot) => {
+    if(snapshot.empty){
+      listEl.innerHTML = `<div class="empty-note">You're not in any rooms yet. Create one or join with a code.</div>`;
+      return;
+    }
+    listEl.innerHTML = snapshot.docs.map(doc => {
+      const r = doc.data();
+      return `
+        <div class="room-list-card" onclick="openRoom('${doc.id}')">
+          <div>
+            <div class="rlc-name">${r.name}</div>
+            <div class="rlc-meta">${r.memberUids.length}/6 members · Code: ${doc.id}</div>
+          </div>
+          <span class="res-arrow">›</span>
+        </div>
+      `;
+    }).join('');
+  }).catch((err) => {
+    console.error('Failed to load rooms:', err);
+    listEl.innerHTML = `<div class="empty-note">Couldn't load your rooms. Check your connection and try again.</div>`;
+  });
+}
+
+function createRoom(){
+  const user = getCurrentUser();
+  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
+  const name = document.getElementById('room-create-name-input').value.trim();
+  if(!name){ alert('Please enter a room name.'); return; }
+
+  const code = generateRoomCode();
+  db.collection('rooms').doc(code).set({
+    name,
+    ownerUid: user.uid,
+    ownerName: user.name,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    memberUids: [user.uid],
+    members: [{uid:user.uid, name:user.name}]
+  }).then(() => {
+    openRoom(code);
+  }).catch((err) => {
+    console.error('Room creation failed:', err);
+    alert('Could not create room: ' + err.message);
+  });
+}
+
+function joinRoomByCode(){
+  const user = getCurrentUser();
+  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
+  const code = document.getElementById('room-join-code-input').value.trim().toUpperCase();
+  if(code.length !== 6){ alert('Enter the 6-character room code.'); return; }
+
+  const roomRef = db.collection('rooms').doc(code);
+  roomRef.get().then((doc) => {
+    if(!doc.exists){ alert('No room found with that code.'); return; }
+    const data = doc.data();
+    if(data.memberUids.includes(user.uid)){ openRoom(code); return; }
+    if(data.memberUids.length >= 6){ alert('This room is full (6/6 members).'); return; }
+    roomRef.update({
+      memberUids: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      members: firebase.firestore.FieldValue.arrayUnion({uid:user.uid, name:user.name})
+    }).then(() => openRoom(code));
+  }).catch((err) => {
+    console.error('Join room failed:', err);
+    alert('Could not join room: ' + err.message);
+  });
+}
+
+function openRoom(code){
+  currentRoomCode = code;
+  if(roomUnsubscribe) roomUnsubscribe();
+  roomUnsubscribe = db.collection('rooms').doc(code).onSnapshot((doc) => {
+    if(!doc.exists){
+      alert('This room was ended by its owner.');
+      goTo('screen-rooms');
+      return;
+    }
+    renderRoomScreen(doc.data());
+  }, (err) => {
+    console.error('Room listener error:', err);
+  });
+  goTo('screen-room');
+}
+
+function renderRoomScreen(room){
+  const user = getCurrentUser();
+  document.getElementById('room-title').textContent = room.name;
+  document.getElementById('room-code-text').textContent = currentRoomCode;
+  document.getElementById('room-member-count').textContent = `Members (${room.memberUids.length}/6)`;
+  document.getElementById('room-member-list').innerHTML = room.members.map(m => `
+    <div class="room-member-row">
+      <div class="rm-avatar">${m.name.charAt(0).toUpperCase()}</div>
+      <div class="rm-name">${m.name}${m.uid===room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}</div>
+    </div>
+  `).join('');
+  document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
+}
+
+function copyRoomCode(){
+  if(navigator.clipboard) navigator.clipboard.writeText(currentRoomCode);
+  alert(`Room code ${currentRoomCode} copied — share it so others can join.`);
+}
+
+function leaveRoomScreen(){
+  const user = getCurrentUser();
+  const roomRef = db.collection('rooms').doc(currentRoomCode);
+  roomRef.get().then((doc) => {
+    if(!doc.exists){ cleanupRoomAndGoBack(); return; }
+    const room = doc.data();
+    const remainingUids = room.memberUids.filter(uid => uid !== user.uid);
+    const remainingMembers = room.members.filter(m => m.uid !== user.uid);
+
+    if(remainingUids.length === 0){
+      roomRef.delete().then(cleanupRoomAndGoBack);
+    } else if(room.ownerUid === user.uid){
+      // transfer ownership to the next member
+      const newOwner = remainingMembers[0];
+      roomRef.update({
+        memberUids: remainingUids, members: remainingMembers,
+        ownerUid: newOwner.uid, ownerName: newOwner.name
+      }).then(cleanupRoomAndGoBack);
+    } else {
+      roomRef.update({ memberUids: remainingUids, members: remainingMembers }).then(cleanupRoomAndGoBack);
+    }
+  });
+}
+
+function endRoomForEveryone(){
+  if(!confirm('End this room for everyone? This cannot be undone.')) return;
+  db.collection('rooms').doc(currentRoomCode).delete().then(cleanupRoomAndGoBack);
+}
+
+function cleanupRoomAndGoBack(){
+  if(roomUnsubscribe){ roomUnsubscribe(); roomUnsubscribe = null; }
+  currentRoomCode = null;
+  goTo('screen-rooms');
+  renderMyRooms();
 }
 
 function openMoreMenu(){
