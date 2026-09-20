@@ -933,6 +933,14 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<!-- PWA: installable app support -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#7C6FF0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Synapse 12">
+<link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
 
@@ -5381,6 +5389,13 @@ function renderChapters(){
     goTo('screen-dashboard');
   }
 })();
+
+// ---------- PWA: register service worker for offline support ----------
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((err) => console.error('Service worker registration failed:', err));
+  });
+}
 </script>
 
 <div class="read-aloud-bar" id="read-aloud-bar">
