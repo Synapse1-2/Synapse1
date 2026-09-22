@@ -24,6 +24,11 @@
     --grad-a: linear-gradient(135deg, #2DD4BF, #3B82F6);
     --grad-b: linear-gradient(135deg, #EC4899, #F97316);
     --grad-violet: linear-gradient(135deg, #8B7FF5, #6355D6);
+    --sage:#3E7B5D;
+    --sage-dark:#2A5A43;
+    --mint:#8FE3B8;
+    --mint-bg:rgba(143,227,184,0.16);
+    --navy-card:#141A22;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{height:100%;}
@@ -928,6 +933,91 @@
   .celebration-toast .ct-icon{font-size:32px;}
   .celebration-toast .ct-title{color:#fff; font-weight:800; font-size:14.5px;}
   .celebration-toast .ct-desc{color:rgba(255,255,255,0.85); font-size:12px; margin-top:2px;}
+
+  /* ---------- DASHBOARD v2 (sage theme, matches new reference) ---------- */
+  .d2-header{display:flex; align-items:center; justify-content:space-between; padding:18px 20px 4px;}
+  .d2-brand{display:flex; align-items:center; gap:10px;}
+  .d2-logo{
+    width:38px; height:38px; border-radius:11px;
+    background:linear-gradient(160deg, var(--sage), var(--sage-dark));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:17px; color:#fff;
+  }
+  .d2-brand-name{font-weight:800; font-size:15.5px; line-height:1.1;}
+  .d2-brand-tag{font-size:10.5px; color:var(--text-dim);}
+  .d2-bell{
+    width:36px; height:36px; border-radius:50%; background:var(--surface-2); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+  }
+
+  .d2-greet-row{display:flex; justify-content:space-between; align-items:flex-start; padding:16px 20px 4px; gap:12px;}
+  .d2-greet-label{font-size:12.5px; color:var(--text-dim);}
+  .d2-greet-name{font-weight:800; font-size:21px; margin-top:2px;}
+  .d2-quote{font-size:11.5px; color:var(--text-dim); font-style:italic; text-align:right; max-width:150px; line-height:1.4;}
+
+  .d2-banner{
+    margin:16px 20px 0; border-radius:20px; overflow:hidden; position:relative;
+    height:110px; display:flex; align-items:flex-end; justify-content:space-between;
+    padding:16px; background:
+      linear-gradient(180deg, rgba(10,20,25,0.15), rgba(6,12,16,0.85)),
+      linear-gradient(135deg, #4A6670, #1D2B33 60%, #10161B);
+  }
+  .d2-banner-text .d2b-eyebrow{color:rgba(255,255,255,0.75); font-size:11.5px; margin-bottom:3px;}
+  .d2-banner-text .d2b-title{color:#fff; font-weight:800; font-size:18px;}
+  .d2-banner-arrow{
+    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; flex:0 0 auto;
+  }
+
+  .d2-quick-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:16px 20px 0;}
+  .d2-quick-card{
+    background:var(--navy-card); border:1px solid var(--line); border-radius:16px;
+    padding:14px 6px; text-align:center; cursor:pointer;
+  }
+  .d2-quick-card.active{background:var(--mint-bg); border-color:var(--mint);}
+  .d2-quick-icon{
+    width:34px; height:34px; border-radius:10px; margin:0 auto 8px;
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+    background:rgba(255,255,255,0.08);
+  }
+  .d2-quick-card.active .d2-quick-icon{background:var(--mint); color:#0E1020;}
+  .d2-quick-label{font-size:11px; font-weight:700; color:var(--text-dim);}
+  .d2-quick-card.active .d2-quick-label{color:var(--mint);}
+
+  .d2-progress-card{
+    margin:16px 20px 0; background:var(--navy-card); border:1px solid var(--line); border-radius:18px;
+    padding:16px;
+  }
+  .d2-progress-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+  .d2-progress-top h3{font-size:14.5px; font-weight:800;}
+  .d2-view-all{font-size:11.5px; color:var(--text-dim); font-weight:700; cursor:pointer;}
+  .d2-progress-body{display:flex; align-items:center; gap:18px;}
+  .d2-ring-wrap{position:relative; width:88px; height:88px; flex:0 0 auto;}
+  .d2-ring-wrap svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .d2-ring-pct{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:19px;
+  }
+  .d2-stat-list{flex:1; display:flex; flex-direction:column; gap:8px;}
+  .d2-stat-list .d2-stat-row{display:flex; justify-content:space-between; font-size:12.5px;}
+  .d2-stat-list .d2-stat-row .lbl{color:var(--text-dim);}
+  .d2-stat-list .d2-stat-row .val{font-weight:800; color:var(--mint);}
+
+  .d2-session-card{
+    margin:14px 20px 0; background:var(--navy-card); border:1px solid var(--line); border-radius:16px;
+    padding:14px 16px; display:flex; align-items:center; gap:12px;
+  }
+  .d2-session-icon{
+    width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.08);
+    display:flex; align-items:center; justify-content:center; font-size:18px; flex:0 0 auto;
+  }
+  .d2-session-body{flex:1;}
+  .d2-session-title{font-weight:800; font-size:13px;}
+  .d2-session-sub{font-size:11px; color:var(--text-dim); margin-top:2px;}
+  .d2-session-play{
+    width:36px; height:36px; border-radius:50%; background:var(--mint); color:#0E1020;
+    display:flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; cursor:pointer;
+  }
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1083,80 +1173,90 @@
 
 <!-- ============ DASHBOARD ============ -->
 <section id="screen-dashboard" class="screen">
+  <div class="d2-header">
+    <div class="d2-brand">
+      <div class="d2-logo">S</div>
+      <div>
+        <div class="d2-brand-name">Synapse 12</div>
+        <div class="d2-brand-tag">Study Smarter. Go Further.</div>
+      </div>
+    </div>
+    <div class="d2-bell" onclick="alert('No new notifications yet.')" role="button" aria-label="Notifications" tabindex="0">🔔</div>
+  </div>
+
+  <div class="d2-greet-row">
+    <div>
+      <div class="d2-greet-label" id="dash-time-greeting">Good morning</div>
+      <div class="d2-greet-name" id="dash-greeting">Student 👋</div>
+    </div>
+    <div class="d2-quote" id="dash-quote">"Discipline today creates freedom tomorrow."</div>
+  </div>
+
   <div class="container-max">
-    <div class="dash-section" style="padding-top:16px;">
-      <div class="continue-card">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-          <div class="avatar-btn" id="dash-avatar" onclick="openProfile()">S</div>
-          <div style="flex:1;">
-            <div class="greet-eyebrow" id="dash-time-greeting">Good morning</div>
-            <h2 id="dash-greeting" style="font-size:18px;">Student</h2>
-          </div>
-          <div class="back-arrow-btn" onclick="openGlobalSearch()" role="button" aria-label="Go back" tabindex="0">🔍</div>
+    <div class="d2-banner" onclick="openBannerGoal()" role="button" tabindex="0">
+      <div class="d2-banner-text">
+        <div class="d2b-eyebrow">Today's Goal</div>
+        <div class="d2b-title" id="dash-banner-title">Keep Going.</div>
+      </div>
+      <div class="d2-banner-arrow">→</div>
+    </div>
+
+    <div class="d2-quick-row">
+      <div class="d2-quick-card" onclick="openPlanner()">
+        <div class="d2-quick-icon">🗓️</div>
+        <div class="d2-quick-label">Plan</div>
+      </div>
+      <div class="d2-quick-card active" onclick="openFocus()">
+        <div class="d2-quick-icon">⏱️</div>
+        <div class="d2-quick-label">Focus</div>
+      </div>
+      <div class="d2-quick-card" onclick="alert('Ask Synapse AI — wiring this up next, once we pick an AI provider/backend.')">
+        <div class="d2-quick-icon">✨</div>
+        <div class="d2-quick-label">AI Ask</div>
+      </div>
+      <div class="d2-quick-card" onclick="openResources()">
+        <div class="d2-quick-icon">📖</div>
+        <div class="d2-quick-label">Resources</div>
+      </div>
+    </div>
+
+    <div class="d2-progress-card">
+      <div class="d2-progress-top">
+        <h3>Today's Progress</h3>
+        <span class="d2-view-all" onclick="openStats()">View All</span>
+      </div>
+      <div class="d2-progress-body">
+        <div class="d2-ring-wrap">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--mint)" stroke-width="10" stroke-linecap="round"
+              id="dash-ring-circle" stroke-dasharray="264" stroke-dashoffset="264"/>
+          </svg>
+          <div class="d2-ring-pct" id="dash-progress-pct">0%</div>
         </div>
-        <div class="sprogress-label">
-          <span>Today's Progress</span>
-          <span id="dash-progress-delta">—</span>
-        </div>
-        <div class="progress-big-track">
-          <div class="progress-big-fill" id="dash-progress-fill" style="width:0%">
-            <span class="progress-big-label" id="dash-progress-pct">0%</span>
-          </div>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:12px; color:var(--text-dim);">
-          <span id="dash-task-count">0 of 0 tasks</span>
-          <span id="dash-studied-time">0m studied</span>
+        <div class="d2-stat-list">
+          <div class="d2-stat-row"><span class="lbl">Study Time</span><span class="val" id="dash-studied-time">0m</span></div>
+          <div class="d2-stat-row"><span class="lbl">Goals Completed</span><span class="val" id="dash-task-count">0 / 0</span></div>
+          <div class="d2-stat-row"><span class="lbl">Focus Sessions</span><span class="val" id="dash-focus-sessions">0</span></div>
+          <div class="d2-stat-row"><span class="lbl">Current Streak</span><span class="val" id="dash-streak-val">0 days</span></div>
         </div>
       </div>
     </div>
 
-    <div class="dash-section" id="continue-studying-wrap" style="display:none;">
-      <div class="continue-card">
-        <span class="tag">Pick up again</span>
-        <h3 id="continue-title">—</h3>
-        <p id="continue-sub">—</p>
-        <button class="btn btn-primary" style="width:auto; padding:10px 16px; font-size:13.5px;" onclick="resumeLastStudied()">Continue</button>
+    <div class="d2-session-card" onclick="openFocus()" role="button" tabindex="0">
+      <div class="d2-session-icon">🎯</div>
+      <div class="d2-session-body">
+        <div class="d2-session-title" id="dash-session-title">No session planned</div>
+        <div class="d2-session-sub" id="dash-session-sub">Tap to start a focus session</div>
       </div>
-    </div>
-
-    <div class="dash-section">
-      <div class="stat-row">
-        <div class="stat-card gold">
-          <div class="stat-icon-badge">🎯</div>
-          <div class="stat-val" id="dash-weekly-goal-val">0%</div>
-          <div class="stat-label">Weekly Goal</div>
-        </div>
-        <div class="stat-card violet">
-          <div class="stat-icon-badge">📚</div>
-          <div class="stat-val" id="dash-subjects-val">0</div>
-          <div class="stat-label">Subjects</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-icon-badge">🔥</div>
-          <div class="stat-val" id="dash-streak-val">0</div>
-          <div class="stat-label">Streak day</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title">Quick Action</div>
-      <div style="display:flex; gap:10px;">
-        <button class="btn btn-gradient-a" style="width:auto; flex:1;" onclick="openPlanner()">AI Study Plan</button>
-        <button class="btn btn-gradient-b" style="width:auto; flex:1;" onclick="openSyllabus()">Study Now</button>
-      </div>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title">Upcoming Tasks <span style="color:var(--violet); cursor:pointer; font-weight:600;" onclick="openPlanner()">See all</span></div>
-      <div id="dash-upcoming-tasks"></div>
+      <div class="d2-session-play">▶</div>
     </div>
 
     <div class="dash-section">
       <div class="section-title">More tools</div>
       <div class="quick-grid">
         <div class="quick-item" onclick="openQuiz()"><span class="icon-badge badge-violet"><span class="qi-icon">📝</span></span>Quiz</div>
-        <div class="quick-item" onclick="openFocus()"><span class="icon-badge badge-orange"><span class="qi-icon">⏱️</span></span>Focus</div>
+        <div class="quick-item" onclick="openSyllabus()"><span class="icon-badge badge-blue"><span class="qi-icon">📚</span></span>Library</div>
         <div class="quick-item" onclick="openStats()"><span class="icon-badge badge-green"><span class="qi-icon">📊</span></span>Stats</div>
         <div class="quick-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())"><span class="icon-badge badge-blue"><span class="qi-icon">👥</span></span>Rooms</div>
       </div>
@@ -1168,13 +1268,11 @@
     </div>
   </div>
 
-  <button class="ai-fab" onclick="alert('Ask Synapse AI — wiring this up next, once we pick an AI provider/backend.')">✨ Ask AI</button>
-
   <nav class="bottom-nav">
     <div class="nav-item active" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📚</span></span>Library</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1183,6 +1281,7 @@
 <section id="screen-syllabus" class="screen">
   <div class="container-max">
     <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+
     <div class="syllabus-top">
       <div class="stitle" id="syl-title">Syllabus</div>
       <div class="sprogress-label">
@@ -1205,9 +1304,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item active" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item active" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1287,9 +1386,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1346,9 +1445,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1377,9 +1476,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1492,9 +1591,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item active" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item active" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1554,9 +1653,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item active" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1614,9 +1713,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item active" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1649,9 +1748,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1828,9 +1927,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1849,9 +1948,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1870,9 +1969,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -1896,9 +1995,9 @@
 
   <nav class="bottom-nav">
     <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Syllabus" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Syllabus</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Planner" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Planner</div>
-    <div class="nav-item" onclick="openStats()" role="button" aria-label="Stats" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📊</span></span>Stats</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
     <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
   </nav>
 </section>
@@ -2090,89 +2189,78 @@ function saveProfileToFirestoreIfSignedIn(profile){
     .catch((err) => console.error('Firestore profile save failed:', err));
 }
 
+const DASH_QUOTES = [
+  "Discipline today creates freedom tomorrow.",
+  "Small steps every day create big results.",
+  "Consistency beats intensity.",
+  "Your future is built one focused hour at a time.",
+  "Progress, not perfection.",
+  "Every topic mastered is a step closer to your goal."
+];
+
 function loadDashboard(profile){
-  // continue where you left off
-  const lastStudied = getLastStudied();
-  const wrap = document.getElementById('continue-studying-wrap');
-  if(lastStudied){
-    wrap.style.display = 'block';
-    document.getElementById('continue-title').textContent = lastStudied.chapter;
-    document.getElementById('continue-sub').textContent = lastStudied.subject;
-  } else {
-    wrap.style.display = 'none';
-  }
   const user = JSON.parse(localStorage.getItem('synapse12_user') || '{"name":"Student"}');
   const stats = getStats();
 
-  // greeting + avatar
+  // greeting + quote
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('dash-time-greeting').textContent = greeting;
-  document.getElementById('dash-greeting').textContent = user.name;
-  document.getElementById('dash-avatar').textContent = user.name.charAt(0).toUpperCase();
+  document.getElementById('dash-time-greeting').textContent = `${greeting},`;
+  document.getElementById('dash-greeting').textContent = `${user.name} 👋`;
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  document.getElementById('dash-quote').textContent = `"${DASH_QUOTES[dayOfYear % DASH_QUOTES.length]}"`;
 
   // today's task progress
   const allTasks = getTasks();
   const todayTasks = allTasks.filter(t => t.date === todayKey());
   const completedToday = todayTasks.filter(t => t.done).length;
   const progressPct = todayTasks.length > 0 ? Math.round((completedToday/todayTasks.length)*100) : 0;
-  document.getElementById('dash-progress-fill').style.width = `${progressPct}%`;
   document.getElementById('dash-progress-pct').textContent = `${progressPct}%`;
-  document.getElementById('dash-task-count').textContent = `${completedToday} of ${todayTasks.length} tasks`;
+  document.getElementById('dash-task-count').textContent = `${completedToday} / ${todayTasks.length}`;
+  const circumference = 264;
+  document.getElementById('dash-ring-circle').style.strokeDashoffset = circumference - (circumference * progressPct/100);
 
-  // XP delta vs yesterday
-  const xpByDay = getXPByDay();
-  const y = new Date(); y.setDate(y.getDate()-1);
-  const yesterdayKey = `${y.getFullYear()}-${y.getMonth()+1}-${y.getDate()}`;
-  const todayXP = xpByDay[todayStr()] || 0;
-  const yesterdayXP = xpByDay[yesterdayKey] || 0;
-  let deltaText = '—';
-  if(todayXP === 0 && yesterdayXP === 0) deltaText = '—';
-  else if(yesterdayXP === 0) deltaText = 'New today!';
-  else deltaText = `${todayXP>=yesterdayXP?'+':''}${Math.round(((todayXP-yesterdayXP)/yesterdayXP)*100)}% from yesterday`;
-  document.getElementById('dash-progress-delta').textContent = deltaText;
-
-  // focus time studied today
+  // focus time + sessions today
   const focusMap = getFocusByDay();
   const todayMinutes = focusMap[todayStr()] || 0;
   document.getElementById('dash-studied-time').textContent =
-    todayMinutes >= 60 ? `${Math.floor(todayMinutes/60)}h ${todayMinutes%60}m studied` : `${todayMinutes}m studied`;
+    todayMinutes >= 60 ? `${Math.floor(todayMinutes/60)}h ${todayMinutes%60}m` : `${todayMinutes}m`;
+  const daily = getFocusDaily();
+  document.getElementById('dash-focus-sessions').textContent = daily.sessions;
 
-  // weekly goal % (task completion over the last 7 days)
-  let weekTotal = 0, weekDone = 0;
-  for(let i=0;i<7;i++){
-    const d = new Date(); d.setDate(d.getDate()-i);
-    const key = dateKey(d);
-    const dayTasks = allTasks.filter(t => t.date === key);
-    weekTotal += dayTasks.length;
-    weekDone += dayTasks.filter(t => t.done).length;
-  }
-  document.getElementById('dash-weekly-goal-val').textContent = weekTotal>0 ? `${Math.round((weekDone/weekTotal)*100)}%` : '0%';
+  // streak
+  document.getElementById('dash-streak-val').textContent = `${stats.streak} days`;
 
-  // subjects + streak
-  document.getElementById('dash-subjects-val').textContent = Object.keys(getSyllabusForClass(profile.class)).length;
-  document.getElementById('dash-streak-val').textContent = stats.streak;
-
-  // upcoming tasks preview
-  const upcoming = todayTasks.filter(t => !t.done).slice(0,3);
-  document.getElementById('dash-upcoming-tasks').innerHTML = upcoming.length === 0
-    ? `<div class="empty-note">No tasks planned for today. Tap Planner to add one.</div>`
-    : upcoming.map(t => `
-        <div class="utr-row" onclick="openPlanner()">
-          <div class="utr-circle"></div>
-          <div class="utr-body">
-            <div class="utr-title">${t.title}</div>
-            <div class="utr-sub">${t.subject ? t.subject : 'Planned for today'}</div>
-          </div>
-          <div class="utr-priority ${t.priority}">${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)}</div>
-        </div>
-      `).join('');
-
-  // AI recommendation (reads syllabus progress)
+  // banner: AI recommendation as "Today's Goal"
   const rec = computeStudyRecommendation(profile.class);
+  document.getElementById('dash-banner-title').textContent = rec ? `${rec.subject}: ${rec.topic}` : 'Keep Going.';
+
+  // upcoming session card: next incomplete task today, else last studied chapter, else default
+  const nextTask = todayTasks.find(t => !t.done);
+  const lastStudied = getLastStudied();
+  if(nextTask){
+    document.getElementById('dash-session-title').textContent = nextTask.title;
+    document.getElementById('dash-session-sub').textContent = nextTask.subject ? nextTask.subject : 'Planned for today';
+  } else if(lastStudied){
+    document.getElementById('dash-session-title').textContent = lastStudied.chapter;
+    document.getElementById('dash-session-sub').textContent = `Continue · ${lastStudied.subject}`;
+  } else {
+    document.getElementById('dash-session-title').textContent = 'No session planned';
+    document.getElementById('dash-session-sub').textContent = 'Tap to start a focus session';
+  }
+
+  // AI recommendation card (reads syllabus progress)
   document.getElementById('dash-recommendation').innerHTML = rec
     ? `<div class="continue-card"><span class="tag">Next up</span><h3>${rec.subject}: ${rec.chapter}</h3><p>Focus on "${rec.topic}" — it's still ${STATUS_LABEL[rec.status].toLowerCase()}.</p><button class="btn btn-primary" style="width:auto; padding:10px 16px; font-size:13.5px;" onclick="openSyllabus()">Open syllabus</button></div>`
     : `<div class="empty-note">Great work — no pending topics right now!</div>`;
+}
+
+function openBannerGoal(){
+  const profile = JSON.parse(localStorage.getItem('synapse12_profile') || 'null');
+  if(!profile) return;
+  const rec = computeStudyRecommendation(profile.class);
+  if(rec) reviewWeakChapter(profile.class, rec.subject, rec.chapter);
+  else openSyllabus();
 }
 
 // =========================================================
