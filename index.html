@@ -4,53 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Synapse 12</title>
+<script>
+/* theme: 'light' | 'dark' | 'auto' (follows the phone). Applied before first paint so there is no flash. */
+(function(){
+  try{
+    var mode = localStorage.getItem('synapse12_theme') || 'auto';
+    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var t = mode === 'auto' ? (sysDark ? 'dark' : 'light') : mode;
+    document.documentElement.setAttribute('data-theme', t);
+  }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#080B14;
-    --surface:rgba(255,255,255,0.055);
-    --surface-2:rgba(255,255,255,0.09);
-    --line:rgba(255,255,255,0.12);
-    --text:#F2F1F8;
-    --text-dim:#A9AEC9;
-    --violet:#7C6FF0;
-    --violet-dim:#4B4494;
-    --gold:#F0B429;
-    --green:#3FBF7F;
+    color-scheme:light;
+    --ink:#EEF3F0;
+    --surface:rgba(255,255,255,0.74);
+    --surface-2:rgba(255,255,255,0.94);
+    --line:rgba(30,66,52,0.11);
+    --text:#0F1C17;
+    --text-dim:#5A6A63;
+    --violet:#2E6B52;
+    --violet-dim:#1E4A3A;
+    --on-accent:#FFFFFF;
+    --accent-soft:rgba(46,107,82,0.11);
+    --gold:#B97F08;
+    --green:#2F9E68;
     --radius:18px;
     --glass-blur:22px;
-    --grad-a: linear-gradient(135deg, #2DD4BF, #3B82F6);
-    --grad-b: linear-gradient(135deg, #EC4899, #F97316);
-    --grad-violet: linear-gradient(135deg, #8B7FF5, #6355D6);
+    --grad-a:linear-gradient(135deg,#3B8F73,#2A6650);
+    --grad-b:linear-gradient(135deg,#C98A0B,#E0A63A);
+    --grad-violet:linear-gradient(135deg,#3A7F63,#245641);
     --sage:#3E7B5D;
     --sage-dark:#2A5A43;
+    --mint:#2E6B52;
+    --mint-bg:#CDEFDD;
+    --navy-card:rgba(255,255,255,0.88);
+    --card:rgba(255,255,255,0.88);
+    --card-border:rgba(255,255,255,0.95);
+    --shadow:0 10px 28px rgba(40,84,67,0.10);
+    --shadow-sm:0 4px 14px rgba(40,84,67,0.07);
+    --ring:#2C4B40;
+    --ring-track:rgba(44,75,64,0.13);
+    --val:#2E6B52;
+    --chip-bg:#CDEFDD;
+    --chip-ink:#17513A;
+    --chip-border:rgba(46,107,82,0.28);
+    --nav-bg:rgba(255,255,255,0.84);
+    --play-bg:#DCE5E5;
+    --play-ink:#14231D;
+    --ai-star:#111D18;
+    --stop-bg:#BFEBD3;
+    --stop-ink:#0B2A1E;
+    --page-bg:radial-gradient(520px 420px at 0% 0%, rgba(126,178,150,0.30), transparent 62%),
+              radial-gradient(520px 460px at 100% 100%, rgba(126,178,150,0.24), transparent 62%),
+              linear-gradient(180deg,#F5F9F7 0%,#EAF1ED 100%);
+    --s-filter:none;
+    --toast-bg:linear-gradient(135deg,#2F7A5B,#1D4E3B);
+  }
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --ink:#0A1210;
+    --surface:rgba(255,255,255,0.045);
+    --surface-2:rgba(255,255,255,0.085);
+    --line:rgba(255,255,255,0.10);
+    --text:#EAF3EE;
+    --text-dim:#98ACA2;
+    --violet:#8FE3B8;
+    --violet-dim:#3E8F6C;
+    --on-accent:#0A1A13;
+    --accent-soft:rgba(143,227,184,0.14);
+    --gold:#F0B429;
+    --green:#5DDB9C;
+    --grad-a:linear-gradient(135deg,#9BEBC4,#6FCFA0);
+    --grad-b:linear-gradient(135deg,#F0B429,#F6CB64);
+    --grad-violet:linear-gradient(135deg,#9BEBC4,#6FCFA0);
     --mint:#8FE3B8;
     --mint-bg:rgba(143,227,184,0.16);
-    --navy-card:#141A22;
+    --navy-card:#111C18;
+    --card:rgba(18,30,26,0.92);
+    --card-border:rgba(255,255,255,0.07);
+    --shadow:0 12px 32px rgba(0,0,0,0.40);
+    --shadow-sm:0 4px 14px rgba(0,0,0,0.25);
+    --ring:#93EEC1;
+    --ring-track:rgba(255,255,255,0.10);
+    --val:#8FE3B8;
+    --chip-bg:rgba(143,227,184,0.16);
+    --chip-ink:#8FE3B8;
+    --chip-border:rgba(143,227,184,0.55);
+    --nav-bg:rgba(15,25,22,0.90);
+    --play-bg:#173B2D;
+    --play-ink:#8FE3B8;
+    --ai-star:#3B82F6;
+    --stop-bg:#A5EBC8;
+    --stop-ink:#0A1F16;
+    --page-bg:radial-gradient(560px 460px at 100% 0%, rgba(58,120,90,0.30), transparent 62%),
+              radial-gradient(520px 520px at 0% 100%, rgba(40,92,70,0.26), transparent 62%),
+              linear-gradient(180deg,#0C1714 0%,#09110F 100%);
+    --s-filter:invert(1) hue-rotate(180deg) saturate(1.15) brightness(1.12);
+    --toast-bg:linear-gradient(135deg,#2F7A5B,#1D4E3B);
   }
+  :root{ --s-logo:url("data:image/webp;base64,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"); --mountain:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMjIwJyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSd4TWlkWU1pZCBzbGljZSc+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9J3MnIHgxPScwJyB5MT0nMCcgeDI9JzAnIHkyPScxJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyNBM0I1QkMnLz48c3RvcCBvZmZzZXQ9Jy41JyBzdG9wLWNvbG9yPScjNjM3NzdGJy8+PHN0b3Agb2Zmc2V0PScxJyBzdG9wLWNvbG9yPScjMkIzQTQyJy8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSdtJyB4MT0nMCcgeTE9JzAnIHgyPScwJyB5Mj0nMSc+PHN0b3Agb2Zmc2V0PScwJyBzdG9wLWNvbG9yPScjNUM2Rjc4Jy8+PHN0b3Agb2Zmc2V0PScuNicgc3RvcC1jb2xvcj0nIzMzNDQ0RCcvPjxzdG9wIG9mZnNldD0nMScgc3RvcC1jb2xvcj0nIzE4MjQyQicvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0nZicgeDE9JzAnIHkxPScwJyB4Mj0nMCcgeTI9JzEnPjxzdG9wIG9mZnNldD0nMCcgc3RvcC1jb2xvcj0nIzJFM0U0NycvPjxzdG9wIG9mZnNldD0nMScgc3RvcC1jb2xvcj0nIzBGMTgxRCcvPjwvbGluZWFyR3JhZGllbnQ+CjxmaWx0ZXIgaWQ9J2InIHg9Jy0yMCUnIHk9Jy01MCUnIHdpZHRoPScxNDAlJyBoZWlnaHQ9JzIwMCUnPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249JzcnLz48L2ZpbHRlcj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzIyMCcgZmlsbD0ndXJsKCNzKScvPgo8cGF0aCBkPSdNMCAxMjggTDQ2IDk4IEw4OCAxMTYgTDEzOCA3NiBMMTg2IDExMiBMMjI4IDkyIEwyOTIgMTIwIEwzNDQgOTYgTDQwMCAxMjQgVjIyMCBIMFonIGZpbGw9JyM0QTVDNjYnIG9wYWNpdHk9Jy44NScvPgo8cGF0aCBkPSdNOTYgMjIwIEwxNjAgMTEyIEwxOTYgNzIgTDIyNiA0NCBMMjQ2IDI2IEwyNjIgMzQgTDI5MCA3MCBMMzIyIDEwOCBMMzcyIDIyMFonIGZpbGw9J3VybCgjbSknLz4KPHBhdGggZD0nTTI0NiAyNiBMMjYyIDM0IEwyOTAgNzAgTDI3NCA2NCBMMjY2IDc4IEwyNTQgNjIgTDI0MiA3NiBMMjI2IDQ0IEwyMzYgNDAgWicgZmlsbD0nI0VBRjBGMicgb3BhY2l0eT0nLjkzJy8+CjxwYXRoIGQ9J00xOTYgNzIgTDIyNiA0NCBMMjE0IDcwIEwyMDQgNjIgTDE5NiA3OCBMMTg0IDkyWicgZmlsbD0nI0RDRTVFOCcgb3BhY2l0eT0nLjg1Jy8+CjxwYXRoIGQ9J00yOTAgNzAgTDMyMiAxMDggTDMwOCAxMDIgTDMwMCAxMTIgTDI5MiAxMDAgTDI4MCAxMDZaJyBmaWxsPScjRENFNUU4JyBvcGFjaXR5PScuNzUnLz4KPGVsbGlwc2UgY3g9JzIxMCcgY3k9JzE1MCcgcng9JzI1MCcgcnk9JzIyJyBmaWxsPScjRDNEREUxJyBvcGFjaXR5PScuNDInIGZpbHRlcj0ndXJsKCNiKScvPgo8ZWxsaXBzZSBjeD0nMTIwJyBjeT0nMTc2JyByeD0nMTkwJyByeT0nMTYnIGZpbGw9JyNEM0RERTEnIG9wYWNpdHk9Jy4zMCcgZmlsdGVyPSd1cmwoI2IpJy8+CjxwYXRoIGQ9J00wIDIyMCBWMTcwIEw1MiAxNjAgTDEyMCAxODAgTDE5NiAxOTAgTDI5MCAxNzQgTDQwMCAxODYgVjIyMFonIGZpbGw9J3VybCgjZiknLz4KPC9zdmc+"); --leaf-bg:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgODAwJyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSd4TWlkWU1pZCBzbGljZSc+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoMjAgNzApIHJvdGF0ZSgtMzUpIHNjYWxlKDEuNSknIG9wYWNpdHk9JzAuMic+PHBhdGggZD0nTTAgMCBDMzAgLTQ2IDkyIC01MCAxMjggMCBDOTIgNTAgMzAgNDYgMCAwWicgZmlsbD0nIzVFOTE3OScvPjxwYXRoIGQ9J000IDAgSDEyMCcgc3Ryb2tlPScjZmZmZmZmJyBzdHJva2Utd2lkdGg9JzEuNCcgb3BhY2l0eT0nLjUnLz48L2c+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoNjAgNDApIHJvdGF0ZSgtNzApIHNjYWxlKDEuMCknIG9wYWNpdHk9JzAuMic+PHBhdGggZD0nTTAgMCBDMzAgLTQ2IDkyIC01MCAxMjggMCBDOTIgNTAgMzAgNDYgMCAwWicgZmlsbD0nIzVFOTE3OScvPjxwYXRoIGQ9J000IDAgSDEyMCcgc3Ryb2tlPScjZmZmZmZmJyBzdHJva2Utd2lkdGg9JzEuNCcgb3BhY2l0eT0nLjUnLz48L2c+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTEwIDE5MCkgcm90YXRlKC0xNSkgc2NhbGUoMS45KScgb3BhY2l0eT0nMC4xNjAwMDAwMDAwMDAwMDAwMyc+PHBhdGggZD0nTTAgMCBDMzAgLTQ2IDkyIC01MCAxMjggMCBDOTIgNTAgMzAgNDYgMCAwWicgZmlsbD0nIzVFOTE3OScvPjxwYXRoIGQ9J000IDAgSDEyMCcgc3Ryb2tlPScjZmZmZmZmJyBzdHJva2Utd2lkdGg9JzEuNCcgb3BhY2l0eT0nLjUnLz48L2c+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoMTEwIDE2MCkgcm90YXRlKDIwKSBzY2FsZSgwLjcpJyBvcGFjaXR5PScwLjInPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM1RTkxNzknLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDQwMCA3NjApIHJvdGF0ZSgtMTQ1KSBzY2FsZSgxLjkpJyBvcGFjaXR5PScwLjInPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM1RTkxNzknLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDM2MCA3MDApIHJvdGF0ZSgtMTEwKSBzY2FsZSgxLjEpJyBvcGFjaXR5PScwLjInPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM1RTkxNzknLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDQzMCA2MDApIHJvdGF0ZSgtMTY1KSBzY2FsZSgxLjYpJyBvcGFjaXR5PScwLjE2MDAwMDAwMDAwMDAwMDAzJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNUU5MTc5Jy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48ZyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgzMDAgODAwKSByb3RhdGUoLTE3MCkgc2NhbGUoMS4wKScgb3BhY2l0eT0nMC4yJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNUU5MTc5Jy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48L3N2Zz4="); }
+  :root[data-theme="dark"]{ --leaf-bg:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgODAwJyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSd4TWlkWU1pZCBzbGljZSc+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoMjAgNzApIHJvdGF0ZSgtMzUpIHNjYWxlKDEuNSknIG9wYWNpdHk9JzAuMTEnPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM2RkMxOUEnLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDYwIDQwKSByb3RhdGUoLTcwKSBzY2FsZSgxLjApJyBvcGFjaXR5PScwLjExJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNkZDMTlBJy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48ZyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtMTAgMTkwKSByb3RhdGUoLTE1KSBzY2FsZSgxLjkpJyBvcGFjaXR5PScwLjA4ODAwMDAwMDAwMDAwMDAxJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNkZDMTlBJy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48ZyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgxMTAgMTYwKSByb3RhdGUoMjApIHNjYWxlKDAuNyknIG9wYWNpdHk9JzAuMTEnPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM2RkMxOUEnLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDQwMCA3NjApIHJvdGF0ZSgtMTQ1KSBzY2FsZSgxLjkpJyBvcGFjaXR5PScwLjExJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNkZDMTlBJy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48ZyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgzNjAgNzAwKSByb3RhdGUoLTExMCkgc2NhbGUoMS4xKScgb3BhY2l0eT0nMC4xMSc+PHBhdGggZD0nTTAgMCBDMzAgLTQ2IDkyIC01MCAxMjggMCBDOTIgNTAgMzAgNDYgMCAwWicgZmlsbD0nIzZGQzE5QScvPjxwYXRoIGQ9J000IDAgSDEyMCcgc3Ryb2tlPScjZmZmZmZmJyBzdHJva2Utd2lkdGg9JzEuNCcgb3BhY2l0eT0nLjUnLz48L2c+PGcgdHJhbnNmb3JtPSd0cmFuc2xhdGUoNDMwIDYwMCkgcm90YXRlKC0xNjUpIHNjYWxlKDEuNiknIG9wYWNpdHk9JzAuMDg4MDAwMDAwMDAwMDAwMDEnPjxwYXRoIGQ9J00wIDAgQzMwIC00NiA5MiAtNTAgMTI4IDAgQzkyIDUwIDMwIDQ2IDAgMFonIGZpbGw9JyM2RkMxOUEnLz48cGF0aCBkPSdNNCAwIEgxMjAnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLXdpZHRoPScxLjQnIG9wYWNpdHk9Jy41Jy8+PC9nPjxnIHRyYW5zZm9ybT0ndHJhbnNsYXRlKDMwMCA4MDApIHJvdGF0ZSgtMTcwKSBzY2FsZSgxLjApJyBvcGFjaXR5PScwLjExJz48cGF0aCBkPSdNMCAwIEMzMCAtNDYgOTIgLTUwIDEyOCAwIEM5MiA1MCAzMCA0NiAwIDBaJyBmaWxsPScjNkZDMTlBJy8+PHBhdGggZD0nTTQgMCBIMTIwJyBzdHJva2U9JyNmZmZmZmYnIHN0cm9rZS13aWR0aD0nMS40JyBvcGFjaXR5PScuNScvPjwvZz48L3N2Zz4="); }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{height:100%;}
   body{
-    background: linear-gradient(180deg,
-      #57ACEE 0%,
-      #4A93D6 12%,
-      #3D77B0 26%,
-      #305E8E 40%,
-      #263F5E 58%,
-      #1B2C42 75%,
-      #101B2C 90%,
-      #0A121E 100%);
-    background-attachment:fixed;
+    background:var(--page-bg); background-attachment:fixed;
     color:var(--text);
-    font-family:'Nunito',sans-serif;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     min-height:100vh;
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,.brand{
-    font-family:'Nunito',sans-serif;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     font-weight:800;
     letter-spacing:-0.01em;
   }
@@ -177,7 +248,7 @@
     background:linear-gradient(155deg, var(--violet), var(--violet-dim));
     display:flex; align-items:center; justify-content:center;
     margin:0 auto 22px;
-    font-family:'Nunito',sans-serif;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     font-weight:700; font-size:22px;
   }
   .login-card h2{font-size:22px; margin-bottom:8px;}
@@ -223,9 +294,9 @@
   .onboard-footer{margin-top:auto; padding-top:20px;}
 
   /* ---------- DASHBOARD ---------- */
-  #screen-dashboard{padding:0 0 90px;}
-  #screen-syllabus{padding:0 0 90px;}
-  #screen-profile{padding:0 0 90px;}
+  #screen-dashboard{padding:0 0 118px;}
+  #screen-syllabus{padding:0 0 118px;}
+  #screen-profile{padding:0 0 118px;}
   .topbar{
     display:flex; align-items:center; justify-content:space-between;
     padding:20px 20px 16px;
@@ -278,7 +349,7 @@
   .stat-card.gold .stat-icon-badge{background:rgba(255,90,110,0.28);}
   .stat-card.violet .stat-icon-badge{background:rgba(139,111,255,0.3);}
   .stat-card.green .stat-icon-badge{background:rgba(255,140,60,0.28);}
-  .stat-card .stat-val{font-family:'Nunito',sans-serif; font-size:28px; font-weight:900; color:var(--text); line-height:1.1;}
+  .stat-card .stat-val{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:28px; font-weight:900; color:var(--text); line-height:1.1;}
   .stat-card .stat-label{font-size:12.5px; color:var(--text-dim); margin-top:4px; font-weight:600;}
 
   /* ---------- universal icon badge system (used everywhere an emoji appears now or in future) ---------- */
@@ -334,7 +405,7 @@
   /* Ask AI floating button */
   .ai-fab{
     position:fixed;
-    right:18px; bottom:88px;
+    right:18px; bottom:104px;
     z-index:20;
     display:flex; align-items:center; gap:8px;
     background:var(--violet);
@@ -414,7 +485,7 @@
     transition:width .3s ease;
   }
   .progress-big-label{
-    font-family:'Nunito',sans-serif; font-weight:900; font-size:15px; color:#0E1020;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-weight:900; font-size:15px; color:#0E1020;
   }
 
   .chapter-card{
@@ -472,7 +543,7 @@
     width:72px; height:72px; border-radius:50%;
     background:linear-gradient(155deg, var(--violet), var(--violet-dim));
     display:flex; align-items:center; justify-content:center;
-    font-family:'Nunito',sans-serif; font-size:26px; font-weight:700;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:26px; font-weight:700;
     margin-bottom:14px;
   }
   .profile-header h2{font-size:19px; margin-bottom:3px;}
@@ -508,7 +579,7 @@
   }
 
   /* ---------- FOCUS TIMER ---------- */
-  #screen-focus{padding:0 0 90px;}
+  #screen-focus{padding:0 0 118px;}
   .focus-hero{
     display:flex; flex-direction:column; align-items:center;
     padding:36px 20px 20px;
@@ -525,7 +596,7 @@
     margin-bottom:24px;
   }
   .focus-ring .time-display{
-    font-family:'Nunito',sans-serif;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     font-size:44px; font-weight:600;
   }
   .focus-controls{display:flex; gap:12px; margin-bottom:8px;}
@@ -563,7 +634,7 @@
   .focus-session-row{padding:0 20px; margin-top:10px;}
 
   /* ---------- QUIZ ---------- */
-  #screen-quiz-setup{padding:0 0 90px;}
+  #screen-quiz-setup{padding:0 0 118px;}
   .diff-row{display:flex; gap:8px; padding:0 20px 16px;}
   .diff-row .sub-chip{flex:1; text-align:center;}
 
@@ -606,7 +677,7 @@
   .quiz-next-row.show{display:block;}
 
   .result-hero{text-align:center; padding:36px 20px 16px;}
-  .result-score{font-family:'Nunito',sans-serif; font-size:52px; font-weight:700; color:var(--violet);}
+  .result-score{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:52px; font-weight:700; color:var(--violet);}
   .result-sub{color:var(--text-dim); font-size:14px; margin-top:4px;}
   .weak-banner{
     margin:6px 20px 16px; padding:14px 16px; border-radius:12px;
@@ -620,7 +691,7 @@
   .result-actions{display:flex; flex-direction:column; gap:10px; padding:4px 20px 24px;}
 
   /* ---------- PLANNER ---------- */
-  #screen-planner{padding:0 0 90px;}
+  #screen-planner{padding:0 0 118px;}
   .week-strip{display:flex; gap:6px; padding:0 20px 18px; overflow-x:auto; scrollbar-width:none;}
   .week-strip::-webkit-scrollbar{display:none;}
   .day-chip{
@@ -689,7 +760,7 @@
   .add-task-actions .btn{padding:11px;}
 
   .fab-add-task{
-    position:fixed; right:18px; bottom:88px; z-index:20;
+    position:fixed; right:18px; bottom:104px; z-index:20;
     width:52px; height:52px; border-radius:50%;
     background:var(--violet); color:#fff; border:none;
     font-size:24px; box-shadow:0 8px 24px rgba(124,111,240,0.45);
@@ -706,7 +777,7 @@
   }
 
   /* ---------- STATS ---------- */
-  #screen-stats{padding:0 0 90px;}
+  #screen-stats{padding:0 0 118px;}
   .week-chart{display:flex; align-items:flex-end; gap:8px; height:120px; padding:10px 20px 24px;}
   .week-bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
   .week-bar{width:100%; max-width:28px; background:var(--violet); border-radius:6px 6px 0 0; min-height:4px;}
@@ -720,11 +791,11 @@
 
   .mastery-row{display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap;}
   .mastery-pill{flex:1; min-width:60px; text-align:center; padding:10px 4px; border-radius:10px; background:var(--surface); border:1px solid var(--line);}
-  .mastery-pill .mp-count{font-family:'Nunito',sans-serif; font-size:17px; font-weight:600;}
+  .mastery-pill .mp-count{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:17px; font-weight:600;}
   .mastery-pill .mp-label{font-size:9.5px; color:var(--text-dim); margin-top:2px;}
 
   /* ---------- MORE MENU ---------- */
-  #screen-more{padding:0 0 90px;}
+  #screen-more{padding:0 0 118px;}
   .more-item{
     display:flex; align-items:center; gap:14px;
     padding:15px 16px; cursor:pointer;
@@ -734,7 +805,7 @@
   .more-item .mi-chevron{color:var(--text-dim); font-size:14px;}
 
   /* ---------- EXAM COUNTDOWN ---------- */
-  #screen-exam{padding:0 0 90px;}
+  #screen-exam{padding:0 0 118px;}
   .exam-card{
     background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
     padding:16px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:10px;
@@ -742,13 +813,13 @@
   .exam-card .ec-name{font-weight:600; font-size:15px; margin-bottom:4px;}
   .exam-card .ec-date{font-size:12px; color:var(--text-dim);}
   .exam-card .ec-right{text-align:right;}
-  .exam-card .ec-days{font-family:'Nunito',sans-serif; font-size:22px; font-weight:700; color:var(--violet);}
+  .exam-card .ec-days{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-size:22px; font-weight:700; color:var(--violet);}
   .exam-card .ec-days-label{font-size:10px; color:var(--text-dim);}
   .exam-card.passed .ec-days{color:var(--text-dim);}
   .exam-card .ec-delete{color:var(--text-dim); font-size:15px; padding:2px 4px; cursor:pointer; margin-left:6px;}
 
   /* ---------- BOOKMARKS ---------- */
-  #screen-bookmarks{padding:0 0 90px;}
+  #screen-bookmarks{padding:0 0 118px;}
   .bookmark-star{cursor:pointer; font-size:17px; color:var(--text-dim); padding:2px 8px; flex:0 0 auto;}
   .bookmark-star.active{color:var(--gold);}
   .bm-item{
@@ -760,7 +831,7 @@
   .bm-remove{color:var(--text-dim); cursor:pointer; font-size:15px; flex:0 0 auto;}
 
   /* ---------- ACHIEVEMENTS ---------- */
-  #screen-achievements{padding:0 0 90px;}
+  #screen-achievements{padding:0 0 118px;}
   .ach-card{
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
     padding:14px 16px; margin-bottom:10px; display:flex; align-items:center; gap:14px;
@@ -771,8 +842,8 @@
   .ach-card .ach-progress{font-size:11px; color:var(--violet); margin-top:4px; font-weight:600;}
 
   /* ---------- QUESTION BANK ---------- */
-  #screen-qbank{padding:0 0 90px;}
-  #screen-qbank-questions{padding:0 0 90px;}
+  #screen-qbank{padding:0 0 118px;}
+  #screen-qbank-questions{padding:0 0 118px;}
   .qb-question-card{
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
     padding:16px; margin-bottom:10px;
@@ -794,12 +865,12 @@
   .qb-answer-panel .qb-exp{font-size:12.5px; color:var(--text-dim); margin-top:8px; padding-top:8px; border-top:1px solid var(--line);}
 
   /* ---------- GLOBAL SEARCH ---------- */
-  #screen-search{padding:0 0 90px;}
+  #screen-search{padding:0 0 118px;}
   .search-input-wrap{padding:16px 20px;}
   .search-input{
     width:100%; padding:14px 16px; border-radius:50px;
     border:1px solid var(--line); background:var(--surface-2); color:var(--text);
-    font-size:14px; font-family:'Nunito',sans-serif;
+    font-size:14px; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   .search-result-row{
     display:flex; align-items:center; gap:12px;
@@ -810,7 +881,7 @@
   .search-result-row .sr-sub{font-size:11px; color:var(--text-dim); margin-top:2px;}
 
   /* ---------- RESOURCES ---------- */
-  #screen-resources{padding:0 0 90px;}
+  #screen-resources{padding:0 0 118px;}
   .res-card{
     display:flex; align-items:center; gap:14px;
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
@@ -821,7 +892,7 @@
   .res-card .res-arrow{color:var(--text-dim); font-size:14px;}
 
   /* ---------- SMART REVISION ---------- */
-  #screen-revision{padding:0 0 90px;}
+  #screen-revision{padding:0 0 118px;}
   .rev-card{
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
     padding:15px 16px; margin-bottom:10px;
@@ -834,16 +905,16 @@
   .rev-badge.stale{background:linear-gradient(135deg,#FFE29A,#D97706);}
 
   /* ---------- EXAM MODE ---------- */
-  #screen-exammode-setup{padding:0 0 90px;}
-  #screen-exammode{padding:0 0 90px;}
-  #screen-exammode-result{padding:0 0 90px;}
+  #screen-exammode-setup{padding:0 0 118px;}
+  #screen-exammode{padding:0 0 118px;}
+  #screen-exammode-result{padding:0 0 118px;}
   .em-option-row{display:flex; gap:8px; margin-bottom:16px;}
   .em-option-row .sub-chip{flex:1; text-align:center;}
   .em-topbar{
     display:flex; justify-content:space-between; align-items:center;
     padding:16px 20px; position:sticky; top:0; z-index:5;
   }
-  .em-timer{font-family:'Nunito',sans-serif; font-weight:900; font-size:18px; color:var(--gold);}
+  .em-timer{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; font-weight:900; font-size:18px; color:var(--gold);}
   .em-submit-btn{
     padding:9px 16px; border-radius:20px; border:none; background:#E63950; color:#fff;
     font-size:12.5px; font-weight:700; cursor:pointer;
@@ -861,12 +932,12 @@
   .em-result-stat .stat-card{padding:14px 8px;}
 
   /* ---------- STUDY ROOMS ---------- */
-  #screen-rooms{padding:0 0 90px;}
-  #screen-room{padding:0 0 90px;}
+  #screen-rooms{padding:0 0 118px;}
+  #screen-room{padding:0 0 118px;}
   .room-input-row{display:flex; gap:8px; margin-bottom:12px;}
   .room-input-row input{
     flex:1; padding:12px 14px; border-radius:12px; border:1px solid var(--line);
-    background:var(--surface-2); color:var(--text); font-size:14px; font-family:'Nunito',sans-serif;
+    background:var(--surface-2); color:var(--text); font-size:14px; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   .room-list-card{
     display:flex; align-items:center; justify-content:space-between;
@@ -878,7 +949,7 @@
   .room-code-display{
     display:flex; align-items:center; justify-content:center; gap:10px;
     background:var(--surface-2); border:1px dashed var(--line); border-radius:14px;
-    padding:14px; margin:0 20px 16px; font-family:'Nunito',sans-serif;
+    padding:14px; margin:0 20px 16px; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     font-size:22px; font-weight:800; letter-spacing:4px; color:var(--violet);
   }
   .room-copy-btn{font-size:12px; font-weight:700; color:var(--text-dim); letter-spacing:0; cursor:pointer;}
@@ -893,6 +964,40 @@
   }
   .room-member-row .rm-name{font-weight:700; font-size:13.5px;}
   .room-member-row .rm-crown{font-size:13px; margin-left:6px;}
+
+  .room-chat-box{
+    height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:12px; margin-bottom:10px;
+  }
+  .room-chat-msg{max-width:78%; padding:8px 12px; border-radius:14px; font-size:13px;}
+  .room-chat-msg.own{align-self:flex-end; background:var(--violet); color:#fff; border-bottom-right-radius:4px;}
+  .room-chat-msg.other{align-self:flex-start; background:var(--surface-2); border-bottom-left-radius:4px;}
+  .room-chat-msg .rcm-sender{font-size:10.5px; font-weight:700; opacity:0.75; margin-bottom:2px;}
+  .room-chat-input-row{display:flex; gap:8px;}
+  .room-chat-input-row input{
+    flex:1; padding:12px 14px; border-radius:24px; border:1px solid var(--line);
+    background:var(--surface-2); color:var(--text); font-size:14px; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  .room-chat-send-btn{
+    width:42px; height:42px; border-radius:50%; background:var(--violet); color:#fff; border:none;
+    font-size:15px; flex:0 0 auto; cursor:pointer;
+  }
+
+  .board-toolbar{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .board-color{
+    width:26px; height:26px; border-radius:50%; border:2px solid var(--line); cursor:pointer; flex:0 0 auto;
+  }
+  .board-color.selected{border-color:var(--text); box-shadow:0 0 0 2px var(--violet);}
+  .board-eraser-btn, .board-clear-btn{
+    font-size:11.5px; font-weight:700; padding:6px 12px; border-radius:20px;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--text-dim); cursor:pointer;
+  }
+  .board-eraser-btn.active{background:var(--violet); color:#fff; border-color:var(--violet);}
+  #room-board-canvas{
+    width:100%; height:auto; aspect-ratio:600/400; border-radius:14px;
+    background:#1A1E2A; border:1px solid var(--line); touch-action:none; display:block;
+  }
 
   /* ---------- READ ALOUD (ACCESSIBILITY) ---------- */
   .read-aloud-btn{
@@ -934,90 +1039,300 @@
   .celebration-toast .ct-title{color:#fff; font-weight:800; font-size:14.5px;}
   .celebration-toast .ct-desc{color:rgba(255,255,255,0.85); font-size:12px; margin-top:2px;}
 
-  /* ---------- DASHBOARD v2 (sage theme, matches new reference) ---------- */
-  .d2-header{display:flex; align-items:center; justify-content:space-between; padding:18px 20px 4px;}
-  .d2-brand{display:flex; align-items:center; gap:10px;}
-  .d2-logo{
-    width:38px; height:38px; border-radius:11px;
-    background:linear-gradient(160deg, var(--sage), var(--sage-dark));
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Nunito',sans-serif; font-weight:900; font-size:17px; color:#fff;
+  /* =====================================================================
+     SYNAPSE 12 — SAGE THEME (light + dark). Matches the two reference
+     mock-ups. Everything below overrides the older blue/violet styling
+     using the variables defined in :root / :root[data-theme="dark"].
+     ===================================================================== */
+  html{background:var(--ink);}
+  body{background:var(--page-bg); background-attachment:fixed;}
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:var(--leaf-bg) center/cover no-repeat; filter:blur(1.2px);
   }
-  .d2-brand-name{font-weight:800; font-size:15.5px; line-height:1.1;}
-  .d2-brand-tag{font-size:10.5px; color:var(--text-dim);}
-  .d2-bell{
-    width:36px; height:36px; border-radius:50%; background:var(--surface-2); border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; font-size:15px;
-  }
+  .screen{position:relative; z-index:1;}
+  .container-max{padding-bottom:6px;}
+  h1,h2,h3,.brand{letter-spacing:-0.02em;}
 
-  .d2-greet-row{display:flex; justify-content:space-between; align-items:flex-start; padding:16px 20px 4px; gap:12px;}
-  .d2-greet-label{font-size:12.5px; color:var(--text-dim);}
-  .d2-greet-name{font-weight:800; font-size:21px; margin-top:2px;}
-  .d2-quote{font-size:11.5px; color:var(--text-dim); font-style:italic; text-align:right; max-width:150px; line-height:1.4;}
+  .s-logo{display:inline-block; background:var(--s-logo) center/contain no-repeat; filter:var(--s-filter); flex:0 0 auto;}
+
+  /* ---------- shared surfaces get a soft lift ---------- */
+  .stat-card,.continue-card,.field-card,.chapter-card,.quiz-chapter-card,.task-row,.exam-card,
+  .review-item,.bm-item,.ach-card,.qb-question-card,.res-card,.rev-card,.search-result-row,
+  .room-list-card,.room-member-row,.utr-row,.quick-item,.option,.mastery-pill,.day-chip,.em-palette-item{
+    box-shadow:var(--shadow-sm);
+  }
+  .option.selected{border-color:var(--violet); background:var(--accent-soft);}
+  .icon-badge,.badge-red,.badge-blue,.badge-teal,.badge-violet,.badge-orange,.badge-green,.badge-gold,.badge-pink{background:var(--accent-soft);}
+
+  /* ---------- buttons ---------- */
+  .btn{border-radius:18px; font-weight:600; font-size:15px; padding:15px 18px; box-shadow:var(--shadow-sm);}
+  .btn-primary,.btn-gradient-a,.btn-gradient-b{
+    background:var(--grad-violet); color:var(--on-accent); border-color:transparent; font-weight:700;
+    box-shadow:0 10px 24px rgba(46,107,82,0.28);
+  }
+  :root[data-theme="dark"] .btn-primary{box-shadow:0 10px 24px rgba(0,0,0,0.35);}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  .logo-dot{background:var(--violet); box-shadow:0 0 14px 3px var(--accent-soft);}
+  .brand span{color:var(--violet);}
+
+  /* every solid accent surface: readable text in both themes */
+  .sub-chip.active,.day-chip.active,.board-eraser-btn.active{
+    background:var(--chip-bg); color:var(--chip-ink); border-color:var(--chip-border); font-weight:700;
+  }
+  .day-chip.active .dow{color:var(--chip-ink);}
+  .quiz-start-btn,.custom-inputs .apply-btn,.fab-add-task,.ai-fab,.room-chat-send-btn,.room-chat-msg.own,
+  .room-member-row .rm-avatar,.login-mark,.profile-avatar-lg,.em-submit-btn{
+    color:var(--on-accent);
+  }
+  .quiz-start-btn,.custom-inputs .apply-btn,.fab-add-task,.ai-fab,.room-chat-send-btn,.room-chat-msg.own,.room-member-row .rm-avatar{
+    background:var(--grad-violet); border-color:transparent;
+  }
+  .fab-add-task,.ai-fab{box-shadow:0 10px 26px rgba(46,107,82,0.32);}
+  .em-submit-btn{background:#D24B5E; color:#fff;}
+  .quiz-start-btn.disabled{background:var(--surface-2); color:var(--text-dim);}
+  .progress-fill,.week-bar{background:var(--violet);}
+  .step-dot.done{background:var(--violet);}
+  .progress-big-fill{background:linear-gradient(90deg,#8FE3B8,#4FB98A);}
+  .progress-big-label{color:#0A1F16;}
+  .status-pill[data-status="learning"]{color:var(--on-accent); background:var(--grad-violet);}
+  .status-pill[data-status="practicing"]{color:#2A1B00; background:linear-gradient(135deg,#FFE29A,#E8B04A);}
+  .status-pill[data-status="strong"]{color:#062A17; background:linear-gradient(135deg,#B8F0CD,#5DCB8A);}
+  .status-pill[data-status="mastered"]{color:#062A17; background:linear-gradient(135deg,#8FE3B8,#3FBF7F);}
+  .utr-circle{border-color:var(--violet);}
+  .utr-priority.high{background:var(--grad-violet); color:var(--on-accent);}
+  .celebration-toast{background:var(--toast-bg);}
+  .login-mark,.profile-avatar-lg{background:var(--grad-violet);}
+  .logout-btn{border:1px solid rgba(214,84,84,0.45); background:rgba(214,84,84,0.08); color:#D25555;}
+  :root[data-theme="dark"] .logout-btn{color:#F08A8A;}
+  .avatar-btn{color:var(--violet);}
+  .continue-card{background:linear-gradient(135deg,var(--surface-2),var(--surface));}
+  .continue-card .tag{color:var(--violet); background:var(--accent-soft);}
+  .weak-banner{border-color:rgba(184,127,8,0.4);}
+  .room-code-display{color:var(--violet);}
+  #room-board-canvas{background:#1A1E2A;}
+
+  /* ---------- INTRO (left panel of the mock-up) ---------- */
+  #screen-intro{align-items:center; justify-content:space-between; text-align:center; padding:56px 28px 36px;}
+  .intro-center{display:flex; flex-direction:column; align-items:center; margin-top:8vh;}
+  .intro-tile{
+    position:relative; width:132px; height:132px; border-radius:36px;
+    background:linear-gradient(160deg,var(--card),var(--surface-2));
+    border:1px solid var(--card-border); box-shadow:var(--shadow);
+    display:flex; align-items:center; justify-content:center; margin-bottom:26px;
+  }
+  :root[data-theme="dark"] .intro-tile{background:linear-gradient(160deg,#243530,#131D1A); border-color:rgba(255,255,255,0.12);}
+  .intro-tile .s-logo{width:56px; height:92px;}
+  .intro-tile .spark{position:absolute; top:22px; right:22px; width:22px; height:22px; color:var(--text);}
+  :root[data-theme="dark"] .intro-tile .spark{color:#CFF3E0;}
+  .intro-title{font-size:38px; font-weight:800; letter-spacing:-0.03em; line-height:1.05;}
+  .intro-tag{font-size:16px; color:var(--text-dim); margin-top:8px;}
+  .intro-rule{width:30px; height:1px; background:var(--line); margin:26px 0 18px;}
+  .intro-pillars{font-size:11.5px; letter-spacing:0.22em; color:var(--text-dim); font-weight:600; text-transform:uppercase;}
+  #screen-intro .intro-bottom{width:100%; max-width:380px; align-items:center; gap:22px; margin-top:0;}
+  .intro-quote{font-size:14px; color:var(--text-dim); line-height:1.5; max-width:22ch;}
+  .login-mark{width:76px; height:76px; border-radius:24px; background:linear-gradient(160deg,var(--card),var(--surface-2)); border:1px solid var(--card-border); box-shadow:var(--shadow);}
+  :root[data-theme="dark"] .login-mark{background:linear-gradient(160deg,#243530,#131D1A); border-color:rgba(255,255,255,0.12);}
+  .login-mark .s-logo{width:32px; height:52px;}
+
+  /* ---------- DASHBOARD (both mock-ups) ---------- */
+  .d2-header{display:flex; align-items:center; justify-content:space-between; padding:20px 20px 0;}
+  .d2-brand{display:flex; align-items:center; gap:12px;}
+  .d2-logo{width:28px; height:46px;}
+  .d2-brand-name{font-weight:700; font-size:19px; letter-spacing:-0.02em; line-height:1.15;}
+  .d2-brand-tag{font-size:12.5px; color:var(--text-dim); margin-top:2px;}
+  .d2-bell{
+    width:48px; height:48px; border-radius:16px; background:var(--card); border:1px solid var(--card-border);
+    box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:center; color:var(--text); cursor:pointer;
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  }
+  .d2-bell svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .d2-greet-row{display:flex; justify-content:space-between; align-items:flex-start; padding:22px 20px 0; gap:14px;}
+  .d2-greet-label{font-size:19px; font-weight:500; color:var(--text); opacity:.86;}
+  .d2-greet-name{font-weight:800; font-size:34px; letter-spacing:-0.03em; margin-top:0; line-height:1.15;}
+  .d2-quote{font-size:12.5px; color:var(--text-dim); font-style:normal; text-align:right; max-width:158px; line-height:1.45; margin-top:6px;}
 
   .d2-banner{
-    margin:16px 20px 0; border-radius:20px; overflow:hidden; position:relative;
-    height:110px; display:flex; align-items:flex-end; justify-content:space-between;
-    padding:16px; background:
-      linear-gradient(180deg, rgba(10,20,25,0.15), rgba(6,12,16,0.85)),
-      linear-gradient(135deg, #4A6670, #1D2B33 60%, #10161B);
+    margin:20px 20px 0; border-radius:26px; overflow:hidden; position:relative; height:160px; cursor:pointer;
+    display:flex; align-items:flex-end; justify-content:space-between; padding:20px 20px 20px 22px;
+    background:linear-gradient(180deg,rgba(6,12,16,0) 30%,rgba(6,12,16,0.72) 100%), var(--mountain) center/cover no-repeat;
+    box-shadow:var(--shadow); border:1px solid var(--card-border);
   }
-  .d2-banner-text .d2b-eyebrow{color:rgba(255,255,255,0.75); font-size:11.5px; margin-bottom:3px;}
-  .d2-banner-text .d2b-title{color:#fff; font-weight:800; font-size:18px;}
+  .d2-banner-text{min-width:0; padding-right:10px;}
+  .d2-banner-text .d2b-eyebrow{color:rgba(255,255,255,0.82); font-size:14px; margin-bottom:4px;}
+  .d2-banner-text .d2b-title{
+    color:#fff; font-weight:800; font-size:26px; letter-spacing:-0.02em; line-height:1.15;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .d2-banner-arrow{
-    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.18);
-    display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; flex:0 0 auto;
+    width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.30); color:#fff;
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   }
+  .d2-banner-arrow svg{width:22px; height:22px; fill:none; stroke:#fff; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
 
   .d2-quick-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:16px 20px 0;}
   .d2-quick-card{
-    background:var(--navy-card); border:1px solid var(--line); border-radius:16px;
-    padding:14px 6px; text-align:center; cursor:pointer;
+    background:var(--card); border:1px solid var(--card-border); border-radius:20px; box-shadow:var(--shadow-sm);
+    padding:16px 4px 13px; text-align:center; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--text);
+    transition:transform .15s ease;
   }
-  .d2-quick-card.active{background:var(--mint-bg); border-color:var(--mint);}
-  .d2-quick-icon{
-    width:34px; height:34px; border-radius:10px; margin:0 auto 8px;
-    display:flex; align-items:center; justify-content:center; font-size:16px;
-    background:rgba(255,255,255,0.08);
-  }
-  .d2-quick-card.active .d2-quick-icon{background:var(--mint); color:#0E1020;}
-  .d2-quick-label{font-size:11px; font-weight:700; color:var(--text-dim);}
-  .d2-quick-card.active .d2-quick-label{color:var(--mint);}
+  .d2-quick-card:active{transform:scale(.97);}
+  .d2-quick-card.active{background:var(--chip-bg); border-color:var(--chip-border); color:var(--chip-ink);}
+  .d2-quick-icon{width:30px; height:30px; display:flex; align-items:center; justify-content:center; background:none; margin:0;}
+  .d2-quick-icon svg{width:28px; height:28px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  .d2-quick-card.ai .d2-quick-icon{color:var(--ai-star);}
+  .d2-quick-card.ai .d2-quick-icon svg{fill:currentColor; stroke:none;}
+  .d2-quick-label{font-size:13px; font-weight:600; color:inherit;}
+  .d2-quick-card.active .d2-quick-icon{background:none; color:var(--chip-ink);}
 
   .d2-progress-card{
-    margin:16px 20px 0; background:var(--navy-card); border:1px solid var(--line); border-radius:18px;
-    padding:16px;
+    margin:16px 20px 0; background:var(--card); border:1px solid var(--card-border); border-radius:24px;
+    padding:18px 18px 20px; box-shadow:var(--shadow);
   }
-  .d2-progress-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
-  .d2-progress-top h3{font-size:14.5px; font-weight:800;}
-  .d2-view-all{font-size:11.5px; color:var(--text-dim); font-weight:700; cursor:pointer;}
-  .d2-progress-body{display:flex; align-items:center; gap:18px;}
-  .d2-ring-wrap{position:relative; width:88px; height:88px; flex:0 0 auto;}
+  .d2-progress-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+  .d2-progress-top h3{font-size:16.5px; font-weight:700;}
+  .d2-view-all{font-size:12.5px; color:var(--text-dim); font-weight:600; cursor:pointer; background:var(--surface-2); border:1px solid var(--line); padding:7px 13px; border-radius:12px;}
+  .d2-progress-body{display:flex; align-items:center; gap:22px;}
+  .d2-ring-wrap{position:relative; width:112px; height:112px; flex:0 0 auto;}
   .d2-ring-wrap svg{width:100%; height:100%; transform:rotate(-90deg);}
-  .d2-ring-pct{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-family:'Nunito',sans-serif; font-weight:900; font-size:19px;
-  }
-  .d2-stat-list{flex:1; display:flex; flex-direction:column; gap:8px;}
-  .d2-stat-list .d2-stat-row{display:flex; justify-content:space-between; font-size:12.5px;}
+  .d2-ring-track{stroke:var(--ring-track);}
+  .d2-ring-fg{stroke:var(--ring); transition:stroke-dashoffset .6s ease;}
+  .d2-ring-pct{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:26px; letter-spacing:-0.02em;}
+  .d2-stat-list{flex:1; display:flex; flex-direction:column; gap:13px; min-width:0;}
+  .d2-stat-list .d2-stat-row{display:flex; justify-content:space-between; gap:8px; font-size:14px;}
   .d2-stat-list .d2-stat-row .lbl{color:var(--text-dim);}
-  .d2-stat-list .d2-stat-row .val{font-weight:800; color:var(--mint);}
+  .d2-stat-list .d2-stat-row .val{font-weight:700; color:var(--val); white-space:nowrap;}
 
   .d2-session-card{
-    margin:14px 20px 0; background:var(--navy-card); border:1px solid var(--line); border-radius:16px;
-    padding:14px 16px; display:flex; align-items:center; gap:12px;
+    margin:14px 20px 0; background:var(--card); border:1px solid var(--card-border); border-radius:22px;
+    padding:14px 14px 14px 16px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-sm); cursor:pointer;
   }
-  .d2-session-icon{
-    width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.08);
-    display:flex; align-items:center; justify-content:center; font-size:18px; flex:0 0 auto;
+  .d2-session-icon{width:50px; height:50px; border-radius:16px; background:var(--surface-2); border:1px solid var(--line); color:var(--text); display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .d2-session-icon svg{width:26px; height:26px;}
+  .d2-session-body{flex:1; min-width:0;}
+  .d2-session-title{font-weight:700; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .d2-session-sub{font-size:13px; color:var(--text-dim); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .d2-session-play{width:52px; height:52px; border-radius:17px; background:var(--play-bg); color:var(--play-ink); display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .d2-session-play svg{width:22px; height:22px;}
+  .quick-item{background:var(--card); border-color:var(--card-border); border-radius:16px; font-weight:600; color:var(--text-dim);}
+
+  /* ---------- BOTTOM NAV (floating pill, both mock-ups) ---------- */
+  .bottom-nav{
+    left:50%; right:auto; transform:translateX(-50%); width:calc(100% - 24px); max-width:496px;
+    bottom:calc(12px + env(safe-area-inset-bottom)); padding:8px; gap:2px;
+    background:var(--nav-bg); border:1px solid var(--card-border); border-radius:30px; box-shadow:var(--shadow);
+    backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
   }
-  .d2-session-body{flex:1;}
-  .d2-session-title{font-weight:800; font-size:13px;}
-  .d2-session-sub{font-size:11px; color:var(--text-dim); margin-top:2px;}
-  .d2-session-play{
-    width:36px; height:36px; border-radius:50%; background:var(--mint); color:#0E1020;
-    display:flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; cursor:pointer;
+  .nav-item{padding:9px 0 8px; gap:4px; border-radius:22px; font-size:11.5px; font-weight:600; color:var(--text-dim); cursor:pointer; transition:background .15s ease, color .15s ease; border:1px solid transparent;}
+  .nav-item svg{width:23px; height:23px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .nav-item svg .dot{fill:currentColor; stroke:none;}
+  .nav-item.active{background:var(--chip-bg); color:var(--chip-ink); border-color:var(--chip-border);}
+  .nav-item.active svg{stroke-width:1.9;}
+  .read-aloud-bar{bottom:100px;}
+
+  /* ---------- FOCUS SESSION (right panel of mock-up 2, minus blocked apps) ---------- */
+  #screen-focus{padding:0 0 118px;}
+  .fs-header{display:flex; align-items:center; justify-content:space-between; padding:18px 20px 6px;}
+  .fs-title{font-size:19px; font-weight:600; letter-spacing:-0.01em;}
+  .fs-icon-btn{width:44px; height:44px; border-radius:50%; background:none; border:none; color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer;}
+  .fs-icon-btn svg{width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round;}
+  .fs-icon-btn svg .dot{fill:currentColor; stroke:none;}
+  .fs-ring-wrap{position:relative; width:min(84vw,330px); aspect-ratio:1; margin:14px auto 0;}
+  .fs-ring-svg{position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1) rotate(-90deg);}
+  .fs-ring-track{fill:none; stroke:var(--ring-track); stroke-width:12;}
+  .fs-ring-fg{fill:none; stroke:var(--ring); stroke-width:12; stroke-linecap:round; transition:stroke-dashoffset .9s linear;}
+  :root:not([data-theme="dark"]) .fs-ring-fg{stroke:#3A8B6C;}
+  .fs-disc{
+    position:absolute; inset:9%; border-radius:50%; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#fff;
+    background:linear-gradient(180deg,rgba(5,10,13,0.30),rgba(5,10,13,0.55)), var(--mountain) center/cover no-repeat;
+    box-shadow:0 12px 34px rgba(0,0,0,0.30) inset, 0 0 0 1px rgba(255,255,255,0.10);
   }
+  .fs-subject{font-size:19px; font-weight:500; opacity:.92;}
+  .fs-time{font-size:clamp(50px,17vw,68px); font-weight:800; letter-spacing:-0.03em; line-height:1; font-variant-numeric:tabular-nums;}
+  .fs-mode{display:flex; align-items:center; gap:8px; font-size:17px; font-weight:500; margin-top:4px; color:#B6F0D2;}
+  .fs-mode svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .fs-status{text-align:center; font-size:13px; color:var(--violet); min-height:20px; margin:14px 20px 0;}
+  .fs-quote{
+    margin:6px 20px 0; background:var(--card); border:1px solid var(--card-border); border-radius:22px; box-shadow:var(--shadow-sm);
+    padding:20px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px; font-size:15px; line-height:1.5; color:var(--text);
+  }
+  .fs-quote svg{width:46px; height:46px; color:var(--violet); flex:0 0 auto; opacity:.9; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;}
+  .fs-controls{display:grid; grid-template-columns:1fr 1.25fr 1fr; gap:12px; margin:14px 20px 0; align-items:stretch;}
+  .fs-btn{
+    background:var(--card); border:1px solid var(--card-border); border-radius:26px; box-shadow:var(--shadow-sm);
+    color:var(--text); font-size:15px; font-weight:600; padding:22px 6px 18px; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:11px; transition:transform .12s ease;
+  }
+  .fs-btn:active{transform:scale(.97);}
+  .fs-btn svg{width:28px; height:28px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .fs-btn svg .fill{fill:currentColor; stroke:none;}
+  .fs-btn-main{background:var(--stop-bg); color:var(--stop-ink); border-color:transparent; font-weight:700; box-shadow:0 14px 30px rgba(60,160,120,0.28);}
+  .focus-skip{text-align:center; font-size:13px; color:var(--text-dim); margin-top:16px; cursor:pointer;}
+  .preset-row{margin-top:18px;}
+
+  /* ---------- MORE MENU: appearance row value ---------- */
+  .mi-value{font-size:12.5px; font-weight:700; color:var(--violet); background:var(--accent-soft); padding:5px 11px; border-radius:20px;}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important;}}
+
+/* ---------- INTRO: mountain sunrise ---------- */
+#screen-intro{
+  --sky1:#D7E7E0; --sky2:#F6F2E3; --sun:#F6DC8E; --sunglow:rgba(246,220,142,.45);
+  --m0:#9DB5AA; --m1:#5F7C71; --m2:#3F5A52; --m3:#22382F; --snow:#F1F6F3; --mist:rgba(255,255,255,.32);
+  --tx:#0F1C17; --tx2:#4F6259; --leafc:#5E9179;
+  padding:0; align-items:stretch; justify-content:flex-start; text-align:center; position:relative; overflow:hidden;
+  min-height:100vh; min-height:100dvh; background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 72%);
+}
+:root[data-theme="dark"] #screen-intro{
+  --sky1:#07100D; --sky2:#1A3A2E; --sun:#9BEBC4; --sunglow:rgba(143,227,184,.30);
+  --m0:#2F5044; --m1:#25403A; --m2:#1A2E29; --m3:#0D1815; --snow:#BFD8CE; --mist:rgba(143,227,184,.10);
+  --tx:#EAF3EE; --tx2:#98ACA2; --leafc:#6FC19A;
+}
+.in-sun{position:absolute; left:50%; width:132px; height:132px; margin-left:-66px; border-radius:50%; background:var(--sun);
+  top:68%; opacity:0; box-shadow:0 0 90px 40px var(--sunglow);}
+.in-play .in-sun{animation:in-rise 3.4s cubic-bezier(.22,.7,.2,1) .2s forwards;}
+@keyframes in-rise{0%{top:68%;opacity:0}20%{opacity:.95}100%{top:38%;opacity:.95}}
+.in-mt{position:absolute; left:0; right:0; bottom:0; width:100%; height:62%; display:block;}
+.in-mt .l{opacity:0; transform:translateY(40px);}
+.in-play .in-mt .l0{animation:in-lift 1.6s ease-out .1s forwards;}
+.in-play .in-mt .l1{animation:in-lift 1.6s ease-out .3s forwards;}
+.in-play .in-mt .l2{animation:in-lift 1.6s ease-out .5s forwards;}
+.in-play .in-mt .l3{animation:in-lift 1.6s ease-out .7s forwards;}
+@keyframes in-lift{to{opacity:1;transform:none}}
+.in-mist{position:absolute; left:-10%; right:-10%; height:90px; bottom:26%; background:radial-gradient(60% 100% at 50% 50%,var(--mist),transparent 70%); opacity:0;}
+.in-play .in-mist{animation:in-mistmove 9s ease-in-out 1.2s infinite alternate, in-fade 1.5s ease-out 1.2s forwards;}
+@keyframes in-mistmove{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+@keyframes in-fade{to{opacity:1}}
+.in-lf{position:absolute; width:34px; height:17px; border-radius:0 100% 0 100%; background:var(--leafc); opacity:0; top:-6%;}
+.in-play .in-lf{animation:in-drift 11s linear infinite;}
+.in-lf.p1{left:10%; animation-delay:1s !important;}
+.in-lf.p2{left:72%; animation-delay:3.5s !important; width:26px; height:13px;}
+.in-lf.p3{left:42%; animation-delay:6s !important; width:42px; height:21px;}
+.in-lf.p4{left:88%; animation-delay:8.5s !important; width:22px; height:11px;}
+@keyframes in-drift{0%{opacity:0; transform:translate(0,0) rotate(0)}10%{opacity:.45}90%{opacity:.35}100%{opacity:0; transform:translate(-40px,105vh) rotate(300deg)}}
+.in-top{position:absolute; top:0; left:0; right:0; padding:calc(58px + env(safe-area-inset-top)) 28px 0; display:flex; flex-direction:column; align-items:center; z-index:3;}
+.in-top .s-logo{width:40px; height:66px; opacity:0; transform:translateY(10px);}
+.in-h{font-size:34px; font-weight:800; letter-spacing:-.03em; color:var(--tx); margin-top:14px; opacity:0; transform:translateY(12px); line-height:1.05;}
+.in-sub{font-size:15.5px; color:var(--tx2); margin-top:8px; opacity:0;}
+.in-quote{font-size:14.5px; color:var(--tx2); max-width:24ch; line-height:1.55; margin-top:26px; opacity:0;}
+.in-pil{font-size:11px; letter-spacing:.22em; color:var(--tx2); font-weight:600; text-transform:uppercase; margin-top:18px; opacity:0;}
+.in-play .in-top .s-logo{animation:in-up .8s ease-out 1.2s forwards;}
+.in-play .in-h{animation:in-up .8s ease-out 1.6s forwards;}
+.in-play .in-sub{animation:in-fade .8s ease-out 2.1s forwards;}
+.in-play .in-quote{animation:in-fade .9s ease-out 2.6s forwards;}
+.in-play .in-pil{animation:in-fade .9s ease-out 3s forwards;}
+@keyframes in-up{to{opacity:1; transform:none}}
+.in-bottom{position:absolute; left:0; right:0; bottom:0; padding:0 24px calc(28px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; align-items:center; gap:14px; z-index:3; opacity:0;}
+.in-play .in-bottom{animation:in-fade .9s ease-out 3.2s forwards;}
+.in-cta{border:0; border-radius:20px; background:rgba(255,255,255,.94); color:#12281F; font:700 16px Inter,system-ui,sans-serif; padding:17px 18px; width:100%; max-width:400px; min-height:54px; cursor:pointer; box-shadow:0 12px 28px rgba(0,0,0,.28);}
+:root[data-theme="dark"] .in-cta{background:#8FE3B8; color:#0A1A13;}
+.in-cta:active{transform:scale(.98);}
+.in-hint{font-size:12.5px; color:rgba(255,255,255,.72); text-shadow:0 1px 8px rgba(0,0,0,.35);}
+@media (max-height:700px){.in-top{padding-top:calc(34px + env(safe-area-inset-top));} .in-quote{margin-top:16px;}}
+@media (prefers-reduced-motion:reduce){.in-play *{animation-duration:.01s !important; animation-delay:0s !important;}}
+
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1026,7 +1341,7 @@
 
 <!-- PWA: installable app support -->
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#7C6FF0">
+<meta name="theme-color" id="meta-theme-color" content="#EEF3F0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Synapse 12">
@@ -1035,59 +1350,39 @@
 <body>
 
 <!-- ============ INTRO ============ -->
-<section id="screen-intro" class="screen active">
-  <svg class="synapse-field" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+<section id="screen-intro" class="screen active in-play">
+  <div class="in-sun"></div>
+  <div class="in-lf p1"></div><div class="in-lf p2"></div><div class="in-lf p3"></div><div class="in-lf p4"></div>
+  <div class="in-top">
+    <span class="s-logo" role="img" aria-label="Synapse 12 logo"></span>
+    <div class="in-h">Synapse 12</div>
+    <div class="in-sub">Study Smarter. Go Further.</div>
+    <div class="in-quote">Discipline today creates freedom tomorrow.</div>
+    <div class="in-pil">Focus · Plan · Learn · Grow</div>
+  </div>
+  <svg class="in-mt" viewBox="0 0 400 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <defs>
-      <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#7C6FF0" stop-opacity="0.9"/>
-        <stop offset="100%" stop-color="#7C6FF0" stop-opacity="0"/>
-      </linearGradient>
+      <linearGradient id="inF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--m2)"/><stop offset="1" stop-color="var(--m3)"/></linearGradient>
     </defs>
-    <g stroke="url(#lineGrad)" stroke-width="1.4" fill="none">
-      <path d="M20,120 L110,180 L90,300 L200,340 L180,470 L260,520"/>
-      <path d="M340,90 L250,160 L280,260 L180,340"/>
-      <path d="M60,420 L150,470 L120,590 L230,640"/>
-      <path d="M300,380 L360,460 L300,560"/>
-    </g>
-    <g fill="#7C6FF0">
-      <circle cx="20" cy="120" r="3"/>
-      <circle cx="110" cy="180" r="2.4"/>
-      <circle cx="90" cy="300" r="3"/>
-      <circle cx="200" cy="340" r="4"/>
-      <circle cx="180" cy="470" r="2.4"/>
-      <circle cx="260" cy="520" r="3"/>
-      <circle cx="340" cy="90" r="2.4"/>
-      <circle cx="250" cy="160" r="3"/>
-      <circle cx="280" cy="260" r="2.4"/>
-      <circle cx="60" cy="420" r="2.4"/>
-      <circle cx="150" cy="470" r="3"/>
-      <circle cx="120" cy="590" r="2.4"/>
-      <circle cx="230" cy="640" r="3.4"/>
-      <circle cx="300" cy="380" r="2.4"/>
-      <circle cx="360" cy="460" r="3"/>
-      <circle cx="300" cy="560" r="2.4"/>
-    </g>
+    <g class="l l0"><path d="M0 190 L44 152 L92 176 L142 124 L194 170 L240 146 L300 182 L352 150 L400 184 V420 H0Z" fill="var(--m0)" opacity=".75"/></g>
+    <g class="l l1"><path d="M60 420 L150 210 L200 132 L236 84 L262 44 L282 58 L316 122 L356 210 L420 420Z" fill="var(--m1)"/>
+      <path d="M262 44 L282 58 L316 122 L296 112 L284 134 L268 106 L252 130 L236 84 L250 76Z" fill="var(--snow)"/>
+      <path d="M200 132 L236 84 L222 122 L210 112 L200 138 L184 156Z" fill="var(--snow)" opacity=".8"/></g>
+    <g class="l l2"><path d="M-20 420 V300 L40 262 L104 296 L170 250 L250 306 L330 276 L420 312 V420Z" fill="var(--m2)"/></g>
+    <g class="l l3"><path d="M-10 420 V346 L70 322 L150 350 L240 334 L330 356 L410 338 V420Z" fill="url(#inF)"/>
+      <g fill="var(--m3)"><path d="M28 350 l8 -34 l8 34Z"/><path d="M44 352 l10 -44 l10 44Z"/><path d="M340 356 l8 -30 l8 30Z"/><path d="M356 358 l10 -40 l10 40Z"/></g></g>
   </svg>
-
-  <div class="intro-top">
-    <div class="logo-dot"></div>
-    <div class="brand">Synapse<span> 12</span></div>
-  </div>
-
-  <div class="intro-mid">
-    <h1>Study that adjusts to you.</h1>
-    <p>One place for your syllabus, planner, quizzes and an AI that actually knows what class and exam you're preparing for.</p>
-  </div>
-
-  <div class="intro-bottom">
-    <button class="btn btn-primary" onclick="goTo('screen-login')">Get started</button>
+  <div class="in-mist"></div>
+  <div class="in-bottom">
+    <button class="in-cta" onclick="introFinish()">Get started</button>
+    <div class="in-hint">Your calm space to focus.</div>
   </div>
 </section>
 
 <!-- ============ LOGIN ============ -->
 <section id="screen-login" class="screen">
   <div class="login-card">
-    <div class="login-mark">S12</div>
+    <div class="login-mark"><span class="s-logo" role="img" aria-label="Synapse 12"></span></div>
     <h2>Sign in to continue</h2>
     <p>Your progress, planner and rooms stay saved to your account.</p>
 
@@ -1173,49 +1468,49 @@
 
 <!-- ============ DASHBOARD ============ -->
 <section id="screen-dashboard" class="screen">
+  <div class="container-max">
   <div class="d2-header">
     <div class="d2-brand">
-      <div class="d2-logo">S</div>
+      <span class="s-logo d2-logo" role="img" aria-label="Synapse 12 logo"></span>
       <div>
         <div class="d2-brand-name">Synapse 12</div>
         <div class="d2-brand-tag">Study Smarter. Go Further.</div>
       </div>
     </div>
-    <div class="d2-bell" onclick="alert('No new notifications yet.')" role="button" aria-label="Notifications" tabindex="0">🔔</div>
+    <div class="d2-bell" onclick="alert('No new notifications yet.')" role="button" aria-label="Notifications" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.6 2H4.4l1.6-2Z"/><path d="M10 21.2h4"/></svg></div>
   </div>
 
   <div class="d2-greet-row">
     <div>
-      <div class="d2-greet-label" id="dash-time-greeting">Good morning</div>
+      <div class="d2-greet-label" id="dash-time-greeting">Good Morning,</div>
       <div class="d2-greet-name" id="dash-greeting">Student 👋</div>
     </div>
     <div class="d2-quote" id="dash-quote">"Discipline today creates freedom tomorrow."</div>
   </div>
 
-  <div class="container-max">
     <div class="d2-banner" onclick="openBannerGoal()" role="button" tabindex="0">
       <div class="d2-banner-text">
         <div class="d2b-eyebrow">Today's Goal</div>
         <div class="d2b-title" id="dash-banner-title">Keep Going.</div>
       </div>
-      <div class="d2-banner-arrow">→</div>
+      <div class="d2-banner-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div>
     </div>
 
     <div class="d2-quick-row">
-      <div class="d2-quick-card" onclick="openPlanner()">
-        <div class="d2-quick-icon">🗓️</div>
+      <div class="d2-quick-card" onclick="openPlanner()" role="button" tabindex="0">
+        <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3.2"/><path d="M8 3v4M16 3v4M3.5 10.2h17"/><circle cx="8.3" cy="14.6" r=".7"/><circle cx="12" cy="14.6" r=".7"/><circle cx="15.7" cy="14.6" r=".7"/></svg></div>
         <div class="d2-quick-label">Plan</div>
       </div>
-      <div class="d2-quick-card active" onclick="openFocus()">
-        <div class="d2-quick-icon">⏱️</div>
+      <div class="d2-quick-card active" onclick="openFocus()" role="button" tabindex="0">
+        <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.6" r="7.4"/><path d="M12 9.6v4.2l2.6 1.6M9.6 2.8h4.8M12 2.8v3.4"/></svg></div>
         <div class="d2-quick-label">Focus</div>
       </div>
-      <div class="d2-quick-card" onclick="alert('Ask Synapse AI — wiring this up next, once we pick an AI provider/backend.')">
-        <div class="d2-quick-icon">✨</div>
+      <div class="d2-quick-card ai" onclick="alert('Ask Synapse AI — wiring this up next, once we pick an AI provider/backend.')" role="button" tabindex="0">
+        <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z"/></svg></div>
         <div class="d2-quick-label">AI Ask</div>
       </div>
-      <div class="d2-quick-card" onclick="openResources()">
-        <div class="d2-quick-icon">📖</div>
+      <div class="d2-quick-card" onclick="openResources()" role="button" tabindex="0">
+        <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.6C10 5 7 4.5 3.5 5v13.2c3.5-.5 6.5 0 8.5 1.6 2-1.6 5-2.1 8.5-1.6V5c-3.5-.5-6.5 0-8.5 1.6Z"/><path d="M12 6.6v13"/></svg></div>
         <div class="d2-quick-label">Resources</div>
       </div>
     </div>
@@ -1223,13 +1518,13 @@
     <div class="d2-progress-card">
       <div class="d2-progress-top">
         <h3>Today's Progress</h3>
-        <span class="d2-view-all" onclick="openStats()">View All</span>
+        <span class="d2-view-all" onclick="openStats()" role="button" tabindex="0">View All</span>
       </div>
       <div class="d2-progress-body">
         <div class="d2-ring-wrap">
           <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
-            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--mint)" stroke-width="10" stroke-linecap="round"
+            <circle class="d2-ring-track" cx="50" cy="50" r="42" fill="none" stroke-width="9"/>
+            <circle class="d2-ring-fg" cx="50" cy="50" r="42" fill="none" stroke-width="9" stroke-linecap="round"
               id="dash-ring-circle" stroke-dasharray="264" stroke-dashoffset="264"/>
           </svg>
           <div class="d2-ring-pct" id="dash-progress-pct">0%</div>
@@ -1244,12 +1539,12 @@
     </div>
 
     <div class="d2-session-card" onclick="openFocus()" role="button" tabindex="0">
-      <div class="d2-session-icon">🎯</div>
+      <div class="d2-session-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="3.2" opacity=".5" fill="currentColor" stroke="none"/><rect x="7" y="8" width="14" height="12" rx="3.2" fill="currentColor" stroke="none"/></svg></div>
       <div class="d2-session-body">
         <div class="d2-session-title" id="dash-session-title">No session planned</div>
         <div class="d2-session-sub" id="dash-session-sub">Tap to start a focus session</div>
       </div>
-      <div class="d2-session-play">▶</div>
+      <div class="d2-session-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></svg></div>
     </div>
 
     <div class="dash-section">
@@ -1268,12 +1563,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item active" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-green"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item active" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1302,12 +1597,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item active" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item active" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1384,33 +1679,51 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
 <!-- ============ FOCUS TIMER ============ -->
 <section id="screen-focus" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
-    <div class="focus-hero">
-      <div class="focus-phase-label" id="focus-phase-label">Focus session</div>
-      <div class="focus-ring" id="focus-ring">
-        <div class="time-display" id="focus-time-display">25:00</div>
-      </div>
-      <div class="focus-status" id="focus-status"></div>
-      <div class="focus-controls">
-        <button class="btn btn-primary" id="focus-toggle-btn" onclick="toggleFocusTimer()">Start</button>
-        <button class="btn" onclick="resetFocusTimer()">Reset</button>
-      </div>
-      <div class="focus-skip" onclick="skipFocusPhase()">Skip this phase →</div>
+    <div class="fs-header">
+      <button class="fs-icon-btn" onclick="goBack()" aria-label="Go back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+      <div class="fs-title">Focus Session</div>
+      <button class="fs-icon-btn" onclick="document.getElementById('preset-row').scrollIntoView({behavior:'smooth',block:'center'})" aria-label="Timer options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg></button>
     </div>
 
-    <div class="preset-row">
+    <div class="fs-ring-wrap" id="focus-ring">
+      <svg class="fs-ring-svg" viewBox="0 0 300 300" aria-hidden="true">
+        <circle class="fs-ring-track" cx="150" cy="150" r="138"/>
+        <circle class="fs-ring-fg" id="focus-ring-fg" cx="150" cy="150" r="138" stroke-dasharray="867.08" stroke-dashoffset="0"/>
+      </svg>
+      <div class="fs-disc">
+        <div class="fs-subject" id="focus-subject">Focus</div>
+        <div class="fs-time" id="focus-time-display">25:00</div>
+        <div class="fs-mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11" /><path d="M12 13c-5 .5-8-2-8.5-7 5 0 8.2 2 8.5 7Z"/><path d="M12 11c0-4 2.6-6.6 8-7 .3 5-2.6 7.6-8 7Z"/></svg><span id="focus-phase-label">Focus Mode</span></div>
+      </div>
+    </div>
+
+    <div class="fs-status" id="focus-status"></div>
+
+    <div class="fs-quote">
+      <div id="focus-quote">"Small steps every day create big results."</div>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11" /><path d="M12 13c-5 .5-8-2-8.5-7 5 0 8.2 2 8.5 7Z"/><path d="M12 11c0-4 2.6-6.6 8-7 .3 5-2.6 7.6-8 7Z"/></svg>
+    </div>
+
+    <div class="fs-controls">
+      <button class="fs-btn" id="focus-toggle-btn" onclick="toggleFocusTimer()"><span id="focus-toggle-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></svg></span><span id="focus-toggle-label">Start</span></button>
+      <button class="fs-btn fs-btn-main" onclick="resetFocusTimer()"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="fill" x="6" y="6" width="12" height="12" rx="3"/></svg><span>Stop</span></button>
+      <button class="fs-btn" onclick="extendFocusTimer()"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3 1.9"/></svg><span>Extend</span></button>
+    </div>
+    <div class="focus-skip" onclick="skipFocusPhase()" role="button" tabindex="0">Skip this phase</div>
+
+    <div class="preset-row" id="preset-row">
       <div class="sub-chip active" id="preset-25" onclick="selectFocusPreset('25')">25 / 5</div>
       <div class="sub-chip" id="preset-50" onclick="selectFocusPreset('50')">50 / 10</div>
       <div class="sub-chip" id="preset-custom" onclick="selectFocusPreset('custom')">Custom</div>
@@ -1443,12 +1756,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1474,12 +1787,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1589,12 +1902,12 @@
 
   <button class="fab-add-task" onclick="openAddTaskPanel()">+</button>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item active" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item active" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1651,12 +1964,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1697,8 +2010,8 @@
         <div class="more-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())">
           <span class="icon-badge badge-blue"><span class="mi-icon">👥</span></span><span class="mi-label">Study Rooms</span><span class="mi-chevron">›</span>
         </div>
-        <div class="more-item" onclick="alert('Light mode — coming soon. Currently dark mode only.')">
-          <span class="icon-badge badge-violet"><span class="mi-icon">🌗</span></span><span class="mi-label">Appearance</span><span class="mi-chevron">›</span>
+        <div class="more-item" onclick="cycleTheme()" role="button" tabindex="0" aria-label="Change appearance">
+          <span class="icon-badge badge-violet"><span class="mi-icon">🌗</span></span><span class="mi-label">Appearance</span><span class="mi-value" id="theme-mode-label">Auto</span>
         </div>
         <div class="more-item" onclick="alert('Synapse 12 — a personalized study platform for Class 6-12, built step by step.')">
           <span class="icon-badge badge-teal"><span class="mi-icon">ℹ️</span></span><span class="mi-label">About Synapse 12</span><span class="mi-chevron">›</span>
@@ -1711,12 +2024,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item active" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item active" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1746,12 +2059,12 @@
 
   <button class="fab-add-task" onclick="openAddExamPanel()">+</button>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1902,7 +2215,23 @@
     </div>
 
     <div class="dash-section">
-      <div class="empty-note">Chat and a shared board are coming soon to Study Rooms.</div>
+      <div class="section-title">Room Chat</div>
+      <div class="room-chat-box" id="room-chat-box"></div>
+      <div class="room-chat-input-row">
+        <input type="text" id="room-chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendChatMessage();">
+        <button class="room-chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">➤</button>
+      </div>
+      <div class="section-title" style="margin-top:16px;">Shared Whiteboard</div>
+      <div class="board-toolbar">
+        <span class="board-color" style="background:#F2F1F8;" onclick="setBoardColor('#F2F1F8')"></span>
+        <span class="board-color" style="background:#E63950;" onclick="setBoardColor('#E63950')"></span>
+        <span class="board-color" style="background:#3B82F6;" onclick="setBoardColor('#3B82F6')"></span>
+        <span class="board-color" style="background:#3FBF7F;" onclick="setBoardColor('#3FBF7F')"></span>
+        <span class="board-color" style="background:#F0B429;" onclick="setBoardColor('#F0B429')"></span>
+        <span class="board-eraser-btn" id="board-eraser-btn" onclick="toggleBoardEraser()">🧹 Eraser</span>
+        <span class="board-clear-btn" onclick="clearBoard()">Clear</span>
+      </div>
+      <canvas id="room-board-canvas" width="600" height="400"></canvas>
     </div>
 
     <div class="dash-section" style="display:flex; gap:10px;">
@@ -1925,12 +2254,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -1946,12 +2275,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 <section id="screen-achievements" class="screen">
@@ -1967,12 +2296,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 <section id="screen-bookmarks" class="screen">
@@ -1993,12 +2322,12 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><span class="icon-badge badge-violet"><span class="nav-icon">🏠</span></span>Home</div>
-    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">📚</span></span>Library</div>
-    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><span class="icon-badge badge-gold"><span class="nav-icon">🗓️</span></span>Tasks</div>
-    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><span class="icon-badge badge-blue"><span class="nav-icon">👥</span></span>Rooms</div>
-    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><span class="icon-badge badge-orange"><span class="nav-icon">⋯</span></span>More</div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
   </nav>
 </section>
 
@@ -2022,6 +2351,33 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
+
+const FOCUS_ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></svg>';
+const FOCUS_ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect class="fill" x="6" y="5" width="4.2" height="14" rx="1.3"/><rect class="fill" x="13.8" y="5" width="4.2" height="14" rx="1.3"/></svg>';
+
+// ---------- theme (light / dark / auto) ----------
+const THEME_LABELS = { light:'Light', dark:'Dark', auto:'Auto' };
+function currentThemeMode(){ try{ return localStorage.getItem('synapse12_theme') || 'auto'; }catch(e){ return 'auto'; } }
+function applyTheme(mode){
+  const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const t = mode === 'auto' ? (sysDark ? 'dark' : 'light') : mode;
+  document.documentElement.setAttribute('data-theme', t);
+  const meta = document.getElementById('meta-theme-color');
+  if(meta) meta.setAttribute('content', t === 'dark' ? '#0B1512' : '#EEF3F0');
+  const lbl = document.getElementById('theme-mode-label');
+  if(lbl) lbl.textContent = THEME_LABELS[mode] || 'Auto';
+}
+function cycleTheme(){
+  const order = ['light','dark','auto'];
+  const next = order[(order.indexOf(currentThemeMode()) + 1) % order.length];
+  try{ localStorage.setItem('synapse12_theme', next); }catch(e){}
+  applyTheme(next);
+}
+if(window.matchMedia){
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if(currentThemeMode()==='auto') applyTheme('auto'); });
+}
+applyTheme(currentThemeMode());
+
 // ---------- simple screen router (with back-history stack) ----------
 let screenHistory = [];
 function goTo(screenId){
@@ -2032,6 +2388,7 @@ function goTo(screenId){
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
   window.scrollTo(0,0);
+  if(screenId === 'screen-intro' && typeof introPlay === 'function') introPlay();
 }
 function goBack(){
   const prev = screenHistory.pop();
@@ -2204,7 +2561,7 @@ function loadDashboard(profile){
 
   // greeting + quote
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
   document.getElementById('dash-time-greeting').textContent = `${greeting},`;
   document.getElementById('dash-greeting').textContent = `${user.name} 👋`;
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
@@ -2348,6 +2705,9 @@ function saveFocusDaily(data){
 }
 
 function openFocus(){
+  document.getElementById('focus-subject').textContent = focusSubjectLabel();
+  const q = document.getElementById('focus-quote');
+  if(q) q.textContent = `"${DASH_QUOTES[new Date().getDate() % DASH_QUOTES.length]}"`;
   updateFocusDisplay();
   updateFocusDailyDisplay();
   goTo('screen-focus');
@@ -2371,12 +2731,34 @@ function applyCustomFocus(){
   resetFocusTimer();
 }
 
+let focusExtendSeconds = 0;
+const FOCUS_RING_LEN = 867.08;
+function focusSubjectLabel(){
+  try{
+    const next = getTasks().find(t => t.date === todayKey() && !t.done && t.subject);
+    if(next) return next.subject;
+    const ls = getLastStudied();
+    if(ls && ls.subject) return ls.subject;
+  }catch(e){}
+  return 'Focus';
+}
 function updateFocusDisplay(){
   const mm = String(Math.floor(focusRemaining/60)).padStart(2,'0');
   const ss = String(focusRemaining%60).padStart(2,'0');
   document.getElementById('focus-time-display').textContent = `${mm}:${ss}`;
-  document.getElementById('focus-phase-label').textContent = focusPhase === 'work' ? 'Focus session' : 'Break';
-  document.getElementById('focus-toggle-btn').textContent = focusRunning ? 'Pause' : 'Start';
+  document.getElementById('focus-phase-label').textContent = focusPhase === 'work' ? 'Focus Mode' : 'Break Time';
+  document.getElementById('focus-toggle-label').textContent = focusRunning ? 'Pause' : (focusRemaining < (focusPhase==='work'?currentWorkSeconds:currentBreakSeconds) ? 'Resume' : 'Start');
+  document.getElementById('focus-toggle-icon').innerHTML = focusRunning ? FOCUS_ICON_PAUSE : FOCUS_ICON_PLAY;
+  const total = (focusPhase === 'work' ? currentWorkSeconds : currentBreakSeconds) + focusExtendSeconds;
+  const frac = Math.max(0, Math.min(1, total > 0 ? focusRemaining/total : 0));
+  const fg = document.getElementById('focus-ring-fg');
+  if(fg) fg.style.strokeDashoffset = FOCUS_RING_LEN * (1 - frac);
+}
+function extendFocusTimer(){
+  focusRemaining += 5*60;
+  focusExtendSeconds += 5*60;
+  document.getElementById('focus-status').textContent = 'Added 5 minutes.';
+  updateFocusDisplay();
 }
 
 function updateFocusDailyDisplay(){
@@ -2406,6 +2788,7 @@ function toggleFocusTimer(){
 
 function resetFocusTimer(){
   clearInterval(focusIntervalId);
+  focusExtendSeconds = 0;
   focusRunning = false;
   focusPhase = 'work';
   focusRemaining = currentWorkSeconds;
@@ -2420,6 +2803,7 @@ function skipFocusPhase(){
 
 function onFocusPhaseComplete(natural){
   clearInterval(focusIntervalId);
+  focusExtendSeconds = 0;
   const statusEl = document.getElementById('focus-status');
 
   if(focusPhase === 'work'){
@@ -3691,6 +4075,110 @@ function performGlobalSearch(query){
 // =========================================================
 let currentRoomCode = null;
 let roomUnsubscribe = null;
+let chatUnsubscribe = null;
+let boardUnsubscribe = null;
+let boardColor = '#F2F1F8';
+let boardErasing = false;
+let boardDrawing = false;
+let boardCurrentPoints = [];
+let boardListenersAttached = false;
+let boardStrokesCache = [];
+
+function initBoardCanvas(){
+  if(boardListenersAttached) return;
+  boardListenersAttached = true;
+  const canvas = document.getElementById('room-board-canvas');
+
+  function getPos(e){
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: (clientX - rect.left) / rect.width, y: (clientY - rect.top) / rect.height };
+  }
+  canvas.addEventListener('pointerdown', (e) => {
+    boardDrawing = true;
+    boardCurrentPoints = [getPos(e)];
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if(!boardDrawing) return;
+    boardCurrentPoints.push(getPos(e));
+    drawLiveStroke();
+  });
+  const endStroke = () => {
+    if(!boardDrawing) return;
+    boardDrawing = false;
+    if(boardCurrentPoints.length > 1) saveStroke(boardCurrentPoints, boardErasing ? '#1A1E2A' : boardColor, boardErasing ? 18 : 3);
+    boardCurrentPoints = [];
+  };
+  canvas.addEventListener('pointerup', endStroke);
+  canvas.addEventListener('pointerleave', endStroke);
+}
+
+function drawStrokePath(ctx, points, color, width){
+  if(points.length < 2) return;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(points[0].x * ctx.canvas.width, points[0].y * ctx.canvas.height);
+  for(let i=1;i<points.length;i++){
+    ctx.lineTo(points[i].x * ctx.canvas.width, points[i].y * ctx.canvas.height);
+  }
+  ctx.stroke();
+}
+
+function redrawBoardFromCache(){
+  const canvas = document.getElementById('room-board-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#1A1E2A';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  boardStrokesCache.forEach(s => drawStrokePath(ctx, s.points, s.color, s.width));
+}
+
+function drawLiveStroke(){
+  const canvas = document.getElementById('room-board-canvas');
+  const ctx = canvas.getContext('2d');
+  redrawBoardFromCache();
+  drawStrokePath(ctx, boardCurrentPoints, boardErasing ? '#1A1E2A' : boardColor, boardErasing ? 18 : 3);
+}
+
+function setBoardColor(color){
+  boardErasing = false;
+  boardColor = color;
+  document.querySelectorAll('.board-color').forEach(el => el.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('board-eraser-btn').classList.remove('active');
+}
+function toggleBoardEraser(){
+  boardErasing = !boardErasing;
+  document.getElementById('board-eraser-btn').classList.toggle('active', boardErasing);
+}
+
+function startBoardListener(code){
+  if(boardUnsubscribe) boardUnsubscribe();
+  boardUnsubscribe = db.collection('rooms').doc(code).collection('strokes')
+    .orderBy('createdAt', 'asc')
+    .onSnapshot((snapshot) => {
+      boardStrokesCache = snapshot.docs.map(d => d.data());
+      redrawBoardFromCache();
+    }, (err) => console.error('Board listener error:', err));
+}
+
+function saveStroke(points, color, width){
+  db.collection('rooms').doc(currentRoomCode).collection('strokes').add({
+    points, color, width, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch((err) => console.error('Save stroke failed:', err));
+}
+
+function clearBoard(){
+  if(!confirm('Clear the whiteboard for everyone?')) return;
+  db.collection('rooms').doc(currentRoomCode).collection('strokes').get().then((snapshot) => {
+    const batch = db.batch();
+    snapshot.docs.forEach(d => batch.delete(d.ref));
+    return batch.commit();
+  }).catch((err) => console.error('Clear board failed:', err));
+}
 
 function generateRoomCode(){
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no O/0/I/1 to avoid confusion
@@ -3794,7 +4282,50 @@ function openRoom(code){
   }, (err) => {
     console.error('Room listener error:', err);
   });
+  startChatListener(code);
+  initBoardCanvas();
+  startBoardListener(code);
   goTo('screen-room');
+}
+
+function startChatListener(code){
+  if(chatUnsubscribe) chatUnsubscribe();
+  chatUnsubscribe = db.collection('rooms').doc(code).collection('messages')
+    .orderBy('createdAt', 'asc').limitToLast(50)
+    .onSnapshot((snapshot) => {
+      renderChatMessages(snapshot.docs.map(d => d.data()));
+    }, (err) => {
+      console.error('Chat listener error:', err);
+    });
+}
+
+function renderChatMessages(messages){
+  const user = getCurrentUser();
+  const box = document.getElementById('room-chat-box');
+  box.innerHTML = messages.length === 0
+    ? `<div class="empty-note">No messages yet — say hi to your room!</div>`
+    : messages.map(m => `
+        <div class="room-chat-msg ${m.senderUid===user.uid ? 'own' : 'other'}">
+          ${m.senderUid===user.uid ? '' : `<div class="rcm-sender">${m.senderName}</div>`}
+          ${m.text}
+        </div>
+      `).join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendChatMessage(){
+  const user = getCurrentUser();
+  const input = document.getElementById('room-chat-input');
+  const text = input.value.trim();
+  if(!text || !currentRoomCode) return;
+  input.value = '';
+  db.collection('rooms').doc(currentRoomCode).collection('messages').add({
+    text, senderUid: user.uid, senderName: user.name,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch((err) => {
+    console.error('Send message failed:', err);
+    alert('Message failed to send: ' + err.message);
+  });
 }
 
 function renderRoomScreen(room){
@@ -3847,6 +4378,8 @@ function endRoomForEveryone(){
 
 function cleanupRoomAndGoBack(){
   if(roomUnsubscribe){ roomUnsubscribe(); roomUnsubscribe = null; }
+  if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+  if(boardUnsubscribe){ boardUnsubscribe(); boardUnsubscribe = null; }
   currentRoomCode = null;
   goTo('screen-rooms');
   renderMyRooms();
@@ -5484,6 +6017,14 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('./sw.js').catch((err) => console.error('Service worker registration failed:', err));
   });
 }
+
+// ---------- intro: mountain sunrise ----------
+function introPlay(){
+  const s = document.getElementById('screen-intro');
+  s.classList.remove('in-play'); void s.offsetWidth; s.classList.add('in-play');
+}
+function introFinish(){ goTo('screen-login'); }
+introPlay();
 </script>
 
 <div class="read-aloud-bar" id="read-aloud-bar">
