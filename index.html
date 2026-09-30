@@ -1272,6 +1272,32 @@
   .focus-skip{text-align:center; font-size:13px; color:var(--text-dim); margin-top:16px; cursor:pointer;}
   .preset-row{margin-top:18px;}
 
+
+  /* ---------- room: challenges + notes ---------- */
+  .rm-add-btn{width:100%; margin-top:10px;}
+  .rm-form{display:flex; flex-direction:column; gap:10px; margin-top:12px; padding:14px; border-radius:18px; background:var(--card); border:1px solid var(--card-border); box-shadow:var(--shadow-sm);}
+  .rm-form input,.rm-form textarea{width:100%; padding:12px 14px; border-radius:14px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:14px; font-family:inherit; resize:vertical;}
+  .rm-form-label{font-size:12px; font-weight:700; color:var(--text-dim);}
+  .rm-chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .rm-chip{padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:var(--surface-2); color:var(--text-dim); font-size:13px; font-weight:600; cursor:pointer;}
+  .rm-chip.on{background:var(--chip-bg); color:var(--chip-ink); border-color:var(--chip-border);}
+  .rm-empty{font-size:13px; color:var(--text-dim); padding:6px 2px 2px;}
+  .ch-card,.note-card{background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:14px 16px; margin-bottom:10px; box-shadow:var(--shadow-sm);}
+  .ch-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .ch-title{font-weight:800; font-size:15.5px;}
+  .ch-meta{font-size:12px; color:var(--text-dim); margin-top:3px;}
+  .ch-badge{font-size:11.5px; font-weight:700; padding:4px 10px; border-radius:12px; background:var(--chip-bg); color:var(--chip-ink); white-space:nowrap;}
+  .ch-badge.ended{background:var(--surface-2); color:var(--text-dim);}
+  .ch-row{margin-top:12px;}
+  .ch-row-top{display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:5px;}
+  .ch-row-top .v{color:var(--val); font-weight:700;}
+  .ch-bar{height:9px; border-radius:6px; background:var(--ring-track); overflow:hidden;}
+  .ch-bar i{display:block; height:100%; border-radius:6px; background:var(--violet); width:0; transition:width .5s ease;}
+  .ch-del,.note-del{font-size:12px; color:#D25555; cursor:pointer; background:none; border:none; padding:4px 0 0; font-family:inherit; font-weight:600;}
+  .note-title{font-weight:800; font-size:15px; margin-bottom:4px;}
+  .note-text{font-size:13.5px; line-height:1.55; white-space:pre-wrap; word-break:break-word; color:var(--text);}
+  .note-meta{display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:11.5px; color:var(--text-dim);}
+
   /* ---------- MORE MENU: appearance row value ---------- */
   .mi-value{font-size:12.5px; font-weight:700; color:var(--violet); background:var(--accent-soft); padding:5px 11px; border-radius:20px;}
 
@@ -2013,7 +2039,7 @@
         <div class="more-item" onclick="cycleTheme()" role="button" tabindex="0" aria-label="Change appearance">
           <span class="icon-badge badge-violet"><span class="mi-icon">🌗</span></span><span class="mi-label">Appearance</span><span class="mi-value" id="theme-mode-label">Auto</span>
         </div>
-        <div class="more-item" onclick="alert('Synapse 12 — a personalized study platform for Class 6-12, built step by step.')">
+        <div class="more-item" onclick="alert('Synapse 12 — a personalized study platform for Class 9-12, built step by step.')">
           <span class="icon-badge badge-teal"><span class="mi-icon">ℹ️</span></span><span class="mi-label">About Synapse 12</span><span class="mi-chevron">›</span>
         </div>
       </div>
@@ -2214,6 +2240,40 @@
       <div id="room-member-list"></div>
     </div>
 
+
+    <div class="dash-section">
+      <div class="section-title">Group Challenge</div>
+      <div id="room-challenge-list"></div>
+      <button class="btn rm-add-btn" id="ch-toggle-btn" onclick="toggleChallengeForm()">+ Start a focus challenge</button>
+      <div class="rm-form" id="ch-form" style="display:none;">
+        <input type="text" id="ch-title-input" maxlength="40" placeholder="Challenge name (e.g. Weekend Sprint)">
+        <div class="rm-form-label">Goal per person</div>
+        <div class="rm-chips" id="ch-goal-chips">
+          <span class="rm-chip" data-v="120" onclick="pickChGoal(120)">2 hrs</span>
+          <span class="rm-chip on" data-v="300" onclick="pickChGoal(300)">5 hrs</span>
+          <span class="rm-chip" data-v="600" onclick="pickChGoal(600)">10 hrs</span>
+          <span class="rm-chip" data-v="1200" onclick="pickChGoal(1200)">20 hrs</span>
+        </div>
+        <div class="rm-form-label">Duration</div>
+        <div class="rm-chips" id="ch-days-chips">
+          <span class="rm-chip" data-v="3" onclick="pickChDays(3)">3 days</span>
+          <span class="rm-chip on" data-v="7" onclick="pickChDays(7)">7 days</span>
+          <span class="rm-chip" data-v="14" onclick="pickChDays(14)">14 days</span>
+        </div>
+        <button class="btn btn-primary" onclick="createChallenge()">Start challenge</button>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-title">Shared Notes</div>
+      <div id="room-notes-list"></div>
+      <div class="rm-form">
+        <input type="text" id="note-title-input" maxlength="60" placeholder="Note title (e.g. Coulomb's law formulas)">
+        <textarea id="note-text-input" maxlength="1000" rows="3" placeholder="Write something your room can read..."></textarea>
+        <button class="btn btn-primary" onclick="addRoomNote()">Share note</button>
+      </div>
+    </div>
+
     <div class="dash-section">
       <div class="section-title">Room Chat</div>
       <div class="room-chat-box" id="room-chat-box"></div>
@@ -2351,6 +2411,81 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
+// =========================================================
+// PROGRESS SYNC — mirrors study progress to Firestore
+// (users/{uid}.progress) for signed-in users so the same
+// account resumes on any device. Guests stay local-only.
+// Newest change wins, tracked per key with timestamps.
+// =========================================================
+const SYNC_KEYS = ['synapse12_syllabus_progress','synapse12_stats','synapse12_xp_by_day','synapse12_focus_by_day','synapse12_focus_daily',
+  'synapse12_planner_tasks','synapse12_exams','synapse12_bookmarks','synapse12_qbank_solved','synapse12_quiz_history',
+  'synapse12_last_studied','synapse12_seen_achievements'];
+const SYNC_TS_KEY = 'synapse12_sync_ts', SYNC_PUSHED_KEY = 'synapse12_sync_pushed';
+const _origSetItem = Storage.prototype.setItem;
+let syncPushTimer = null;
+function syncMap(key){ try{ return JSON.parse(localStorage.getItem(key) || '{}') || {}; }catch(e){ return {}; } }
+function syncSaveMap(key, m){ _origSetItem.call(localStorage, key, JSON.stringify(m)); }
+Storage.prototype.setItem = function(k, v){
+  _origSetItem.call(this, k, v);
+  if(this === localStorage && SYNC_KEYS.indexOf(k) !== -1){
+    const m = syncMap(SYNC_TS_KEY); m[k] = Date.now(); syncSaveMap(SYNC_TS_KEY, m);
+    scheduleProgressPush();
+  }
+};
+function syncUser(){
+  try{ const u = JSON.parse(localStorage.getItem('synapse12_user') || 'null'); return (u && !u.isGuest && u.uid) ? u : null; }
+  catch(e){ return null; }
+}
+function scheduleProgressPush(){
+  if(!syncUser()) return;
+  clearTimeout(syncPushTimer);
+  syncPushTimer = setTimeout(pushProgress, 2500);
+}
+function pushProgress(){
+  const u = syncUser();
+  if(!u) return Promise.resolve(false);
+  const ts = syncMap(SYNC_TS_KEY), pushed = syncMap(SYNC_PUSHED_KEY);
+  const progress = {}, sent = {};
+  SYNC_KEYS.forEach((k) => {
+    const v = localStorage.getItem(k);
+    if(v === null) return;
+    if(!ts[k]) ts[k] = Date.now();
+    if(ts[k] <= (pushed[k] || 0)) return;
+    let val = v;
+    if(k === 'synapse12_quiz_history'){
+      try{ const arr = JSON.parse(v); if(Array.isArray(arr) && arr.length > 150) val = JSON.stringify(arr.slice(-150)); }catch(e){}
+    }
+    progress[k] = { v: val, t: ts[k] }; sent[k] = ts[k];
+  });
+  syncSaveMap(SYNC_TS_KEY, ts);
+  if(!Object.keys(progress).length) return Promise.resolve(true);
+  return db.collection('users').doc(u.uid).set({ progress }, { merge: true }).then(() => {
+    const p2 = syncMap(SYNC_PUSHED_KEY); Object.keys(sent).forEach((k) => { p2[k] = sent[k]; }); syncSaveMap(SYNC_PUSHED_KEY, p2);
+    return true;
+  }).catch((err) => { console.error('Progress sync failed:', err); return false; });
+}
+// Pull: for each key, newer remote value replaces the local one. Returns true if anything changed.
+function applyRemoteProgress(data){
+  const remote = (data && data.progress) || {};
+  const ts = syncMap(SYNC_TS_KEY), pushed = syncMap(SYNC_PUSHED_KEY);
+  let changed = false;
+  SYNC_KEYS.forEach((k) => {
+    const r = remote[k];
+    if(!r || typeof r.v !== 'string') return;
+    const lt = ts[k] || 0;
+    if(r.t > lt){
+      if(localStorage.getItem(k) !== r.v){ _origSetItem.call(localStorage, k, r.v); changed = true; }
+      ts[k] = r.t; pushed[k] = r.t;
+    } else if(r.t === lt){ pushed[k] = r.t; }
+  });
+  syncSaveMap(SYNC_TS_KEY, ts); syncSaveMap(SYNC_PUSHED_KEY, pushed);
+  return changed;
+}
+function clearLocalSyncedData(){
+  SYNC_KEYS.concat([SYNC_TS_KEY, SYNC_PUSHED_KEY]).forEach((k) => localStorage.removeItem(k));
+}
+document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') pushProgress(); });
+
 
 const FOCUS_ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></svg>';
 const FOCUS_ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect class="fill" x="6" y="5" width="4.2" height="14" rx="1.3"/><rect class="fill" x="13.8" y="5" width="4.2" height="14" rx="1.3"/></svg>';
@@ -2398,7 +2533,8 @@ function goBack(){
 }
 
 // ---------- config: classes & goals (easy to extend later) ----------
-const CLASSES = ["Class 6","Class 7","Class 8","Class 9","Class 10","Class 11","Class 12"];
+const CLASSES = ["Class 9","Class 10","Class 11","Class 12"];
+function profileIsValid(p){ return !!(p && CLASSES.indexOf(p.class) !== -1); }
 const GOALS = [
   {id:"school", title:"School / Board", sub:"NCERT + board exam focus"},
   {id:"jee", title:"JEE", sub:"Engineering entrance prep"},
@@ -2464,11 +2600,13 @@ function handleGoogleLogin(){
 // so the same account resumes correctly on any device/browser.
 function syncProfileFromFirestore(uid){
   db.collection('users').doc(uid).get().then((doc) => {
+    if(doc.exists) applyRemoteProgress(doc.data());
     if(doc.exists && doc.data().profile){
       localStorage.setItem('synapse12_profile', JSON.stringify(doc.data().profile));
     }
+    pushProgress();
     const existingProfile = localStorage.getItem('synapse12_profile');
-    if(existingProfile){
+    if(existingProfile && profileIsValid(JSON.parse(existingProfile))){
       loadDashboard(JSON.parse(existingProfile));
       goTo('screen-dashboard');
     } else {
@@ -2477,7 +2615,7 @@ function syncProfileFromFirestore(uid){
   }).catch(() => {
     // Firestore read failed (e.g. rules not deployed yet) — fall back to local data so login still works.
     const existingProfile = localStorage.getItem('synapse12_profile');
-    if(existingProfile){
+    if(existingProfile && profileIsValid(JSON.parse(existingProfile))){
       loadDashboard(JSON.parse(existingProfile));
       goTo('screen-dashboard');
     } else {
@@ -2491,7 +2629,7 @@ function handleGuestLogin(){
   localStorage.setItem('synapse12_user', JSON.stringify(guestUser));
 
   const existingProfile = localStorage.getItem('synapse12_profile');
-  if(existingProfile){
+  if(existingProfile && profileIsValid(JSON.parse(existingProfile))){
     loadDashboard(JSON.parse(existingProfile));
     goTo('screen-dashboard');
   } else {
@@ -2655,6 +2793,7 @@ function addFocusMinutes(minutes){
   stats.focusMinutes += minutes;
   saveStats(stats);
   logFocusMinutesForDay(minutes);
+  if(typeof scheduleChallengeRefresh === 'function') scheduleChallengeRefresh();
 }
 function logFocusMinutesForDay(minutes){
   const map = JSON.parse(localStorage.getItem('synapse12_focus_by_day') || '{}');
@@ -4212,7 +4351,7 @@ function renderMyRooms(){
       return `
         <div class="room-list-card" onclick="openRoom('${doc.id}')">
           <div>
-            <div class="rlc-name">${r.name}</div>
+            <div class="rlc-name">${esc(r.name)}</div>
             <div class="rlc-meta">${r.memberUids.length}/6 members · Code: ${doc.id}</div>
           </div>
           <span class="res-arrow">›</span>
@@ -4283,6 +4422,8 @@ function openRoom(code){
     console.error('Room listener error:', err);
   });
   startChatListener(code);
+  startNotesListener(code);
+  startChallengeListener(code);
   initBoardCanvas();
   startBoardListener(code);
   goTo('screen-room');
@@ -4306,8 +4447,8 @@ function renderChatMessages(messages){
     ? `<div class="empty-note">No messages yet — say hi to your room!</div>`
     : messages.map(m => `
         <div class="room-chat-msg ${m.senderUid===user.uid ? 'own' : 'other'}">
-          ${m.senderUid===user.uid ? '' : `<div class="rcm-sender">${m.senderName}</div>`}
-          ${m.text}
+          ${m.senderUid===user.uid ? '' : `<div class="rcm-sender">${esc(m.senderName)}</div>`}
+          ${esc(m.text)}
         </div>
       `).join('');
   box.scrollTop = box.scrollHeight;
@@ -4330,13 +4471,15 @@ function sendChatMessage(){
 
 function renderRoomScreen(room){
   const user = getCurrentUser();
+  roomMembersCache = room.members || []; roomOwnerUid = room.ownerUid;
+  renderRoomNotes(); renderRoomChallenges();
   document.getElementById('room-title').textContent = room.name;
   document.getElementById('room-code-text').textContent = currentRoomCode;
   document.getElementById('room-member-count').textContent = `Members (${room.memberUids.length}/6)`;
   document.getElementById('room-member-list').innerHTML = room.members.map(m => `
     <div class="room-member-row">
       <div class="rm-avatar">${m.name.charAt(0).toUpperCase()}</div>
-      <div class="rm-name">${m.name}${m.uid===room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}</div>
+      <div class="rm-name">${esc(m.name)}${m.uid===room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}</div>
     </div>
   `).join('');
   document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
@@ -4380,9 +4523,156 @@ function cleanupRoomAndGoBack(){
   if(roomUnsubscribe){ roomUnsubscribe(); roomUnsubscribe = null; }
   if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
   if(boardUnsubscribe){ boardUnsubscribe(); boardUnsubscribe = null; }
+  if(notesUnsubscribe){ notesUnsubscribe(); notesUnsubscribe = null; }
+  if(challengeUnsubscribe){ challengeUnsubscribe(); challengeUnsubscribe = null; }
+  roomNotesCache = []; roomChallengesCache = [];
   currentRoomCode = null;
   goTo('screen-rooms');
   renderMyRooms();
+}
+
+
+// =========================================================
+// ROOM: shared notes + group focus challenges
+// =========================================================
+function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+let notesUnsubscribe = null, challengeUnsubscribe = null;
+let roomNotesCache = [], roomChallengesCache = [], roomMembersCache = [], roomOwnerUid = null;
+let newChGoal = 300, newChDays = 7, challengeRefreshTimer = null;
+
+function roomRef(code){ return db.collection('rooms').doc(code || currentRoomCode); }
+function timeAgo(ms){
+  if(!ms) return 'just now';
+  const m = Math.floor((Date.now() - ms) / 60000);
+  if(m < 1) return 'just now'; if(m < 60) return m + ' min ago';
+  const h = Math.floor(m / 60); if(h < 24) return h + ' hr ago';
+  return Math.floor(h / 24) + ' d ago';
+}
+
+// ----- notes -----
+function startNotesListener(code){
+  if(notesUnsubscribe) notesUnsubscribe();
+  notesUnsubscribe = roomRef(code).collection('notes').orderBy('createdAt', 'desc').limit(30).onSnapshot((snap) => {
+    roomNotesCache = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    renderRoomNotes();
+  }, (err) => console.error('Notes listener error:', err));
+}
+function renderRoomNotes(){
+  const el = document.getElementById('room-notes-list'); if(!el) return;
+  const me = getCurrentUser();
+  if(!roomNotesCache.length){ el.innerHTML = '<div class="rm-empty">No notes yet. Share formulas, summaries or doubts with your room.</div>'; return; }
+  el.innerHTML = roomNotesCache.map((n) => {
+    const ts = n.createdAt && n.createdAt.toMillis ? n.createdAt.toMillis() : null;
+    const canDel = me && (n.authorUid === me.uid || me.uid === roomOwnerUid);
+    return `<div class="note-card"><div class="note-title">${esc(n.title)}</div><div class="note-text">${esc(n.text)}</div>
+      <div class="note-meta"><span>${esc(n.authorName)} · ${timeAgo(ts)}</span>${canDel ? `<button class="note-del" onclick="deleteRoomNote('${esc(n.id)}')">Delete</button>` : ''}</div></div>`;
+  }).join('');
+}
+function addRoomNote(){
+  const me = getCurrentUser(); if(!me || !currentRoomCode) return;
+  const tEl = document.getElementById('note-title-input'), xEl = document.getElementById('note-text-input');
+  const title = tEl.value.trim(), text = xEl.value.trim();
+  if(!title || !text){ alert('Add a title and some text for the note.'); return; }
+  roomRef().collection('notes').add({
+    title: title.slice(0, 60), text: text.slice(0, 1000), authorUid: me.uid, authorName: me.name,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => { tEl.value = ''; xEl.value = ''; }).catch((err) => { console.error(err); alert('Could not share note: ' + err.message); });
+}
+function deleteRoomNote(id){
+  if(!confirm('Delete this note for everyone in the room?')) return;
+  roomRef().collection('notes').doc(id).delete().catch((err) => console.error('Delete note failed:', err));
+}
+
+// ----- challenges -----
+function toggleChallengeForm(){
+  const f = document.getElementById('ch-form');
+  f.style.display = f.style.display === 'none' ? 'flex' : 'none';
+}
+function pickChGoal(v){ newChGoal = v; document.querySelectorAll('#ch-goal-chips .rm-chip').forEach((c) => c.classList.toggle('on', +c.dataset.v === v)); }
+function pickChDays(v){ newChDays = v; document.querySelectorAll('#ch-days-chips .rm-chip').forEach((c) => c.classList.toggle('on', +c.dataset.v === v)); }
+function myFocusMinutesSince(startMs){
+  const day0 = new Date(startMs); day0.setHours(0, 0, 0, 0);
+  const map = getFocusByDay(); let total = 0;
+  Object.keys(map).forEach((k) => {
+    const p = k.split('-').map(Number);
+    if(new Date(p[0], p[1] - 1, p[2]).getTime() >= day0.getTime()) total += map[k] || 0;
+  });
+  return total;
+}
+function createChallenge(){
+  const me = getCurrentUser(); if(!me || !currentRoomCode) return;
+  const title = document.getElementById('ch-title-input').value.trim() || 'Focus Challenge';
+  const now = Date.now();
+  roomRef().collection('challenges').add({
+    title: title.slice(0, 40), goalMinutes: newChGoal, startsAt: now, endsAt: now + newChDays * 86400000,
+    createdBy: me.uid, createdByName: me.name, scores: {},
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    document.getElementById('ch-title-input').value = '';
+    document.getElementById('ch-form').style.display = 'none';
+  }).catch((err) => { console.error(err); alert('Could not start challenge: ' + err.message); });
+}
+function startChallengeListener(code){
+  if(challengeUnsubscribe) challengeUnsubscribe();
+  challengeUnsubscribe = roomRef(code).collection('challenges').orderBy('createdAt', 'desc').limit(5).onSnapshot((snap) => {
+    roomChallengesCache = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    renderRoomChallenges();
+    syncMyScoresInRoom();
+  }, (err) => console.error('Challenge listener error:', err));
+}
+function fmtMin(m){ m = Math.round(m || 0); return m >= 60 ? Math.floor(m / 60) + 'h ' + (m % 60 ? (m % 60) + 'm' : '') : m + 'm'; }
+function renderRoomChallenges(){
+  const el = document.getElementById('room-challenge-list'); if(!el) return;
+  const me = getCurrentUser();
+  if(!roomChallengesCache.length){ el.innerHTML = '<div class="rm-empty">No challenge running. Start one and see who focuses the most.</div>'; return; }
+  el.innerHTML = roomChallengesCache.map((c) => {
+    const ended = Date.now() >= c.endsAt;
+    const left = Math.max(0, Math.ceil((c.endsAt - Date.now()) / 86400000));
+    const scores = c.scores || {};
+    const rows = (roomMembersCache || []).map((m) => ({ name: m.name, uid: m.uid, min: (scores[m.uid] && scores[m.uid].minutes) || 0 }))
+      .sort((a, b) => b.min - a.min);
+    const canDel = me && (c.createdBy === me.uid || me.uid === roomOwnerUid);
+    return `<div class="ch-card"><div class="ch-head"><div><div class="ch-title">${esc(c.title)}</div>
+      <div class="ch-meta">Goal ${fmtMin(c.goalMinutes)} each · by ${esc(c.createdByName)}</div></div>
+      <span class="ch-badge ${ended ? 'ended' : ''}">${ended ? 'Ended' : left + (left === 1 ? ' day left' : ' days left')}</span></div>
+      ${rows.map((r, i) => `<div class="ch-row"><div class="ch-row-top"><span>${ended && i === 0 && r.min > 0 ? '🏆 ' : (i + 1) + '. '}${esc(r.name)}${me && r.uid === me.uid ? ' (you)' : ''}</span><span class="v">${fmtMin(r.min)}</span></div>
+        <div class="ch-bar"><i style="width:${Math.min(100, Math.round(r.min / c.goalMinutes * 100))}%"></i></div></div>`).join('')}
+      ${canDel ? `<button class="ch-del" onclick="deleteChallenge('${esc(c.id)}')">Delete challenge</button>` : ''}</div>`;
+  }).join('');
+}
+function deleteChallenge(id){
+  if(!confirm('Delete this challenge for everyone?')) return;
+  roomRef().collection('challenges').doc(id).delete().catch((err) => console.error('Delete challenge failed:', err));
+}
+// write my own minutes into every running challenge of the room I'm looking at
+function syncMyScoresInRoom(){
+  const me = getCurrentUser(); if(!me || me.isGuest || !currentRoomCode) return;
+  roomChallengesCache.forEach((c) => {
+    if(Date.now() >= c.endsAt) return;
+    const mine = myFocusMinutesSince(c.startsAt);
+    const cur = c.scores && c.scores[me.uid] ? c.scores[me.uid].minutes : null;
+    if(cur === mine) return;
+    roomRef().collection('challenges').doc(c.id).update({ ['scores.' + me.uid]: { name: me.name, minutes: mine } })
+      .catch((err) => console.error('Score update failed:', err));
+  });
+}
+// after a focus session: update scores in all my rooms (small, debounced)
+function scheduleChallengeRefresh(){
+  const me = getCurrentUser(); if(!me || me.isGuest) return;
+  clearTimeout(challengeRefreshTimer);
+  challengeRefreshTimer = setTimeout(() => {
+    db.collection('rooms').where('memberUids', 'array-contains', me.uid).get().then((snap) => {
+      snap.docs.forEach((rd) => {
+        rd.ref.collection('challenges').where('endsAt', '>', Date.now()).get().then((cs) => {
+          cs.docs.forEach((cd) => {
+            const c = cd.data(); const mine = myFocusMinutesSince(c.startsAt);
+            const cur = c.scores && c.scores[me.uid] ? c.scores[me.uid].minutes : null;
+            if(cur !== mine) cd.ref.update({ ['scores.' + me.uid]: { name: me.name, minutes: mine } }).catch(() => {});
+          });
+        }).catch(() => {});
+      });
+    }).catch(() => {});
+  }, 4000);
 }
 
 function openMoreMenu(){
@@ -5410,9 +5700,18 @@ function handleLogout(){
   if(user && !user.isGuest){
     auth.signOut().catch((err) => console.error('Firebase sign-out failed:', err));
   }
-  localStorage.removeItem('synapse12_user');
-  localStorage.removeItem('synapse12_profile');
-  goTo('screen-intro');
+  const wasSignedIn = user && !user.isGuest;
+  const finish = () => {
+    localStorage.removeItem('synapse12_user');
+    localStorage.removeItem('synapse12_profile');
+    if(wasSignedIn) clearLocalSyncedData();
+    goTo('screen-intro');
+  };
+  if(wasSignedIn){
+    pushProgress().then((ok) => {
+      if(ok || confirm('Could not save your latest progress online (no connection?). Log out anyway and lose unsynced progress?')) finish();
+    });
+  } else { finish(); }
 }
 
 // =========================================================
@@ -5431,173 +5730,11 @@ const STATUS_SCORE = {
   not_started:0, learning:0.25, practicing:0.5, strong:0.75, mastered:1
 };
 
-// Full syllabus data, Class 6-12. Each chapter is {c: chapter name, t: real topic names}.
-// Classes 6-10 follow NCERT (Maths, Science, Social Science, English).
+// Full syllabus data, Class 9-12. Each chapter is {c: chapter name, t: real topic names}.
+// Classes 9-10 follow NCERT (Maths, Science, Social Science, English).
 // Classes 11-12 follow the Science stream (Physics, Chemistry, Maths, Biology, English) —
 // Commerce/Arts subject sets can be added the same way later, filtered by goal.
 const SYLLABUS_SEED = {
-"Class 6": {
-  "Maths": [
-    {c:"Knowing Our Numbers", t:["Comparing large numbers","Estimation","Roman numerals"]},
-    {c:"Whole Numbers", t:["Number line","Properties of whole numbers","Patterns"]},
-    {c:"Playing with Numbers", t:["Factors and multiples","Prime and composite numbers","HCF and LCM"]},
-    {c:"Basic Geometrical Ideas", t:["Points, lines and rays","Curves and polygons","Angles"]},
-    {c:"Understanding Elementary Shapes", t:["Measuring line segments","Types of angles","Types of triangles"]},
-    {c:"Integers", t:["Number line with negatives","Addition and subtraction","Ordering integers"]},
-    {c:"Fractions", t:["Types of fractions","Comparing fractions","Operations on fractions"]},
-    {c:"Decimals", t:["Place value in decimals","Comparing decimals","Addition and subtraction"]},
-    {c:"Data Handling", t:["Collecting data","Pictographs","Bar graphs"]},
-    {c:"Mensuration", t:["Perimeter","Area of rectangle and square","Practical applications"]},
-    {c:"Algebra", t:["Variables and expressions","Simple equations","Patterns using variables"]},
-    {c:"Ratio and Proportion", t:["Ratio","Proportion","Unitary method"]},
-    {c:"Symmetry", t:["Line symmetry","Symmetric figures","Reflection"]}
-  ],
-  "Science": [
-    {c:"Food: Where Does It Come From", t:["Food sources","Plant and animal products","Eating habits of animals"]},
-    {c:"Components of Food", t:["Nutrients","Balanced diet","Deficiency diseases"]},
-    {c:"Fibre to Fabric", t:["Natural fibres","Plant and animal fibres","Spinning and weaving"]},
-    {c:"Sorting Materials into Groups", t:["Properties of materials","Grouping objects","Solubility"]},
-    {c:"Separation of Substances", t:["Handpicking and sieving","Winnowing and sedimentation","Evaporation"]},
-    {c:"Changes Around Us", t:["Reversible changes","Irreversible changes","Examples in daily life"]},
-    {c:"Getting to Know Plants", t:["Herbs, shrubs and trees","Parts of a plant","Leaf and root structure"]},
-    {c:"Body Movements", t:["Human skeleton","Joints","Movement in animals"]},
-    {c:"Living Organisms and Their Surroundings", t:["Habitat","Adaptation","Characteristics of living things"]},
-    {c:"Motion and Measurement of Distances", t:["Types of motion","Standard units","Measuring length"]},
-    {c:"Light, Shadows and Reflections", t:["Transparent and opaque objects","Shadow formation","Mirror reflection"]},
-    {c:"Electricity and Circuits", t:["Electric cell","Simple circuit","Conductors and insulators"]},
-    {c:"Fun with Magnets", t:["Magnetic and non-magnetic materials","Poles of a magnet","Compass"]}
-  ],
-  "Social Science": [
-    {c:"What, Where, How and When", t:["Sources of history","Timeline","Historical periods"]},
-    {c:"From Hunting-Gathering to Growing Food", t:["Early humans","Domestication","Neolithic age"]},
-    {c:"In the Earliest Cities", t:["Harappan civilisation","Town planning","Trade"]},
-    {c:"Kingdoms, Kings and Early Republics", t:["Janapadas and Mahajanapadas","Republics","Early rulers"]},
-    {c:"Ashoka the Emperor Who Gave Up War", t:["Mauryan empire","Ashoka's dhamma","Edicts"]},
-    {c:"Vital Villages, Thriving Towns", t:["Iron tools and agriculture","Village life","Craft and trade"]},
-    {c:"The Earth in the Solar System", t:["Solar system","Planets","Earth's position"]},
-    {c:"Globe: Latitudes and Longitudes", t:["Latitudes","Longitudes","Heat zones"]},
-    {c:"Motions of the Earth", t:["Rotation","Revolution","Day-night and seasons"]},
-    {c:"Maps", t:["Types of maps","Map symbols","Scale"]},
-    {c:"Understanding Diversity", t:["Diversity in India","Unity in diversity","Prejudice"]},
-    {c:"What is Government", t:["Types of government","Need for government","Democracy basics"]}
-  ],
-  "English": [
-    {c:"A Tale of Two Birds", t:["Story elements","Moral of the story","New vocabulary"]},
-    {c:"The Friendly Mongoose", t:["Character analysis","Sequence of events","Comprehension"]},
-    {c:"A Pact with the Sun", t:["Story summary","Grammar in context","Vocabulary"]},
-    {c:"A Different Kind of School", t:["Theme and message","Reading comprehension","Discussion questions"]},
-    {c:"Who I Am", t:["Poem appreciation","Figures of speech","Central idea"]},
-    {c:"Fair Play", t:["Story summary","Character traits","Moral values"]},
-    {c:"A Game of Chance", t:["Story summary","Vocabulary","Comprehension"]},
-    {c:"Desert Animals", t:["Animal adaptations","Comprehension","New words"]}
-  ]
-},
-"Class 7": {
-  "Maths": [
-    {c:"Integers", t:["Properties of integers","Multiplication and division","Word problems"]},
-    {c:"Fractions and Decimals", t:["Multiplication of fractions","Division of fractions","Operations on decimals"]},
-    {c:"Data Handling", t:["Mean, median, mode","Bar graphs","Probability basics"]},
-    {c:"Simple Equations", t:["Forming equations","Solving equations","Applications"]},
-    {c:"Lines and Angles", t:["Complementary and supplementary angles","Transversal lines","Parallel lines"]},
-    {c:"The Triangle and its Properties", t:["Angle sum property","Exterior angle property","Pythagoras theorem"]},
-    {c:"Comparing Quantities", t:["Percentages","Profit and loss","Simple interest"]},
-    {c:"Rational Numbers", t:["Representation on number line","Operations","Comparing rational numbers"]},
-    {c:"Perimeter and Area", t:["Area of parallelogram and triangle","Circumference of circle","Area of circle"]},
-    {c:"Algebraic Expressions", t:["Terms and factors","Addition and subtraction","Finding value of expressions"]},
-    {c:"Exponents and Powers", t:["Laws of exponents","Expressing large numbers","Standard form"]},
-    {c:"Symmetry", t:["Rotational symmetry","Line symmetry","Combining symmetries"]},
-    {c:"Visualising Solid Shapes", t:["Nets of solids","Faces, edges and vertices","Views of solids"]}
-  ],
-  "Science": [
-    {c:"Nutrition in Plants", t:["Modes of nutrition","Photosynthesis","Saprotrophs and parasites"]},
-    {c:"Nutrition in Animals", t:["Digestion in humans","Digestion in grass-eating animals","Nutrition types"]},
-    {c:"Fibre to Fabric", t:["Wool production","Silk production","Rearing silkworms"]},
-    {c:"Heat", t:["Temperature measurement","Modes of heat transfer","Clothes in summer and winter"]},
-    {c:"Acids, Bases and Salts", t:["Indicators","Neutralisation","Everyday examples"]},
-    {c:"Physical and Chemical Changes", t:["Reversible and irreversible changes","Rusting","Crystallisation"]},
-    {c:"Weather, Climate and Adaptations", t:["Weather vs climate","Climate of polar regions","Climate of tropical rainforests"]},
-    {c:"Winds, Storms and Cyclones", t:["Air pressure","Thunderstorms","Cyclone safety"]},
-    {c:"Soil", t:["Soil formation","Soil types","Soil profile"]},
-    {c:"Respiration in Organisms", t:["Breathing mechanism","Aerobic and anaerobic respiration","Respiration in animals"]},
-    {c:"Transportation in Animals and Plants", t:["Circulatory system","Excretion in humans","Transport in plants"]},
-    {c:"Reproduction in Plants", t:["Asexual reproduction","Sexual reproduction","Seed dispersal"]},
-    {c:"Motion and Time", t:["Types of motion","Speed","Measuring time"]},
-    {c:"Electric Current and its Effects", t:["Electric circuits","Heating effect","Magnetic effect"]},
-    {c:"Light", t:["Reflection of light","Types of images","Structure of the eye"]}
-  ],
-  "Social Science": [
-    {c:"Tracing Changes Through a Thousand Years", t:["New words","Historical sources","Regions and kingdoms"]},
-    {c:"New Kings and Kingdoms", t:["Emergence of new dynasties","Administration","Prashastis"]},
-    {c:"The Delhi Sultans", t:["Rulers and dynasties","Administration","Architecture"]},
-    {c:"The Mughal Empire", t:["Mughal rulers","Mansabdari system","Expansion"]},
-    {c:"Environment", t:["Components of environment","Natural and human environment","Ecosystem"]},
-    {c:"Inside Our Earth", t:["Earth's interior","Rocks and minerals","Rock cycle"]},
-    {c:"Air", t:["Composition of air","Air pressure and winds","Air pollution"]},
-    {c:"On Equality", t:["Forms of inequality","Equality in India","Government schemes"]},
-    {c:"Role of the Government in Health", t:["Public healthcare","Government's role","Health services access"]},
-    {c:"Understanding Media", t:["Role of media","Media and democracy","News making"]}
-  ],
-  "English": [
-    {c:"Three Questions", t:["Story summary","Moral","Comprehension"]},
-    {c:"A Gift of Chappals", t:["Character sketch","Theme","Vocabulary"]},
-    {c:"Gopal and the Hilsa Fish", t:["Story summary","Humour in the story","Comprehension"]},
-    {c:"Quality", t:["Character analysis","Theme of dedication","Comprehension"]},
-    {c:"Expert Detectives", t:["Story summary","Plot","Vocabulary"]}
-  ]
-},
-"Class 8": {
-  "Maths": [
-    {c:"Rational Numbers", t:["Properties of rational numbers","Representation on number line","Operations"]},
-    {c:"Linear Equations in One Variable", t:["Solving equations","Applications","Equations with variables on both sides"]},
-    {c:"Understanding Quadrilaterals", t:["Types of quadrilaterals","Angle sum property","Properties of parallelograms"]},
-    {c:"Practical Geometry", t:["Constructing quadrilaterals","Given measurements","Special cases"]},
-    {c:"Data Handling", t:["Organising data","Pie charts","Probability"]},
-    {c:"Squares and Square Roots", t:["Properties of squares","Finding square roots","Pythagorean triplets"]},
-    {c:"Cubes and Cube Roots", t:["Properties of cubes","Finding cube roots","Patterns"]},
-    {c:"Comparing Quantities", t:["Compound interest","Discount","Tax and GST"]},
-    {c:"Algebraic Expressions and Identities", t:["Multiplying expressions","Standard identities","Applications"]},
-    {c:"Mensuration", t:["Surface area of solids","Volume of solids","Area of trapezium"]},
-    {c:"Exponents and Powers", t:["Negative exponents","Laws of exponents","Standard form"]},
-    {c:"Factorisation", t:["Common factors","Factorisation using identities","Division of algebraic expressions"]},
-    {c:"Introduction to Graphs", t:["Linear graphs","Coordinates","Applications"]},
-    {c:"Playing with Numbers", t:["Number patterns","Divisibility tests","Numbers in general form"]}
-  ],
-  "Science": [
-    {c:"Crop Production and Management", t:["Agricultural practices","Irrigation methods","Storage of grains"]},
-    {c:"Microorganisms: Friend and Foe", t:["Types of microorganisms","Useful microorganisms","Harmful microorganisms"]},
-    {c:"Synthetic Fibres and Plastics", t:["Types of synthetic fibres","Properties of plastics","Plastics and environment"]},
-    {c:"Materials: Metals and Non-Metals", t:["Physical properties","Chemical properties","Uses"]},
-    {c:"Coal and Petroleum", t:["Formation of fossil fuels","Refining of petroleum","Natural gas"]},
-    {c:"Combustion and Flame", t:["Types of combustion","Structure of flame","Fuel efficiency"]},
-    {c:"Cell Structure and Function", t:["Cell discovery","Plant and animal cells","Cell organelles"]},
-    {c:"Reproduction in Animals", t:["Sexual reproduction","Asexual reproduction","Development of embryo"]},
-    {c:"Force and Pressure", t:["Types of force","Pressure","Applications"]},
-    {c:"Friction", t:["Factors affecting friction","Advantages and disadvantages","Methods to reduce friction"]},
-    {c:"Sound", t:["Production of sound","Propagation of sound","Characteristics of sound"]},
-    {c:"Chemical Effects of Electric Current", t:["Conduction in liquids","Electroplating","Applications"]},
-    {c:"Some Natural Phenomena", t:["Lightning","Earthquakes","Charging by rubbing"]},
-    {c:"Light", t:["Reflection laws","Structure of human eye","Aids for visually impaired"]},
-    {c:"Pollution of Air and Water", t:["Causes of air pollution","Water pollution","Prevention methods"]}
-  ],
-  "Social Science": [
-    {c:"How, When and Where", t:["Historical sources","British records","Survey and maps"]},
-    {c:"From Trade to Territory", t:["East India Company","Expansion of trade","Battle of Plassey"]},
-    {c:"Ruling the Countryside", t:["Permanent settlement","Indigo cultivation","Peasant revolts"]},
-    {c:"When People Rebel: 1857", t:["Causes of revolt","Course of the revolt","Aftermath"]},
-    {c:"Resources", t:["Types of resources","Resource development","Resource conservation"]},
-    {c:"Agriculture", t:["Farming systems","Cropping patterns","Major crops"]},
-    {c:"The Indian Constitution", t:["Making of the constitution","Preamble","Fundamental rights"]},
-    {c:"Understanding Secularism", t:["Meaning of secularism","Indian secularism","Secular practices"]},
-    {c:"Why Do We Need a Parliament", t:["Need for people's participation","Parliament's role","Law-making process"]},
-    {c:"Judiciary", t:["Structure of judiciary","Role of courts","Access to justice"]}
-  ],
-  "English": [
-    {c:"The Best Christmas Present in the World", t:["Story summary","Theme of war and peace","Comprehension"]},
-    {c:"The Tsunami", t:["Story summary","Real-life account","Vocabulary"]},
-    {c:"Glimpses of the Past", t:["Historical timeline","Comprehension","Freedom struggle events"]},
-    {c:"Bepin Choudhury's Lapse of Memory", t:["Story summary","Character analysis","Comprehension"]}
-  ]
-},
 "Class 9": {
   "Maths": [
     {c:"Number Systems", t:["Irrational numbers","Real numbers on number line","Laws of exponents"]},
@@ -6005,10 +6142,24 @@ function renderChapters(){
   // if user + profile already exist locally, skip straight to dashboard
   const user = localStorage.getItem('synapse12_user');
   const profile = localStorage.getItem('synapse12_profile');
-  if(user && profile){
+  if(user && profile && profileIsValid(JSON.parse(profile))){
     loadDashboard(JSON.parse(profile));
     goTo('screen-dashboard');
+  } else if(user && profile){
+    goTo('screen-onboard-class');   // old Class 6-8 profile: pick Class 9-12
   }
+})();
+
+// ---------- boot: pull newer progress for already-signed-in users ----------
+(function bootSync(){
+  const u = syncUser(); if(!u) return;
+  db.collection('users').doc(u.uid).get().then((doc) => {
+    if(doc.exists && applyRemoteProgress(doc.data())){
+      const p = localStorage.getItem('synapse12_profile');
+      if(p && profileIsValid(JSON.parse(p))) loadDashboard(JSON.parse(p));
+    }
+    pushProgress();
+  }).catch(() => {});
 })();
 
 // ---------- PWA: register service worker for offline support ----------
