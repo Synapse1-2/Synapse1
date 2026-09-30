@@ -1359,6 +1359,128 @@
 @media (max-height:700px){.in-top{padding-top:calc(34px + env(safe-area-inset-top));} .in-quote{margin-top:16px;}}
 @media (prefers-reduced-motion:reduce){.in-play *{animation-duration:.01s !important; animation-delay:0s !important;}}
 
+  /* =====================  STUDY ROOMS v2  ===================== */
+  /* --- rooms list --- */
+  .rz-actions{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:6px 0 18px;}
+  .rz-act{display:flex; flex-direction:column; align-items:flex-start; gap:2px; padding:16px; border-radius:22px; text-align:left; cursor:pointer; font-family:inherit;
+    background:var(--card); border:1px solid var(--card-border); color:var(--text); box-shadow:var(--shadow-sm);}
+  .rz-act.primary{background:var(--grad-violet); color:var(--on-accent); border-color:transparent; box-shadow:0 10px 24px rgba(46,107,82,.25);}
+  .rz-act-ic{width:40px; height:40px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); margin-bottom:10px;}
+  .rz-act.primary .rz-act-ic{background:rgba(255,255,255,.22);}
+  .rz-act-ic svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .rz-act-t{font-weight:800; font-size:15.5px;} .rz-act-s{font-size:12px; opacity:.72;}
+  .rz-tabs,.rm2-tabs{display:flex; gap:6px; background:var(--surface-2); border:1px solid var(--line); border-radius:16px; padding:4px;}
+  .rz-tabs span,.rm2-tabs span{flex:1; text-align:center; padding:10px 4px; border-radius:12px; font-size:13.5px; font-weight:700; color:var(--text-dim); cursor:pointer;}
+  .rz-tabs span.on,.rm2-tabs span.on{background:var(--chip-bg); color:var(--chip-ink);}
+  .rz-search{width:100%; margin-top:10px; padding:12px 14px; border-radius:14px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:14px; font-family:inherit;}
+  #rooms-list{margin-top:12px;}
+  .rz-room{display:flex; align-items:center; gap:12px; padding:14px; margin-bottom:10px; border-radius:20px; background:var(--card); border:1px solid var(--card-border); box-shadow:var(--shadow-sm); cursor:pointer;}
+  .rz-av{width:48px; height:48px; border-radius:16px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; flex:0 0 auto;}
+  .rz-room-body{flex:1; min-width:0;}
+  .rz-room-name{font-weight:800; font-size:15.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .rz-room-meta{font-size:12px; color:var(--text-dim); margin-top:2px;}
+  .rz-room-desc{font-size:12.5px; color:var(--text-dim); margin-top:4px; line-height:1.4;}
+  .rz-join-btn{border:0; border-radius:14px; padding:10px 16px; font-weight:800; font-size:13px; background:var(--grad-violet); color:var(--on-accent); cursor:pointer; font-family:inherit;}
+  .rz-join-btn.open{background:var(--chip-bg); color:var(--chip-ink);}
+  .rz-empty{text-align:center; color:var(--text-dim); font-size:13.5px; line-height:1.55; padding:34px 20px; display:flex; flex-direction:column; align-items:center; gap:6px;}
+  .rz-empty b{color:var(--text); font-size:15px;} .rz-empty-ic{font-size:34px; margin-bottom:4px;}
+  .rz-footer{margin-top:14px; text-align:center; padding:14px; border-radius:18px; background:var(--accent-soft); color:var(--text-dim); font-size:13.5px; font-weight:600;}
+  .rz-footer b{color:var(--val); font-size:16px;}
+  #screen-rooms .container-max{padding:0 16px 130px;} #screen-rooms .top-back-row{padding-left:0;} #screen-rooms .syllabus-top{padding-left:0; padding-right:0;}
+
+  /* --- create / join sheet --- */
+  .rz-sheet-bg{position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.45); align-items:flex-end; justify-content:center;}
+  .rz-sheet{width:100%; max-width:520px; background:var(--card); border-top-left-radius:28px; border-top-right-radius:28px; padding:12px 20px calc(24px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:12px; border:1px solid var(--card-border); max-height:92vh; overflow:auto;}
+  :root[data-theme="dark"] .rz-sheet{background:#111C18;}
+  :root:not([data-theme="dark"]) .rz-sheet{background:#fff;}
+  .rz-sheet > div{display:flex; flex-direction:column; gap:12px;}
+  .rz-sheet-grab{width:42px; height:5px; border-radius:3px; background:var(--line); align-self:center; margin-bottom:4px;}
+  .rz-sheet-title{font-size:20px; font-weight:800;} .rz-sheet-sub{font-size:13px; color:var(--text-dim); margin-top:-6px;}
+  .rz-sheet input{width:100%; padding:14px; border-radius:14px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:15px; font-family:inherit;}
+  .rz-vis{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .rz-vis-opt{padding:12px; border-radius:16px; border:1.5px solid var(--line); background:var(--surface-2); cursor:pointer; display:flex; flex-direction:column; gap:3px;}
+  .rz-vis-opt b{font-size:14px;} .rz-vis-opt small{font-size:11.5px; color:var(--text-dim);}
+  .rz-vis-opt.on{border-color:var(--violet); background:var(--accent-soft);}
+
+  /* --- room screen shell --- */
+  #screen-room{padding:0 !important;}
+  .rm2-wrap{height:100vh; height:100dvh; display:flex; flex-direction:column; max-width:520px; margin:0 auto; width:100%;}
+  .rm2-head{display:flex; align-items:center; gap:10px; padding:calc(12px + env(safe-area-inset-top)) 14px 8px;}
+  .rm2-av{width:42px; height:42px; border-radius:14px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; flex:0 0 auto;}
+  .rm2-htext{flex:1; min-width:0;} .rm2-name{font-weight:800; font-size:16.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;} .rm2-sub{font-size:12px; color:var(--text-dim); margin-top:1px;}
+  .rm2-iconbtn{width:40px; height:40px; border-radius:14px; background:var(--card); border:1px solid var(--card-border); display:flex; align-items:center; justify-content:center; color:var(--text); cursor:pointer;}
+  .rm2-iconbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .rm2-tabs{margin:0 14px 8px;}
+  .rz-theme-pop{margin:0 14px 8px; padding:10px 14px; border-radius:16px; background:var(--card); border:1px solid var(--card-border); gap:12px; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);}
+  .rz-sw{width:30px; height:30px; border-radius:50%; cursor:pointer; border:3px solid transparent;}
+  .rz-sw.on{border-color:var(--text);}
+  .rm2-panel{display:none; flex:1; min-height:0; flex-direction:column;}
+  .rm2-panel.on{display:flex;}
+  .rm2-scroll{flex:1; overflow-y:auto; padding:6px 16px calc(28px + env(safe-area-inset-bottom)); -webkit-overflow-scrolling:touch;}
+  #screen-room .rm2-scroll > .btn{width:100%;}
+
+  /* --- chat --- */
+  #screen-room{
+    --ct-own:#CDEFDD; --ct-own-ink:#0F2B20; --ct-oth:#FFFFFF; --ct-oth-ink:#0F1C17; --ct-wall:#E8F0EB; --ct-send:#2E6B52; --ct-send-ink:#fff; --ct-pat:rgba(30,80,60,.07);
+  }
+  #screen-room[data-ct="ocean"]{--ct-own:#CFE6FA; --ct-own-ink:#0E2A45; --ct-wall:#E7EFF6; --ct-send:#2F6FA8; --ct-pat:rgba(30,80,130,.07);}
+  #screen-room[data-ct="lavender"]{--ct-own:#E2DAF7; --ct-own-ink:#2A1B54; --ct-wall:#EEEAF7; --ct-send:#6A5BC0; --ct-pat:rgba(80,60,150,.07);}
+  #screen-room[data-ct="sunset"]{--ct-own:#FADFC9; --ct-own-ink:#4A2508; --ct-wall:#F7EEE6; --ct-send:#C46B2B; --ct-pat:rgba(150,80,30,.07);}
+  #screen-room[data-ct="mono"]{--ct-own:#E4E7E9; --ct-own-ink:#1B2126; --ct-wall:#EDEFF0; --ct-send:#525C63; --ct-pat:rgba(40,50,60,.06);}
+  :root[data-theme="dark"] #screen-room{--ct-own:#1F5A43; --ct-own-ink:#EAF3EE; --ct-oth:#16211D; --ct-oth-ink:#EAF3EE; --ct-wall:#0C1613; --ct-send:#8FE3B8; --ct-send-ink:#0A1A13; --ct-pat:rgba(255,255,255,.035);}
+  :root[data-theme="dark"] #screen-room[data-ct="ocean"]{--ct-own:#1E4C78; --ct-own-ink:#E8F2FB; --ct-wall:#0B1520; --ct-send:#8CC4F5;}
+  :root[data-theme="dark"] #screen-room[data-ct="lavender"]{--ct-own:#4A3A86; --ct-own-ink:#F0ECFC; --ct-wall:#120F1E; --ct-send:#BDB1F5;}
+  :root[data-theme="dark"] #screen-room[data-ct="sunset"]{--ct-own:#8A4A1F; --ct-own-ink:#FFF1E6; --ct-wall:#1A120C; --ct-send:#F5B98A;}
+  :root[data-theme="dark"] #screen-room[data-ct="mono"]{--ct-own:#3A4248; --ct-own-ink:#EEF1F3; --ct-wall:#0F1213; --ct-send:#C7CED3;}
+  .rm2-chat{flex:1; min-height:0; overflow-y:auto; padding:12px 12px 8px; display:flex; flex-direction:column; gap:3px; background-color:var(--ct-wall);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><g fill='%23888' fill-opacity='0.16'><path d='M18 30c10-16 30-16 40 0-10 16-30 16-40 0z'/><path d='M92 96c8-12 24-12 32 0-8 12-24 12-32 0z'/><circle cx='100' cy='24' r='3'/><circle cx='30' cy='104' r='3'/></g></svg>");
+    border-top:1px solid var(--line);}
+  .cm-day{align-self:center; margin:10px 0 6px;} .cm-day span{font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:12px; background:var(--card); color:var(--text-dim); border:1px solid var(--line);}
+  .cm{max-width:82%; padding:7px 10px 5px; border-radius:16px; font-size:14.5px; line-height:1.4; position:relative; box-shadow:0 1px 1px rgba(0,0,0,.08);}
+  .cm.own{align-self:flex-end; background:var(--ct-own); color:var(--ct-own-ink); border-bottom-right-radius:5px;}
+  .cm.other{align-self:flex-start; background:var(--ct-oth); color:var(--ct-oth-ink); border-bottom-left-radius:5px;}
+  .cm.first{margin-top:6px;}
+  .cm-name{font-size:12px; font-weight:800; margin-bottom:2px;}
+  .cm-text{white-space:pre-wrap; word-break:break-word; padding-right:46px;}
+  .cm-time{font-size:10.5px; opacity:.6; float:right; margin:2px 0 0 8px; position:relative;}
+  .cm-text + .cm-time{position:absolute; right:10px; bottom:5px; float:none; margin:0;}
+  .rz-imgs{display:grid; gap:3px; margin-bottom:4px; border-radius:12px; overflow:hidden;} .rz-imgs.n1{grid-template-columns:1fr;} .rz-imgs.n2,.rz-imgs.n3,.rz-imgs.n4{grid-template-columns:1fr 1fr;}
+  .rz-imgs img{width:100%; max-height:240px; object-fit:cover; display:block; cursor:pointer; min-width:120px;}
+  .cm-pdf{display:flex; align-items:center; gap:10px; padding:10px; margin:2px 0 4px; border-radius:12px; background:rgba(0,0,0,.07); cursor:pointer; min-width:200px;}
+  :root[data-theme="dark"] .cm-pdf{background:rgba(255,255,255,.08);}
+  .pdf-ic{width:38px; height:44px; border-radius:8px; background:#D24B5E; color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .pdf-t{min-width:0;} .pdf-t b{display:block; font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:170px;} .pdf-t small{font-size:11.5px; opacity:.7;}
+  .rm2-inputbar{display:flex; align-items:center; gap:8px; padding:8px 10px calc(10px + env(safe-area-inset-bottom)); background:var(--card); border-top:1px solid var(--line);}
+  .rm2-inputbar input{flex:1; min-width:0; padding:12px 16px; border-radius:22px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:15px; font-family:inherit;}
+  .rm2-attach{width:42px; height:42px; border-radius:50%; border:0; background:none; color:var(--text-dim); display:flex; align-items:center; justify-content:center; cursor:pointer; flex:0 0 auto;}
+  .rm2-attach svg,.rm2-send svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .rm2-send{width:44px; height:44px; border-radius:50%; border:0; background:var(--ct-send); color:var(--ct-send-ink); display:flex; align-items:center; justify-content:center; cursor:pointer; flex:0 0 auto;}
+  .rm2-send:disabled{opacity:.5;}
+  .rz-attach-menu{gap:10px; padding:10px 14px; background:var(--card); border-top:1px solid var(--line);}
+  .rz-attach-menu button,.rz-attach-btn{display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:16px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-weight:700; font-size:13.5px; cursor:pointer; font-family:inherit;}
+  .rz-attach-row{display:flex; gap:8px;}
+  .rz-pending{gap:8px; padding:8px 12px; overflow-x:auto; background:var(--card); border-top:1px solid var(--line); flex-wrap:nowrap;}
+  .rz-pending.show{display:flex; background:none; border:0; padding:0; flex-wrap:wrap;}
+  .rz-chip{display:flex; align-items:center; gap:8px; padding:6px 8px 6px 6px; border-radius:14px; background:var(--surface-2); border:1px solid var(--line); flex:0 0 auto; max-width:200px;}
+  .rz-chip img{width:34px; height:34px; border-radius:8px; object-fit:cover;} .rz-pdf-mini{width:34px; height:34px; border-radius:8px; background:#D24B5E; color:#fff; font-size:9.5px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .rz-chip-n{font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100px;} .rz-chip button{border:0; background:none; color:var(--text-dim); font-size:20px; line-height:1; cursor:pointer; padding:0 2px;}
+  /* --- board --- */
+  #screen-room #room-board-canvas{width:100%; height:auto; aspect-ratio:1; border-radius:18px; touch-action:none; display:block; border:1px solid var(--line);}
+  /* --- notes / info --- */
+  .rz-card{padding:16px; border-radius:22px; background:var(--card); border:1px solid var(--card-border); box-shadow:var(--shadow-sm);}
+  .rz-card-top{display:flex; justify-content:space-between; align-items:center; gap:8px;} .rz-card-name{font-weight:800; font-size:18px;}
+  .rz-badge{font-size:11.5px; font-weight:700; padding:4px 10px; border-radius:12px; background:var(--surface-2); color:var(--text-dim); white-space:nowrap;} .rz-badge.pub{background:var(--chip-bg); color:var(--chip-ink);}
+  .rz-desc{font-size:13.5px; color:var(--text-dim); margin:6px 0 12px; line-height:1.5;}
+  .rm-you{font-size:12px; color:var(--text-dim); font-weight:600;}
+  .rz-danger{display:flex; gap:10px; margin-top:22px;} .rz-danger .btn{flex:1;}
+  #note-composer{margin:12px 0;} #room-notes-list{margin-top:14px;}
+  .note-card .rz-imgs{margin:8px 0 2px;}
+  /* --- image viewer --- */
+  .rz-viewer{position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.94); flex-direction:column;}
+  .rz-viewer-bar{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:calc(14px + env(safe-area-inset-top)) 14px 10px; color:#fff; font-size:13px;} .rz-viewer-bar > span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;} .rz-viewer-bar div{display:flex; gap:8px;}
+  .rz-viewer-btn{padding:9px 16px; border-radius:14px; background:rgba(255,255,255,.16); color:#fff; border:0; font-weight:700; font-size:13px; text-decoration:none; font-family:inherit; cursor:pointer;}
+  .rz-viewer img{flex:1; min-height:0; width:100%; object-fit:contain; padding-bottom:calc(16px + env(safe-area-inset-bottom));}
+
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -2194,112 +2316,188 @@
 <!-- ============ STUDY ROOMS: SETUP ============ -->
 <section id="screen-rooms" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
-    <div class="syllabus-top">
-      <div class="stitle">Study Rooms</div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="syllabus-top"><div class="stitle">Study Rooms</div></div>
+
+    <div class="rz-actions">
+      <button class="rz-act" onclick="openRoomSheet('join')">
+        <span class="rz-act-ic"><svg viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 8l4 4-4 4"/><path d="M14 12H4"/></svg></span>
+        <span class="rz-act-t">Join room</span><span class="rz-act-s">Use a code</span>
+      </button>
+      <button class="rz-act primary" onclick="openRoomSheet('create')">
+        <span class="rz-act-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>
+        <span class="rz-act-t">Create room</span><span class="rz-act-s">Public or private</span>
+      </button>
     </div>
 
-    <div class="dash-section">
-      <div class="section-title">Create a room</div>
-      <div class="room-input-row">
-        <input type="text" id="room-create-name-input" placeholder="Room name, e.g. JEE Physics">
+    <div class="rz-tabs" id="rz-tabs">
+      <span class="on" data-t="mine" onclick="setRoomsTab('mine')">My rooms</span>
+      <span data-t="discover" onclick="setRoomsTab('discover')">Discover</span>
+    </div>
+    <input type="text" class="rz-search" id="rz-search" placeholder="Search public rooms" oninput="renderRoomsList()" style="display:none;">
+    <div id="rooms-list"></div>
+    <div class="rz-footer" id="rooms-joined-footer">Rooms joined: —</div>
+  </div>
+  <nav class="bottom-nav" aria-label="Main">
+    <div class="nav-item" onclick="goTo('screen-dashboard')" role="button" aria-label="Home" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V19a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2V9.5"/></svg>Home</div>
+    <div class="nav-item" onclick="openPlanner()" role="button" aria-label="Tasks" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.4 2.8 2.8 5.2-5.6"/></svg>Tasks</div>
+    <div class="nav-item active" role="button" aria-label="Rooms" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg>Rooms</div>
+    <div class="nav-item" onclick="openSyllabus()" role="button" aria-label="Library" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>Library</div>
+    <div class="nav-item" onclick="openMoreMenu()" role="button" aria-label="More" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="dot" cx="5" cy="12" r="1.7"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="19" cy="12" r="1.7"/></svg>More</div>
+  </nav>
+</section>
+
+<!-- ============ STUDY ROOMS: ROOM (Chat / Board / Notes / Info) ============ -->
+<section id="screen-room" class="screen" data-ct="sage">
+  <div class="rm2-wrap">
+    <div class="rm2-head">
+      <div class="back-arrow-btn" onclick="closeRoomScreen()" role="button" aria-label="Back to rooms" tabindex="0">←</div>
+      <div class="rm2-av" id="rm2-av">R</div>
+      <div class="rm2-htext"><div class="rm2-name" id="room-title">Room</div><div class="rm2-sub" id="room-sub"></div></div>
+      <div class="rm2-iconbtn" onclick="toggleChatThemePicker()" role="button" aria-label="Chat theme" tabindex="0"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 2-1.8 0-1.3-1-1.6-1-2.7 0-.9.7-1.5 1.7-1.5H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.2" r="1"/><circle cx="15.2" cy="7.6" r="1"/></svg></div>
+    </div>
+    <div class="rz-theme-pop" id="rz-theme-pop" style="display:none;">
+      <span class="rz-sw" data-ct="sage" style="background:#3E8F6C" onclick="setChatTheme('sage')"></span>
+      <span class="rz-sw" data-ct="ocean" style="background:#3B82C4" onclick="setChatTheme('ocean')"></span>
+      <span class="rz-sw" data-ct="lavender" style="background:#7C6FD0" onclick="setChatTheme('lavender')"></span>
+      <span class="rz-sw" data-ct="sunset" style="background:#D9803F" onclick="setChatTheme('sunset')"></span>
+      <span class="rz-sw" data-ct="mono" style="background:#6B767D" onclick="setChatTheme('mono')"></span>
+    </div>
+    <div class="rm2-tabs" id="rm2-tabs">
+      <span class="on" data-p="chat" onclick="showRoomPanel('chat')">Chat</span>
+      <span data-p="board" onclick="showRoomPanel('board')">Board</span>
+      <span data-p="notes" onclick="showRoomPanel('notes')">Notes</span>
+      <span data-p="info" onclick="showRoomPanel('info')">Info</span>
+    </div>
+
+    <!-- CHAT -->
+    <div class="rm2-panel on" id="rp-chat">
+      <div class="rm2-chat" id="room-chat-box"></div>
+      <div class="rz-pending" id="pending-chat" style="display:none;"></div>
+      <div class="rz-attach-menu" id="attach-menu-chat" style="display:none;">
+        <button onclick="pickAttachment('chat','image')"><span>🖼️</span>Photo</button>
+        <button onclick="pickAttachment('chat','pdf')"><span>📄</span>PDF</button>
       </div>
-      <button class="btn btn-primary" onclick="createRoom()">Create Room</button>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title">Join a room</div>
-      <div class="room-input-row">
-        <input type="text" id="room-join-code-input" placeholder="Enter 6-character code" maxlength="6" style="text-transform:uppercase;">
-        <button class="btn btn-primary" style="width:auto; padding:12px 18px;" onclick="joinRoomByCode()">Join</button>
+      <div class="rm2-inputbar">
+        <button class="rm2-attach" onclick="toggleAttachMenu('chat')" aria-label="Attach"><svg viewBox="0 0 24 24"><path d="M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.6 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7"/></svg></button>
+        <input type="text" id="room-chat-input" placeholder="Message" maxlength="1000" onkeydown="if(event.key==='Enter') sendChatMessage();">
+        <button class="rm2-send" id="rm2-send" onclick="sendChatMessage()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.5-6.5L4 12Z"/><path d="m12 13.5 8-9.5"/></svg></button>
       </div>
     </div>
 
-    <div class="dash-section">
-      <div class="section-title">My rooms</div>
-      <div id="my-rooms-list"></div>
+    <!-- BOARD -->
+    <div class="rm2-panel" id="rp-board">
+      <div class="rm2-scroll">
+        <div class="board-toolbar">
+          <span class="board-color selected" style="background:#F2F1F8;" onclick="setBoardColor('#F2F1F8')"></span>
+          <span class="board-color" style="background:#E63950;" onclick="setBoardColor('#E63950')"></span>
+          <span class="board-color" style="background:#3B82F6;" onclick="setBoardColor('#3B82F6')"></span>
+          <span class="board-color" style="background:#3FBF7F;" onclick="setBoardColor('#3FBF7F')"></span>
+          <span class="board-color" style="background:#F0B429;" onclick="setBoardColor('#F0B429')"></span>
+          <span class="board-eraser-btn" id="board-eraser-btn" onclick="toggleBoardEraser()">🧹 Eraser</span>
+          <span class="board-clear-btn" onclick="clearBoard()">Clear</span>
+        </div>
+        <canvas id="room-board-canvas" width="600" height="600"></canvas>
+        <div class="rm-empty" style="margin-top:8px;">Everyone in the room sees your drawing live.</div>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="rm2-panel" id="rp-notes">
+      <div class="rm2-scroll">
+        <button class="btn btn-primary" id="note-new-btn" onclick="toggleNoteComposer()">+ New note</button>
+        <div class="rm-form" id="note-composer" style="display:none;">
+          <input type="text" id="note-title-input" maxlength="60" placeholder="Title (e.g. Coulomb's law formulas)">
+          <textarea id="note-text-input" maxlength="1000" rows="4" placeholder="Write something your room can read..."></textarea>
+          <div class="rz-pending show" id="pending-note"></div>
+          <div class="rz-attach-row">
+            <button class="rz-attach-btn" onclick="pickAttachment('note','image')">🖼️ Photo</button>
+            <button class="rz-attach-btn" onclick="pickAttachment('note','pdf')">📄 PDF</button>
+          </div>
+          <button class="btn btn-primary" id="note-share-btn" onclick="addRoomNote()">Share note</button>
+        </div>
+        <div id="room-notes-list"></div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="rm2-panel" id="rp-info">
+      <div class="rm2-scroll">
+        <div class="rz-card">
+          <div class="rz-card-top"><div class="rz-card-name" id="info-name"></div><span class="rz-badge" id="info-badge"></span></div>
+          <div class="rz-desc" id="info-desc"></div>
+          <div class="room-code-display"><span id="room-code-text">------</span><span class="room-copy-btn" onclick="copyRoomCode()">📋 Copy</span></div>
+          <button class="btn" style="width:100%; margin-top:10px;" onclick="shareRoomInvite()">Share invite</button>
+        </div>
+
+        <div class="section-title" id="room-member-count" style="margin-top:18px;">Members</div>
+        <div id="room-member-list"></div>
+
+        <div class="section-title" style="margin-top:18px;">Group Challenge</div>
+        <div id="room-challenge-list"></div>
+        <button class="btn rm-add-btn" id="ch-toggle-btn" onclick="toggleChallengeForm()">+ Start a focus challenge</button>
+        <div class="rm-form" id="ch-form" style="display:none;">
+          <input type="text" id="ch-title-input" maxlength="40" placeholder="Challenge name (e.g. Weekend Sprint)">
+          <div class="rm-form-label">Goal per person</div>
+          <div class="rm-chips" id="ch-goal-chips">
+            <span class="rm-chip" data-v="120" onclick="pickChGoal(120)">2 hrs</span>
+            <span class="rm-chip on" data-v="300" onclick="pickChGoal(300)">5 hrs</span>
+            <span class="rm-chip" data-v="600" onclick="pickChGoal(600)">10 hrs</span>
+            <span class="rm-chip" data-v="1200" onclick="pickChGoal(1200)">20 hrs</span>
+          </div>
+          <div class="rm-form-label">Duration</div>
+          <div class="rm-chips" id="ch-days-chips">
+            <span class="rm-chip" data-v="3" onclick="pickChDays(3)">3 days</span>
+            <span class="rm-chip on" data-v="7" onclick="pickChDays(7)">7 days</span>
+            <span class="rm-chip" data-v="14" onclick="pickChDays(14)">14 days</span>
+          </div>
+          <button class="btn btn-primary" onclick="createChallenge()">Start challenge</button>
+        </div>
+
+        <div class="rz-danger">
+          <button class="btn" onclick="leaveRoom()">Leave room</button>
+          <button class="btn" id="room-end-btn" style="display:none; color:#E63950; border-color:#E63950;" onclick="endRoomForEveryone()">Delete room</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ STUDY ROOMS: ROOM ============ -->
-<section id="screen-room" class="screen">
-  <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="leaveRoomScreen()" role="button" aria-label="Go back" tabindex="0">←</div></div>
-    <div class="syllabus-top">
-      <div class="stitle" id="room-title">Room</div>
+<input type="file" id="att-input-image" accept="image/*" hidden onchange="onAttachmentChosen('image', this)">
+<input type="file" id="att-input-pdf" accept="application/pdf" hidden onchange="onAttachmentChosen('pdf', this)">
+
+<div class="rz-viewer" id="att-viewer" style="display:none;">
+  <div class="rz-viewer-bar"><span id="att-viewer-name"></span><div><a id="att-viewer-dl" class="rz-viewer-btn" download>Save</a><button class="rz-viewer-btn" onclick="closeViewer()">Close</button></div></div>
+  <img id="att-viewer-img" alt="">
+</div>
+
+<div class="rz-sheet-bg" id="room-sheet" style="display:none;" onclick="if(event.target===this) closeRoomSheet()">
+  <div class="rz-sheet">
+    <div class="rz-sheet-grab"></div>
+    <div id="sheet-join">
+      <div class="rz-sheet-title">Join a room</div>
+      <div class="rz-sheet-sub">Ask your friend for the 6-character code.</div>
+      <input type="text" id="room-join-code-input" placeholder="ABC123" maxlength="6" autocapitalize="characters" style="text-transform:uppercase; letter-spacing:.3em; text-align:center; font-weight:800; font-size:20px;">
+      <button class="btn btn-primary" onclick="joinRoomByCode()">Join room</button>
     </div>
-
-    <div class="room-code-display">
-      <span id="room-code-text">------</span>
-      <span class="room-copy-btn" onclick="copyRoomCode()">📋 Copy</span>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title" id="room-member-count">Members</div>
-      <div id="room-member-list"></div>
-    </div>
-
-
-    <div class="dash-section">
-      <div class="section-title">Group Challenge</div>
-      <div id="room-challenge-list"></div>
-      <button class="btn rm-add-btn" id="ch-toggle-btn" onclick="toggleChallengeForm()">+ Start a focus challenge</button>
-      <div class="rm-form" id="ch-form" style="display:none;">
-        <input type="text" id="ch-title-input" maxlength="40" placeholder="Challenge name (e.g. Weekend Sprint)">
-        <div class="rm-form-label">Goal per person</div>
-        <div class="rm-chips" id="ch-goal-chips">
-          <span class="rm-chip" data-v="120" onclick="pickChGoal(120)">2 hrs</span>
-          <span class="rm-chip on" data-v="300" onclick="pickChGoal(300)">5 hrs</span>
-          <span class="rm-chip" data-v="600" onclick="pickChGoal(600)">10 hrs</span>
-          <span class="rm-chip" data-v="1200" onclick="pickChGoal(1200)">20 hrs</span>
-        </div>
-        <div class="rm-form-label">Duration</div>
-        <div class="rm-chips" id="ch-days-chips">
-          <span class="rm-chip" data-v="3" onclick="pickChDays(3)">3 days</span>
-          <span class="rm-chip on" data-v="7" onclick="pickChDays(7)">7 days</span>
-          <span class="rm-chip" data-v="14" onclick="pickChDays(14)">14 days</span>
-        </div>
-        <button class="btn btn-primary" onclick="createChallenge()">Start challenge</button>
+    <div id="sheet-create" style="display:none;">
+      <div class="rz-sheet-title">Create a room</div>
+      <input type="text" id="room-create-name-input" placeholder="Room name, e.g. JEE Physics" maxlength="40">
+      <input type="text" id="room-create-desc-input" placeholder="What is this room about? (optional)" maxlength="80">
+      <div class="rm-form-label">Topic</div>
+      <div class="rm-chips" id="create-topic-chips">
+        <span class="rm-chip on" onclick="pickTopic(this)">General</span><span class="rm-chip" onclick="pickTopic(this)">Physics</span><span class="rm-chip" onclick="pickTopic(this)">Chemistry</span><span class="rm-chip" onclick="pickTopic(this)">Maths</span><span class="rm-chip" onclick="pickTopic(this)">Biology</span><span class="rm-chip" onclick="pickTopic(this)">Exam prep</span>
       </div>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title">Shared Notes</div>
-      <div id="room-notes-list"></div>
-      <div class="rm-form">
-        <input type="text" id="note-title-input" maxlength="60" placeholder="Note title (e.g. Coulomb's law formulas)">
-        <textarea id="note-text-input" maxlength="1000" rows="3" placeholder="Write something your room can read..."></textarea>
-        <button class="btn btn-primary" onclick="addRoomNote()">Share note</button>
+      <div class="rm-form-label">Who can join?</div>
+      <div class="rz-vis" id="create-vis">
+        <div class="rz-vis-opt on" data-pub="0" onclick="pickVis(false)"><b>🔒 Private</b><small>Only people with the code</small></div>
+        <div class="rz-vis-opt" data-pub="1" onclick="pickVis(true)"><b>🌍 Public</b><small>Anyone can find and join</small></div>
       </div>
-    </div>
-
-    <div class="dash-section">
-      <div class="section-title">Room Chat</div>
-      <div class="room-chat-box" id="room-chat-box"></div>
-      <div class="room-chat-input-row">
-        <input type="text" id="room-chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendChatMessage();">
-        <button class="room-chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">➤</button>
-      </div>
-      <div class="section-title" style="margin-top:16px;">Shared Whiteboard</div>
-      <div class="board-toolbar">
-        <span class="board-color" style="background:#F2F1F8;" onclick="setBoardColor('#F2F1F8')"></span>
-        <span class="board-color" style="background:#E63950;" onclick="setBoardColor('#E63950')"></span>
-        <span class="board-color" style="background:#3B82F6;" onclick="setBoardColor('#3B82F6')"></span>
-        <span class="board-color" style="background:#3FBF7F;" onclick="setBoardColor('#3FBF7F')"></span>
-        <span class="board-color" style="background:#F0B429;" onclick="setBoardColor('#F0B429')"></span>
-        <span class="board-eraser-btn" id="board-eraser-btn" onclick="toggleBoardEraser()">🧹 Eraser</span>
-        <span class="board-clear-btn" onclick="clearBoard()">Clear</span>
-      </div>
-      <canvas id="room-board-canvas" width="600" height="400"></canvas>
-    </div>
-
-    <div class="dash-section" style="display:flex; gap:10px;">
-      <button class="btn" style="flex:1;" onclick="leaveRoomScreen()">Leave Room</button>
-      <button class="btn" id="room-end-btn" style="flex:1; display:none; color:#E63950; border-color:#E63950;" onclick="endRoomForEveryone()">End Room</button>
+      <button class="btn btn-primary" onclick="createRoom()">Create room</button>
     </div>
   </div>
-</section>
+</div>
+
 
 <!-- ============ QUESTION BANK SETUP ============ -->
 <section id="screen-qbank" class="screen">
@@ -4325,221 +4523,10 @@ function generateRoomCode(){
   for(let i=0;i<6;i++) code += chars[Math.floor(Math.random()*chars.length)];
   return code;
 }
-
 function getCurrentUser(){
   return JSON.parse(localStorage.getItem('synapse12_user') || 'null');
 }
-
-function openRoomsSetup(){
-  document.getElementById('room-create-name-input').value = '';
-  document.getElementById('room-join-code-input').value = '';
-  renderMyRooms();
-  goTo('screen-rooms');
-}
-
-function renderMyRooms(){
-  const user = getCurrentUser();
-  const listEl = document.getElementById('my-rooms-list');
-  if(!user){ listEl.innerHTML = ''; return; }
-  db.collection('rooms').where('memberUids', 'array-contains', user.uid).get().then((snapshot) => {
-    if(snapshot.empty){
-      listEl.innerHTML = `<div class="empty-note">You're not in any rooms yet. Create one or join with a code.</div>`;
-      return;
-    }
-    listEl.innerHTML = snapshot.docs.map(doc => {
-      const r = doc.data();
-      return `
-        <div class="room-list-card" onclick="openRoom('${doc.id}')">
-          <div>
-            <div class="rlc-name">${esc(r.name)}</div>
-            <div class="rlc-meta">${r.memberUids.length}/6 members · Code: ${doc.id}</div>
-          </div>
-          <span class="res-arrow">›</span>
-        </div>
-      `;
-    }).join('');
-  }).catch((err) => {
-    console.error('Failed to load rooms:', err);
-    listEl.innerHTML = `<div class="empty-note">Couldn't load your rooms. Check your connection and try again.</div>`;
-  });
-}
-
-function createRoom(){
-  const user = getCurrentUser();
-  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
-  const name = document.getElementById('room-create-name-input').value.trim();
-  if(!name){ alert('Please enter a room name.'); return; }
-
-  const code = generateRoomCode();
-  db.collection('rooms').doc(code).set({
-    name,
-    ownerUid: user.uid,
-    ownerName: user.name,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    memberUids: [user.uid],
-    members: [{uid:user.uid, name:user.name}]
-  }).then(() => {
-    openRoom(code);
-  }).catch((err) => {
-    console.error('Room creation failed:', err);
-    alert('Could not create room: ' + err.message);
-  });
-}
-
-function joinRoomByCode(){
-  const user = getCurrentUser();
-  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
-  const code = document.getElementById('room-join-code-input').value.trim().toUpperCase();
-  if(code.length !== 6){ alert('Enter the 6-character room code.'); return; }
-
-  const roomRef = db.collection('rooms').doc(code);
-  roomRef.get().then((doc) => {
-    if(!doc.exists){ alert('No room found with that code.'); return; }
-    const data = doc.data();
-    if(data.memberUids.includes(user.uid)){ openRoom(code); return; }
-    if(data.memberUids.length >= 6){ alert('This room is full (6/6 members).'); return; }
-    roomRef.update({
-      memberUids: firebase.firestore.FieldValue.arrayUnion(user.uid),
-      members: firebase.firestore.FieldValue.arrayUnion({uid:user.uid, name:user.name})
-    }).then(() => openRoom(code));
-  }).catch((err) => {
-    console.error('Join room failed:', err);
-    alert('Could not join room: ' + err.message);
-  });
-}
-
-function openRoom(code){
-  currentRoomCode = code;
-  if(roomUnsubscribe) roomUnsubscribe();
-  roomUnsubscribe = db.collection('rooms').doc(code).onSnapshot((doc) => {
-    if(!doc.exists){
-      alert('This room was ended by its owner.');
-      goTo('screen-rooms');
-      return;
-    }
-    renderRoomScreen(doc.data());
-  }, (err) => {
-    console.error('Room listener error:', err);
-  });
-  startChatListener(code);
-  startNotesListener(code);
-  startChallengeListener(code);
-  initBoardCanvas();
-  startBoardListener(code);
-  goTo('screen-room');
-}
-
-function startChatListener(code){
-  if(chatUnsubscribe) chatUnsubscribe();
-  chatUnsubscribe = db.collection('rooms').doc(code).collection('messages')
-    .orderBy('createdAt', 'asc').limitToLast(50)
-    .onSnapshot((snapshot) => {
-      renderChatMessages(snapshot.docs.map(d => d.data()));
-    }, (err) => {
-      console.error('Chat listener error:', err);
-    });
-}
-
-function renderChatMessages(messages){
-  const user = getCurrentUser();
-  const box = document.getElementById('room-chat-box');
-  box.innerHTML = messages.length === 0
-    ? `<div class="empty-note">No messages yet — say hi to your room!</div>`
-    : messages.map(m => `
-        <div class="room-chat-msg ${m.senderUid===user.uid ? 'own' : 'other'}">
-          ${m.senderUid===user.uid ? '' : `<div class="rcm-sender">${esc(m.senderName)}</div>`}
-          ${esc(m.text)}
-        </div>
-      `).join('');
-  box.scrollTop = box.scrollHeight;
-}
-
-function sendChatMessage(){
-  const user = getCurrentUser();
-  const input = document.getElementById('room-chat-input');
-  const text = input.value.trim();
-  if(!text || !currentRoomCode) return;
-  input.value = '';
-  db.collection('rooms').doc(currentRoomCode).collection('messages').add({
-    text, senderUid: user.uid, senderName: user.name,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).catch((err) => {
-    console.error('Send message failed:', err);
-    alert('Message failed to send: ' + err.message);
-  });
-}
-
-function renderRoomScreen(room){
-  const user = getCurrentUser();
-  roomMembersCache = room.members || []; roomOwnerUid = room.ownerUid;
-  renderRoomNotes(); renderRoomChallenges();
-  document.getElementById('room-title').textContent = room.name;
-  document.getElementById('room-code-text').textContent = currentRoomCode;
-  document.getElementById('room-member-count').textContent = `Members (${room.memberUids.length}/6)`;
-  document.getElementById('room-member-list').innerHTML = room.members.map(m => `
-    <div class="room-member-row">
-      <div class="rm-avatar">${m.name.charAt(0).toUpperCase()}</div>
-      <div class="rm-name">${esc(m.name)}${m.uid===room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}</div>
-    </div>
-  `).join('');
-  document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
-}
-
-function copyRoomCode(){
-  if(navigator.clipboard) navigator.clipboard.writeText(currentRoomCode);
-  alert(`Room code ${currentRoomCode} copied — share it so others can join.`);
-}
-
-function leaveRoomScreen(){
-  const user = getCurrentUser();
-  const roomRef = db.collection('rooms').doc(currentRoomCode);
-  roomRef.get().then((doc) => {
-    if(!doc.exists){ cleanupRoomAndGoBack(); return; }
-    const room = doc.data();
-    const remainingUids = room.memberUids.filter(uid => uid !== user.uid);
-    const remainingMembers = room.members.filter(m => m.uid !== user.uid);
-
-    if(remainingUids.length === 0){
-      roomRef.delete().then(cleanupRoomAndGoBack);
-    } else if(room.ownerUid === user.uid){
-      // transfer ownership to the next member
-      const newOwner = remainingMembers[0];
-      roomRef.update({
-        memberUids: remainingUids, members: remainingMembers,
-        ownerUid: newOwner.uid, ownerName: newOwner.name
-      }).then(cleanupRoomAndGoBack);
-    } else {
-      roomRef.update({ memberUids: remainingUids, members: remainingMembers }).then(cleanupRoomAndGoBack);
-    }
-  });
-}
-
-function endRoomForEveryone(){
-  if(!confirm('End this room for everyone? This cannot be undone.')) return;
-  db.collection('rooms').doc(currentRoomCode).delete().then(cleanupRoomAndGoBack);
-}
-
-function cleanupRoomAndGoBack(){
-  if(roomUnsubscribe){ roomUnsubscribe(); roomUnsubscribe = null; }
-  if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
-  if(boardUnsubscribe){ boardUnsubscribe(); boardUnsubscribe = null; }
-  if(notesUnsubscribe){ notesUnsubscribe(); notesUnsubscribe = null; }
-  if(challengeUnsubscribe){ challengeUnsubscribe(); challengeUnsubscribe = null; }
-  roomNotesCache = []; roomChallengesCache = [];
-  currentRoomCode = null;
-  goTo('screen-rooms');
-  renderMyRooms();
-}
-
-
-// =========================================================
-// ROOM: shared notes + group focus challenges
-// =========================================================
 function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-let notesUnsubscribe = null, challengeUnsubscribe = null;
-let roomNotesCache = [], roomChallengesCache = [], roomMembersCache = [], roomOwnerUid = null;
-let newChGoal = 300, newChDays = 7, challengeRefreshTimer = null;
-
 function roomRef(code){ return db.collection('rooms').doc(code || currentRoomCode); }
 function timeAgo(ms){
   if(!ms) return 'just now';
@@ -4548,39 +4535,435 @@ function timeAgo(ms){
   const h = Math.floor(m / 60); if(h < 24) return h + ' hr ago';
   return Math.floor(h / 24) + ' d ago';
 }
+function tsMs(t){ return t && t.toMillis ? t.toMillis() : (t && t.__t) || null; }
+function fmtTime(ms){ return new Date(ms || Date.now()).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
+function dayLabel(ms){
+  const d = new Date(ms || Date.now()), t = new Date();
+  const same = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  if(same(d, t)) return 'Today';
+  const y = new Date(); y.setDate(t.getDate() - 1);
+  if(same(d, y)) return 'Yesterday';
+  return d.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function fmtSize(b){ return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+const AV_COLORS = ['#3E8F6C','#3B82C4','#7C6FD0','#D9803F','#C0567A','#5F8F9A','#8A7F3A'];
+function avColor(name){ let h = 0; String(name || '?').split('').forEach((c) => { h = (h * 31 + c.charCodeAt(0)) >>> 0; }); return AV_COLORS[h % AV_COLORS.length]; }
 
-// ----- notes -----
+const MAX_MEMBERS = 20;
+let notesUnsubscribe = null, challengeUnsubscribe = null;
+let roomNotesCache = [], roomChallengesCache = [], roomMembersCache = [], roomOwnerUid = null, currentRoomData = null;
+let newChGoal = 300, newChDays = 7, challengeRefreshTimer = null;
+let roomsTab = 'mine', myRoomsCache = null, publicRoomsCache = [];
+let newRoomPublic = false, newRoomTopic = 'General';
+const pendingAtt = { chat: [], note: [] };
+let attCtx = 'chat';
+const fileCache = {};
+
+// ------------------------------------------------------------------ rooms list
+function openRoomsSetup(){
+  setRoomsTab(roomsTab);
+  loadMyRooms();
+  goTo('screen-rooms');
+}
+function setRoomsTab(t){
+  roomsTab = t;
+  document.querySelectorAll('#rz-tabs span').forEach((s) => s.classList.toggle('on', s.dataset.t === t));
+  document.getElementById('rz-search').style.display = t === 'discover' ? 'block' : 'none';
+  if(t === 'discover') loadDiscover(); else renderRoomsList();
+}
+function loadMyRooms(){
+  const user = getCurrentUser(); if(!user) return;
+  db.collection('rooms').where('memberUids', 'array-contains', user.uid).get().then((snap) => {
+    myRoomsCache = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    renderRoomsList();
+  }).catch((err) => {
+    console.error('Failed to load rooms:', err);
+    document.getElementById('rooms-list').innerHTML = `<div class="rm-empty">Couldn't load your rooms. Check your connection and try again.</div>`;
+  });
+}
+function loadDiscover(){
+  document.getElementById('rooms-list').innerHTML = `<div class="rm-empty">Loading public rooms…</div>`;
+  db.collection('rooms').where('isPublic', '==', true).limit(40).get().then((snap) => {
+    publicRoomsCache = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    if(myRoomsCache === null) loadMyRooms(); else renderRoomsList();
+  }).catch((err) => {
+    console.error('Discover failed:', err);
+    document.getElementById('rooms-list').innerHTML = `<div class="rm-empty">Couldn't load public rooms.</div>`;
+  });
+}
+function roomCardHTML(r, discover){
+  const user = getCurrentUser();
+  const n = (r.memberUids || []).length, isMember = user && (r.memberUids || []).includes(user.uid);
+  const lock = r.isPublic ? '🌍 Public' : '🔒 Private';
+  const action = discover
+    ? `<button class="rz-join-btn ${isMember ? 'open' : ''}" onclick="event.stopPropagation(); ${isMember ? `openRoom('${r.id}')` : `joinRoom('${r.id}')`}">${isMember ? 'Open' : (n >= MAX_MEMBERS ? 'Full' : 'Join')}</button>`
+    : `<span class="res-arrow">›</span>`;
+  return `<div class="rz-room" onclick="openRoom('${r.id}')">
+    <div class="rz-av" style="background:${avColor(r.name)}">${esc((r.name || '?').charAt(0).toUpperCase())}</div>
+    <div class="rz-room-body">
+      <div class="rz-room-name">${esc(r.name)}</div>
+      <div class="rz-room-meta">${esc(r.topic || 'General')} · ${n}/${MAX_MEMBERS} members · ${lock}</div>
+      ${discover && r.description ? `<div class="rz-room-desc">${esc(r.description)}</div>` : ''}
+    </div>${action}</div>`;
+}
+function renderRoomsList(){
+  const el = document.getElementById('rooms-list');
+  if(roomsTab === 'mine'){
+    if(myRoomsCache === null) el.innerHTML = `<div class="rm-empty">Loading…</div>`;
+    else if(!myRoomsCache.length) el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">👥</div><div><b>No rooms yet</b></div><div>Create a room or join with a code. You can also find public rooms in Discover.</div></div>`;
+    else el.innerHTML = myRoomsCache.map((r) => roomCardHTML(r, false)).join('');
+  } else {
+    const q = (document.getElementById('rz-search').value || '').trim().toLowerCase();
+    const list = publicRoomsCache.filter((r) => !q || (r.name || '').toLowerCase().includes(q) || (r.topic || '').toLowerCase().includes(q) || (r.description || '').toLowerCase().includes(q));
+    el.innerHTML = list.length ? list.map((r) => roomCardHTML(r, true)).join('') : `<div class="rz-empty"><div class="rz-empty-ic">🌍</div><div><b>No public rooms found</b></div><div>Be the first, create a public room.</div></div>`;
+  }
+  const n = myRoomsCache === null ? null : myRoomsCache.length;
+  document.getElementById('rooms-joined-footer').innerHTML = n === null ? 'Rooms joined: —' : `Rooms joined: <b>${n}</b>`;
+}
+// ------------------------------------------------------------------ create / join sheet
+function openRoomSheet(mode){
+  document.getElementById('sheet-join').style.display = mode === 'join' ? 'block' : 'none';
+  document.getElementById('sheet-create').style.display = mode === 'create' ? 'block' : 'none';
+  document.getElementById('room-join-code-input').value = '';
+  document.getElementById('room-create-name-input').value = '';
+  document.getElementById('room-create-desc-input').value = '';
+  pickVis(false);
+  document.getElementById('room-sheet').style.display = 'flex';
+}
+function closeRoomSheet(){ document.getElementById('room-sheet').style.display = 'none'; }
+function pickTopic(el){
+  newRoomTopic = el.textContent;
+  document.querySelectorAll('#create-topic-chips .rm-chip').forEach((c) => c.classList.toggle('on', c === el));
+}
+function pickVis(pub){
+  newRoomPublic = !!pub;
+  document.querySelectorAll('#create-vis .rz-vis-opt').forEach((o) => o.classList.toggle('on', (o.dataset.pub === '1') === newRoomPublic));
+}
+function createRoom(){
+  const user = getCurrentUser();
+  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
+  const name = document.getElementById('room-create-name-input').value.trim();
+  if(!name){ alert('Please enter a room name.'); return; }
+  const desc = document.getElementById('room-create-desc-input').value.trim();
+  const code = generateRoomCode();
+  db.collection('rooms').doc(code).get().then((d) => {
+    if(d.exists){ createRoom(); return null; }
+    return db.collection('rooms').doc(code).set({
+      name, description: desc, topic: newRoomTopic, isPublic: newRoomPublic, maxMembers: MAX_MEMBERS,
+      ownerUid: user.uid, ownerName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      memberUids: [user.uid], members: [{ uid: user.uid, name: user.name }]
+    }).then(() => { closeRoomSheet(); myRoomsCache = null; openRoom(code); });
+  }).catch((err) => { console.error('Room creation failed:', err); alert('Could not create room: ' + err.message); });
+}
+function joinRoomByCode(){
+  const code = document.getElementById('room-join-code-input').value.trim().toUpperCase();
+  if(code.length !== 6){ alert('Enter the 6-character room code.'); return; }
+  joinRoom(code, true);
+}
+function joinRoom(code, fromSheet){
+  const user = getCurrentUser();
+  if(!user || user.isGuest){ alert('Sign in with Google first.'); return; }
+  const ref = db.collection('rooms').doc(code);
+  ref.get().then((doc) => {
+    if(!doc.exists){ alert('No room found with that code.'); return; }
+    const data = doc.data();
+    if(data.memberUids.includes(user.uid)){ if(fromSheet) closeRoomSheet(); openRoom(code); return; }
+    if(data.memberUids.length >= MAX_MEMBERS){ alert('This room is full (' + MAX_MEMBERS + '/' + MAX_MEMBERS + ').'); return; }
+    return ref.update({
+      memberUids: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      members: firebase.firestore.FieldValue.arrayUnion({ uid: user.uid, name: user.name })
+    }).then(() => { if(fromSheet) closeRoomSheet(); myRoomsCache = null; openRoom(code); });
+  }).catch((err) => { console.error('Join room failed:', err); alert('Could not join room: ' + err.message); });
+}
+// ------------------------------------------------------------------ open / close room
+function openRoom(code){
+  currentRoomCode = code;
+  if(roomUnsubscribe) roomUnsubscribe();
+  currentRoomData = null;
+  roomUnsubscribe = db.collection('rooms').doc(code).onSnapshot((doc) => {
+    if(!doc.exists){
+      if(currentRoomCode){ alert('This room was deleted by its owner.'); teardownRoomListeners(); goTo('screen-rooms'); myRoomsCache = null; loadMyRooms(); }
+      return;
+    }
+    currentRoomData = doc.data();
+    const u = getCurrentUser();
+    if(u && !(currentRoomData.memberUids || []).includes(u.uid)){ return; }
+    renderRoomScreen(currentRoomData);
+  }, (err) => console.error('Room listener error:', err));
+  startChatListener(code);
+  startNotesListener(code);
+  startChallengeListener(code);
+  initBoardCanvas();
+  startBoardListener(code);
+  pendingAtt.chat = []; pendingAtt.note = []; renderPending('chat'); renderPending('note');
+  applyChatTheme();
+  showRoomPanel('chat');
+  goTo('screen-room');
+}
+function teardownRoomListeners(){
+  if(roomUnsubscribe){ roomUnsubscribe(); roomUnsubscribe = null; }
+  if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+  if(boardUnsubscribe){ boardUnsubscribe(); boardUnsubscribe = null; }
+  if(notesUnsubscribe){ notesUnsubscribe(); notesUnsubscribe = null; }
+  if(challengeUnsubscribe){ challengeUnsubscribe(); challengeUnsubscribe = null; }
+  roomNotesCache = []; roomChallengesCache = []; currentRoomCode = null;
+}
+// back arrow: just leaves the screen. Membership is NOT touched.
+function closeRoomScreen(){
+  teardownRoomListeners();
+  goTo('screen-rooms');
+  loadMyRooms();
+}
+function showRoomPanel(p){
+  document.querySelectorAll('#rm2-tabs span').forEach((s) => s.classList.toggle('on', s.dataset.p === p));
+  document.querySelectorAll('.rm2-panel').forEach((el) => el.classList.toggle('on', el.id === 'rp-' + p));
+  document.getElementById('attach-menu-chat').style.display = 'none';
+  if(p === 'board') setTimeout(redrawBoardFromCache, 30);
+  if(p === 'chat'){ const b = document.getElementById('room-chat-box'); b.scrollTop = b.scrollHeight; }
+}
+function renderRoomScreen(room){
+  const user = getCurrentUser();
+  roomMembersCache = room.members || []; roomOwnerUid = room.ownerUid;
+  const n = (room.memberUids || []).length;
+  document.getElementById('room-title').textContent = room.name;
+  document.getElementById('room-sub').textContent = `${n} member${n === 1 ? '' : 's'} · ${room.isPublic ? 'Public' : 'Private'}`;
+  const av = document.getElementById('rm2-av'); av.textContent = (room.name || '?').charAt(0).toUpperCase(); av.style.background = avColor(room.name);
+  document.getElementById('info-name').textContent = room.name;
+  const badge = document.getElementById('info-badge'); badge.textContent = room.isPublic ? '🌍 Public' : '🔒 Private'; badge.className = 'rz-badge ' + (room.isPublic ? 'pub' : '');
+  document.getElementById('info-desc').textContent = room.description || (room.topic ? room.topic + ' room' : '');
+  document.getElementById('room-code-text').textContent = currentRoomCode;
+  document.getElementById('room-member-count').textContent = `Members (${n}/${MAX_MEMBERS})`;
+  document.getElementById('room-member-list').innerHTML = (room.members || []).map((m) => `
+    <div class="room-member-row"><div class="rm-avatar" style="background:${avColor(m.name)}">${esc((m.name || '?').charAt(0).toUpperCase())}</div>
+    <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div></div>`).join('');
+  document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
+  renderRoomNotes(); renderRoomChallenges(); renderChatMessages(chatCache);
+}
+function copyRoomCode(){
+  if(navigator.clipboard) navigator.clipboard.writeText(currentRoomCode);
+  alert(`Room code ${currentRoomCode} copied.`);
+}
+function shareRoomInvite(){
+  const r = currentRoomData || {};
+  const text = `Join my study room "${r.name}" on Synapse 12. Room code: ${currentRoomCode}`;
+  if(navigator.share){ navigator.share({ text }).catch(() => {}); }
+  else if(navigator.clipboard){ navigator.clipboard.writeText(text); alert('Invite copied. Paste it in WhatsApp or anywhere.'); }
+}
+function leaveRoom(){
+  if(!confirm('Leave this room? You can join again later with the code' + ((currentRoomData && currentRoomData.isPublic) ? ' or from Discover.' : '.'))) return;
+  const user = getCurrentUser(); const ref = roomRef();
+  ref.get().then((doc) => {
+    if(!doc.exists){ closeRoomScreen(); return; }
+    const room = doc.data();
+    teardownRoomListeners();
+    const remainingUids = room.memberUids.filter((uid) => uid !== user.uid);
+    const remainingMembers = room.members.filter((m) => m.uid !== user.uid);
+    let op;
+    if(remainingUids.length === 0) op = ref.delete();
+    else if(room.ownerUid === user.uid){
+      const o = remainingMembers[0];
+      op = ref.update({ memberUids: remainingUids, members: remainingMembers, ownerUid: o.uid, ownerName: o.name });
+    } else op = ref.update({ memberUids: remainingUids, members: remainingMembers });
+    return op.then(() => { myRoomsCache = null; goTo('screen-rooms'); loadMyRooms(); });
+  }).catch((err) => { console.error(err); alert('Could not leave: ' + err.message); });
+}
+function endRoomForEveryone(){
+  if(!confirm('Delete this room for everyone? Chat, notes and files will be lost.')) return;
+  const ref = roomRef(); teardownRoomListeners();
+  ref.delete().then(() => { myRoomsCache = null; goTo('screen-rooms'); loadMyRooms(); }).catch((err) => alert('Could not delete: ' + err.message));
+}
+// ------------------------------------------------------------------ chat theme
+const CHAT_THEMES = ['sage','ocean','lavender','sunset','mono'];
+function applyChatTheme(){
+  let t = 'sage'; try{ t = localStorage.getItem('synapse12_chat_theme') || 'sage'; }catch(e){}
+  if(CHAT_THEMES.indexOf(t) === -1) t = 'sage';
+  document.getElementById('screen-room').setAttribute('data-ct', t);
+  document.querySelectorAll('#rz-theme-pop .rz-sw').forEach((s) => s.classList.toggle('on', s.dataset.ct === t));
+}
+function setChatTheme(t){ try{ localStorage.setItem('synapse12_chat_theme', t); }catch(e){} applyChatTheme(); document.getElementById('rz-theme-pop').style.display = 'none'; }
+function toggleChatThemePicker(){ const p = document.getElementById('rz-theme-pop'); p.style.display = p.style.display === 'none' ? 'flex' : 'none'; }
+// ------------------------------------------------------------------ attachments (photo / PDF)
+function toggleAttachMenu(ctx){ const m = document.getElementById('attach-menu-' + ctx); m.style.display = m.style.display === 'none' ? 'flex' : 'none'; }
+function pickAttachment(ctx, kind){
+  attCtx = ctx;
+  const m = document.getElementById('attach-menu-chat'); if(m) m.style.display = 'none';
+  document.getElementById(kind === 'image' ? 'att-input-image' : 'att-input-pdf').click();
+}
+function onAttachmentChosen(kind, input){
+  const f = input.files && input.files[0]; input.value = '';
+  if(!f) return;
+  if(pendingAtt[attCtx].length >= 4){ alert('You can attach up to 4 files at a time.'); return; }
+  (kind === 'image' ? processImage(f) : processPdf(f)).then((att) => { pendingAtt[attCtx].push(att); renderPending(attCtx); })
+    .catch((err) => alert(err.message || 'Could not attach that file.'));
+}
+function loadImageFromFile(f){
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(f); const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not read that image. Try a JPG or PNG photo.')); };
+    img.src = url;
+  });
+}
+function drawScaled(img, maxSide, quality){
+  const s = Math.min(1, maxSide / Math.max(img.width, img.height));
+  const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(img.width * s)); c.height = Math.max(1, Math.round(img.height * s));
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', quality);
+}
+function processImage(f){
+  return loadImageFromFile(f).then((img) => {
+    let side = 1280, q = 0.72, full = drawScaled(img, side, q);
+    while(full.length > 480000 && side > 480){ side = Math.round(side * 0.8); q = Math.max(0.5, q - 0.05); full = drawScaled(img, side, q); }
+    if(full.length > 700000) throw new Error('This photo is too big to send. Try a smaller one.');
+    return { type: 'image', name: (f.name || 'photo.jpg').replace(/\.[^.]+$/, '') + '.jpg', size: Math.round(full.length * 0.75), content: full, thumb: drawScaled(img, 240, 0.6), mime: 'image/jpeg' };
+  });
+}
+function processPdf(f){
+  return new Promise((resolve, reject) => {
+    if(f.type && f.type !== 'application/pdf'){ reject(new Error('Please choose a PDF file.')); return; }
+    if(f.size > 600 * 1024){ reject(new Error('This PDF is too large (' + fmtSize(f.size) + '). Max is 600 KB. Compress it and try again.')); return; }
+    const r = new FileReader();
+    r.onload = () => resolve({ type: 'pdf', name: f.name || 'document.pdf', size: f.size, content: r.result, mime: 'application/pdf' });
+    r.onerror = () => reject(new Error('Could not read that file.'));
+    r.readAsDataURL(f);
+  });
+}
+function renderPending(ctx){
+  const el = document.getElementById('pending-' + ctx); if(!el) return;
+  const list = pendingAtt[ctx];
+  if(ctx === 'chat') el.style.display = list.length ? 'flex' : 'none';
+  el.innerHTML = list.map((a, i) => `<div class="rz-chip">${a.type === 'image' ? `<img src="${a.thumb}" alt="">` : '<span class="rz-pdf-mini">PDF</span>'}<span class="rz-chip-n">${esc(a.name)}</span><button onclick="removePending('${ctx}',${i})" aria-label="Remove">×</button></div>`).join('');
+}
+function removePending(ctx, i){ pendingAtt[ctx].splice(i, 1); renderPending(ctx); }
+// upload each pending file into rooms/{code}/files and return light metadata for the message/note
+function uploadPending(ctx){
+  const me = getCurrentUser();
+  return Promise.all(pendingAtt[ctx].map((a) => roomRef().collection('files').add({
+    content: a.content, mime: a.mime, name: a.name, size: a.size, type: a.type, uploaderUid: me.uid,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then((ref) => ({ type: a.type, fileId: ref.id, fileName: a.name, fileSize: a.size, thumb: a.thumb || null }))));
+}
+function openAttachment(fileId, type, name){
+  const show = (d) => {
+    if(type === 'image'){
+      document.getElementById('att-viewer-img').src = d.content;
+      document.getElementById('att-viewer-name').textContent = name || '';
+      const dl = document.getElementById('att-viewer-dl'); dl.href = d.content; dl.setAttribute('download', name || 'photo.jpg');
+      document.getElementById('att-viewer').style.display = 'flex';
+    } else {
+      const b64 = d.content.split(',')[1] || ''; const bin = atob(b64); const arr = new Uint8Array(bin.length);
+      for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      const url = URL.createObjectURL(new Blob([arr], { type: 'application/pdf' }));
+      const w = window.open(url, '_blank');
+      if(!w){ const a = document.createElement('a'); a.href = url; a.download = name || 'document.pdf'; document.body.appendChild(a); a.click(); a.remove(); }
+    }
+  };
+  if(fileCache[fileId]){ show(fileCache[fileId]); return; }
+  roomRef().collection('files').doc(fileId).get().then((doc) => {
+    if(!doc.exists){ alert('This file is no longer available.'); return; }
+    fileCache[fileId] = doc.data(); show(fileCache[fileId]);
+  }).catch((err) => { console.error(err); alert('Could not open the file.'); });
+}
+function closeViewer(){ document.getElementById('att-viewer').style.display = 'none'; document.getElementById('att-viewer-img').src = ''; }
+function attachmentsHTML(list){
+  if(!list || !list.length) return '';
+  const imgs = list.filter((a) => a.type === 'image'), pdfs = list.filter((a) => a.type === 'pdf');
+  return (imgs.length ? `<div class="rz-imgs n${Math.min(imgs.length, 4)}">${imgs.map((a) => `<img src="${a.thumb}" alt="" onclick="openAttachment('${esc(a.fileId)}','image','${esc(a.fileName)}')">`).join('')}</div>` : '')
+    + pdfs.map((a) => pdfCardHTML(a)).join('');
+}
+function pdfCardHTML(a){
+  return `<div class="cm-pdf" onclick="openAttachment('${esc(a.fileId)}','pdf','${esc(a.fileName)}')"><span class="pdf-ic">PDF</span><div class="pdf-t"><b>${esc(a.fileName)}</b><small>${fmtSize(a.fileSize || 0)} · tap to open</small></div></div>`;
+}
+// ------------------------------------------------------------------ chat
+let chatCache = [];
+function startChatListener(code){
+  if(chatUnsubscribe) chatUnsubscribe();
+  chatCache = [];
+  chatUnsubscribe = db.collection('rooms').doc(code).collection('messages').orderBy('createdAt', 'asc').limitToLast(80)
+    .onSnapshot((snapshot) => { chatCache = snapshot.docs.map((d) => d.data()); renderChatMessages(chatCache); }, (err) => console.error('Chat listener error:', err));
+}
+function renderChatMessages(messages){
+  const user = getCurrentUser(); const box = document.getElementById('room-chat-box'); if(!box || !user) return;
+  if(!messages.length){ box.innerHTML = `<div class="rz-empty" style="margin:auto;"><div class="rz-empty-ic">💬</div><div><b>No messages yet</b></div><div>Say hi to your room.</div></div>`; return; }
+  let last = '', lastSender = '', html = '';
+  messages.forEach((m) => {
+    const ms = tsMs(m.createdAt) || Date.now(), label = dayLabel(ms), own = m.senderUid === user.uid;
+    if(label !== last){ html += `<div class="cm-day"><span>${label}</span></div>`; last = label; lastSender = ''; }
+    const att = m.type === 'image' ? attachmentsHTML([{ type: 'image', thumb: m.thumb, fileId: m.fileId, fileName: m.fileName }])
+      : m.type === 'pdf' ? pdfCardHTML(m) : '';
+    const first = lastSender !== m.senderUid; lastSender = m.senderUid;
+    html += `<div class="cm ${own ? 'own' : 'other'} ${first ? 'first' : ''}">
+      ${!own && first ? `<div class="cm-name" style="color:${avColor(m.senderName)}">${esc(m.senderName)}</div>` : ''}
+      ${att}${m.text ? `<div class="cm-text">${esc(m.text)}</div>` : ''}<span class="cm-time">${fmtTime(ms)}</span></div>`;
+  });
+  const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 160;
+  box.innerHTML = html;
+  if(nearBottom || !box.dataset.init){ box.scrollTop = box.scrollHeight; box.dataset.init = '1'; }
+}
+function sendChatMessage(){
+  const user = getCurrentUser(); const input = document.getElementById('room-chat-input');
+  const text = input.value.trim(); const files = pendingAtt.chat.slice();
+  if((!text && !files.length) || !currentRoomCode) return;
+  const btn = document.getElementById('rm2-send'); btn.disabled = true;
+  const col = roomRef().collection('messages');
+  const base = () => ({ senderUid: user.uid, senderName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+  const done = () => { btn.disabled = false; };
+  if(!files.length){
+    input.value = '';
+    col.add(Object.assign(base(), { type: 'text', text })).then(done).catch((err) => { done(); alert('Message failed to send: ' + err.message); });
+    return;
+  }
+  input.value = '';
+  uploadPending('chat').then((metas) => {
+    pendingAtt.chat = []; renderPending('chat');
+    return Promise.all(metas.map((m, i) => col.add(Object.assign(base(), { type: m.type, fileId: m.fileId, fileName: m.fileName, fileSize: m.fileSize, thumb: m.thumb || null, text: i === 0 ? text : '' }))));
+  }).then(done).catch((err) => { done(); console.error(err); alert('Could not send the file: ' + err.message); });
+}
+// ------------------------------------------------------------------ notes
 function startNotesListener(code){
   if(notesUnsubscribe) notesUnsubscribe();
-  notesUnsubscribe = roomRef(code).collection('notes').orderBy('createdAt', 'desc').limit(30).onSnapshot((snap) => {
+  notesUnsubscribe = roomRef(code).collection('notes').orderBy('createdAt', 'desc').limit(40).onSnapshot((snap) => {
     roomNotesCache = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
     renderRoomNotes();
   }, (err) => console.error('Notes listener error:', err));
 }
+function toggleNoteComposer(){
+  const c = document.getElementById('note-composer'); const open = c.style.display === 'none';
+  c.style.display = open ? 'flex' : 'none';
+  document.getElementById('note-new-btn').textContent = open ? 'Close' : '+ New note';
+}
 function renderRoomNotes(){
   const el = document.getElementById('room-notes-list'); if(!el) return;
   const me = getCurrentUser();
-  if(!roomNotesCache.length){ el.innerHTML = '<div class="rm-empty">No notes yet. Share formulas, summaries or doubts with your room.</div>'; return; }
+  if(!roomNotesCache.length){ el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">📝</div><div><b>No notes yet</b></div><div>Share formulas, summaries, photos of your notes or PDFs.</div></div>`; return; }
   el.innerHTML = roomNotesCache.map((n) => {
-    const ts = n.createdAt && n.createdAt.toMillis ? n.createdAt.toMillis() : null;
+    const ms = tsMs(n.createdAt);
     const canDel = me && (n.authorUid === me.uid || me.uid === roomOwnerUid);
-    return `<div class="note-card"><div class="note-title">${esc(n.title)}</div><div class="note-text">${esc(n.text)}</div>
-      <div class="note-meta"><span>${esc(n.authorName)} · ${timeAgo(ts)}</span>${canDel ? `<button class="note-del" onclick="deleteRoomNote('${esc(n.id)}')">Delete</button>` : ''}</div></div>`;
+    return `<div class="note-card"><div class="note-title">${esc(n.title)}</div>${n.text ? `<div class="note-text">${esc(n.text)}</div>` : ''}${attachmentsHTML(n.attachments)}
+      <div class="note-meta"><span>${esc(n.authorName)} · ${timeAgo(ms)}</span>${canDel ? `<button class="note-del" onclick="deleteRoomNote('${esc(n.id)}')">Delete</button>` : ''}</div></div>`;
   }).join('');
 }
 function addRoomNote(){
   const me = getCurrentUser(); if(!me || !currentRoomCode) return;
   const tEl = document.getElementById('note-title-input'), xEl = document.getElementById('note-text-input');
   const title = tEl.value.trim(), text = xEl.value.trim();
-  if(!title || !text){ alert('Add a title and some text for the note.'); return; }
-  roomRef().collection('notes').add({
-    title: title.slice(0, 60), text: text.slice(0, 1000), authorUid: me.uid, authorName: me.name,
+  if(!title){ alert('Add a title for the note.'); return; }
+  if(!text && !pendingAtt.note.length){ alert('Write something or attach a photo or PDF.'); return; }
+  const btn = document.getElementById('note-share-btn'); btn.disabled = true; btn.textContent = 'Sharing…';
+  uploadPending('note').then((metas) => roomRef().collection('notes').add({
+    title: title.slice(0, 60), text: text.slice(0, 1000), authorUid: me.uid, authorName: me.name, attachments: metas,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => { tEl.value = ''; xEl.value = ''; }).catch((err) => { console.error(err); alert('Could not share note: ' + err.message); });
+  })).then(() => {
+    tEl.value = ''; xEl.value = ''; pendingAtt.note = []; renderPending('note'); toggleNoteComposer();
+  }).catch((err) => { console.error(err); alert('Could not share note: ' + err.message); })
+    .then(() => { btn.disabled = false; btn.textContent = 'Share note'; });
 }
 function deleteRoomNote(id){
   if(!confirm('Delete this note for everyone in the room?')) return;
-  roomRef().collection('notes').doc(id).delete().catch((err) => console.error('Delete note failed:', err));
+  const n = roomNotesCache.find((x) => x.id === id);
+  roomRef().collection('notes').doc(id).delete().then(() => {
+    (n && n.attachments || []).forEach((a) => roomRef().collection('files').doc(a.fileId).delete().catch(() => {}));
+  }).catch((err) => console.error('Delete note failed:', err));
 }
 
 // ----- challenges -----
