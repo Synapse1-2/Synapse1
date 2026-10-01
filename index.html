@@ -1481,6 +1481,32 @@
   .rz-viewer-btn{padding:9px 16px; border-radius:14px; background:rgba(255,255,255,.16); color:#fff; border:0; font-weight:700; font-size:13px; text-decoration:none; font-family:inherit; cursor:pointer;}
   .rz-viewer img{flex:1; min-height:0; width:100%; object-fit:contain; padding-bottom:calc(16px + env(safe-area-inset-bottom));}
 
+
+  /* =============== line icons everywhere (replaces all emoji) =============== */
+  .ico{width:1.15em; height:1.15em; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.2em; flex:0 0 auto;}
+  .icon-badge{color:var(--violet); background:var(--accent-soft);}
+  .icon-badge .ico{width:54%; height:54%; vertical-align:middle;}
+  .more-item .icon-badge{color:var(--text); background:var(--surface-2); border:1px solid var(--line);}
+  .more-item .icon-badge .ico{width:21px; height:21px;}
+  .quick-item{background:var(--card); border:1px solid var(--card-border); border-radius:20px; box-shadow:var(--shadow-sm); padding:16px 4px 13px; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--text); cursor:pointer;}
+  .quick-item .qi-ic{width:30px; height:30px; display:flex; align-items:center; justify-content:center;}
+  .quick-item .qi-ic .ico{width:28px; height:28px; stroke-width:1.6;}
+  .quick-item .qi-lb{font-size:13px; font-weight:600; color:var(--text);}
+  .wave{display:inline-block; vertical-align:middle;} .wave .ico{width:.8em; height:.8em; stroke-width:1.8; color:var(--violet); vertical-align:-0.05em;}
+  .back-arrow-btn .ico{width:19px; height:19px; stroke-width:2;}
+  .bookmark-star .ico{width:21px; height:21px;} .bookmark-star.active .ico{fill:currentColor;}
+  .task-check .ico,.qb-solved-check .ico{width:14px; height:14px; stroke-width:2.6; vertical-align:middle;}
+  .ec-delete .ico,.task-delete .ico,.bm-remove .ico{width:16px; height:16px;}
+  .res-arrow .ico{width:16px; height:16px;} .chapter-caret .ico{width:16px; height:16px;}
+  .read-aloud-btn .ico{width:16px; height:16px;} .read-aloud-bar button .ico{width:20px; height:20px;}
+  .login-mark .ico{width:30px; height:30px; stroke-width:1.6; color:var(--text);}
+  .ra .ico{width:15px; height:15px; stroke-width:2.4; vertical-align:-0.15em;}
+  .rz-empty-ic{display:flex; justify-content:center; color:var(--text-dim);} .rz-empty-ic .ico{width:40px; height:40px; stroke-width:1.4;}
+  .rz-act-ic .ico{width:22px; height:22px;} .rz-badge .ico,.rz-room-meta .ico{width:13px; height:13px; vertical-align:-0.15em;}
+  .rz-vis-opt b .ico{width:16px; height:16px;} .rm-crown .ico{width:14px; height:14px; color:var(--gold);}
+  .rz-attach-menu button .ico,.rz-attach-btn .ico{width:18px; height:18px;} .room-copy-btn .ico{width:14px; height:14px;}
+  .board-eraser-btn .ico{width:16px; height:16px;} .ct-icon .ico{width:28px; height:28px; color:#fff;}
+  .btn .ico{width:16px; height:16px; vertical-align:-0.2em;}
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1554,7 +1580,7 @@
 <!-- ============ AUTH GATE MODAL ============ -->
 <div id="auth-gate-overlay" style="display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
   <div class="login-card" style="max-width:320px; width:88%;">
-    <div class="login-mark">🔒</div>
+    <div class="login-mark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></div>
     <h2 id="auth-gate-title">Sign in required</h2>
     <p id="auth-gate-message">This feature needs Google sign-in.</p>
     <button class="btn btn-google" onclick="handleGoogleLogin(); closeAuthGate();">
@@ -1569,7 +1595,7 @@
 <!-- ============ ONBOARDING: CLASS ============ -->
 <section id="screen-onboard-class" class="screen onboard-screen">
   <div class="container-max" style="width:100%;">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="onboard-header">
       <div class="onboard-steps">
         <div class="step-dot done"></div>
@@ -1593,7 +1619,7 @@
 <!-- ============ ONBOARDING: GOAL ============ -->
 <section id="screen-onboard-goal" class="screen onboard-screen">
   <div class="container-max" style="width:100%;">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="onboard-header">
       <div class="onboard-steps">
         <div class="step-dot done"></div>
@@ -1631,7 +1657,7 @@
   <div class="d2-greet-row">
     <div>
       <div class="d2-greet-label" id="dash-time-greeting">Good Morning,</div>
-      <div class="d2-greet-name" id="dash-greeting">Student 👋</div>
+      <div class="d2-greet-name" id="dash-greeting">Student <span class="wave"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12V6.5a1.5 1.5 0 0 1 3 0V11M11 10V5a1.5 1.5 0 0 1 3 0v6M14 10V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.5a5 5 0 0 1-4-2L4.5 14.5a1.5 1.5 0 0 1 2.3-1.9L8 14"/></svg></span></div>
     </div>
     <div class="d2-quote" id="dash-quote">"Discipline today creates freedom tomorrow."</div>
   </div>
@@ -1698,10 +1724,10 @@
     <div class="dash-section">
       <div class="section-title">More tools</div>
       <div class="quick-grid">
-        <div class="quick-item" onclick="openQuiz()"><span class="icon-badge badge-violet"><span class="qi-icon">📝</span></span>Quiz</div>
-        <div class="quick-item" onclick="openSyllabus()"><span class="icon-badge badge-blue"><span class="qi-icon">📚</span></span>Library</div>
-        <div class="quick-item" onclick="openStats()"><span class="icon-badge badge-green"><span class="qi-icon">📊</span></span>Stats</div>
-        <div class="quick-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())"><span class="icon-badge badge-blue"><span class="qi-icon">👥</span></span>Rooms</div>
+        <div class="quick-item" onclick="openQuiz()"><span class="qi-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4V3h6v1"/><path d="m9 13.2 2 2 4-4.6"/></svg></span><span class="qi-lb">Quiz</span></div>
+        <div class="quick-item" onclick="openSyllabus()"><span class="qi-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span><span class="qi-lb">Library</span></div>
+        <div class="quick-item" onclick="openStats()"><span class="qi-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-7M12 20V5M19 20v-10"/></svg></span><span class="qi-lb">Stats</span></div>
+        <div class="quick-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())"><span class="qi-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg></span><span class="qi-lb">Rooms</span></div>
       </div>
     </div>
 
@@ -1723,13 +1749,13 @@
 <!-- ============ SYLLABUS ============ -->
 <section id="screen-syllabus" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
 
     <div class="syllabus-top">
       <div class="stitle" id="syl-title">Syllabus</div>
       <div class="sprogress-label">
         <span id="syl-subject-label">Subject</span>
-        <span class="read-aloud-btn" onclick="readSyllabusAloud()" aria-label="Read chapter list aloud">🔊 Read</span>
+        <span class="read-aloud-btn" onclick="readSyllabusAloud()" aria-label="Read chapter list aloud"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg> Read</span>
       </div>
       <div class="progress-big-track">
         <div class="progress-big-fill" id="syl-progress-fill" style="width:0%">
@@ -1757,7 +1783,7 @@
 <!-- ============ PROFILE ============ -->
 <section id="screen-profile" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="profile-header">
       <div class="profile-avatar-lg" id="profile-avatar-initial">S</div>
       <h2 id="profile-name">Student</h2>
@@ -1916,7 +1942,7 @@
 <!-- ============ QUIZ SETUP ============ -->
 <section id="screen-quiz-setup" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Quiz</div>
     </div>
@@ -1948,9 +1974,9 @@
 <section id="screen-quiz-play" class="screen">
   <div class="container-max" style="width:100%;">
     <div class="quiz-topbar">
-      <div class="back-arrow-btn" onclick="exitQuiz()" role="button" aria-label="Go back" tabindex="0">←</div>
+      <div class="back-arrow-btn" onclick="exitQuiz()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div>
       <span id="quiz-progress-label">Question 1 of 5</span>
-      <span class="read-aloud-btn" onclick="readQuizQuestionAloud()" aria-label="Read question aloud">🔊</span>
+      <span class="read-aloud-btn" onclick="readQuizQuestionAloud()" aria-label="Read question aloud"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span>
       <span class="quiz-exit" onclick="exitQuiz()">Exit</span>
     </div>
     <div class="progress-track" style="margin:0 20px; width:auto;"><div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
@@ -1974,7 +2000,7 @@
 <!-- ============ QUIZ RESULT ============ -->
 <section id="screen-quiz-result" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="result-hero">
       <div class="result-score" id="result-score">0/0</div>
       <div class="result-sub" id="result-accuracy">0% accuracy · +0 XP</div>
@@ -1998,7 +2024,7 @@
 <!-- ============ PLANNER ============ -->
 <section id="screen-planner" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Planner</div>
     </div>
@@ -2062,7 +2088,7 @@
 <!-- ============ STATS ============ -->
 <section id="screen-stats" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Stats</div>
     </div>
@@ -2124,7 +2150,7 @@
 <!-- ============ MORE MENU ============ -->
 <section id="screen-more" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">More</div>
     </div>
@@ -2132,37 +2158,37 @@
     <div class="dash-section">
       <div class="field-card">
         <div class="more-item" onclick="openProfile()">
-          <span class="icon-badge badge-blue"><span class="mi-icon">👤</span></span><span class="mi-label">Profile</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.7"/><path d="M4.5 20c0-4 3.4-6.3 7.5-6.3s7.5 2.3 7.5 6.3"/></svg></span><span class="mi-label">Profile</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openAchievements()">
-          <span class="icon-badge badge-gold"><span class="mi-icon">🏆</span></span><span class="mi-label">Achievements</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4"/><path d="M12 13v4M8.5 20h7M10 17h4"/></svg></span><span class="mi-label">Achievements</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openBookmarks()">
-          <span class="icon-badge badge-pink"><span class="mi-icon">🔖</span></span><span class="mi-label">Bookmarks</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z"/></svg></span><span class="mi-label">Bookmarks</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openQuestionBank()">
-          <span class="icon-badge badge-violet"><span class="mi-icon">❓</span></span><span class="mi-label">Question Bank</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9"/><circle cx="12" cy="16.8" r=".6" fill="currentColor"/></svg></span><span class="mi-label">Question Bank</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openResources()">
-          <span class="icon-badge badge-teal"><span class="mi-icon">📖</span></span><span class="mi-label">Resources</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.6C10 5 7 4.5 3.5 5v13.2c3.5-.5 6.5 0 8.5 1.6 2-1.6 5-2.1 8.5-1.6V5c-3.5-.5-6.5 0-8.5 1.6Z"/><path d="M12 6.6v13"/></svg></span><span class="mi-label">Resources</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openExamCountdown()">
-          <span class="icon-badge badge-orange"><span class="mi-icon">⏳</span></span><span class="mi-label">Exam Countdown</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10M7 20.5h10"/><path d="M8 3.5c0 4 4 5 4 8.5s-4 4.5-4 8.5M16 3.5c0 4-4 5-4 8.5s4 4.5 4 8.5"/></svg></span><span class="mi-label">Exam Countdown</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openRevision()">
-          <span class="icon-badge badge-green"><span class="mi-icon">🔁</span></span><span class="mi-label">Smart Revision</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11V9a3 3 0 0 1 3-3h11"/><path d="m15 3 3 3-3 3"/><path d="M20 13v2a3 3 0 0 1-3 3H6"/><path d="m9 21-3-3 3-3"/></svg></span><span class="mi-label">Smart Revision</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="openExamModeSetup()">
-          <span class="icon-badge badge-red"><span class="mi-icon">⏱️</span></span><span class="mi-label">Exam Mode</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.6" r="7.4"/><path d="M12 9.6v4.2l2.6 1.6M9.6 2.8h4.8M12 2.8v3.4"/></svg></span><span class="mi-label">Exam Mode</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="requireGoogleAuth('Study Rooms', () => openRoomsSetup())">
-          <span class="icon-badge badge-blue"><span class="mi-icon">👥</span></span><span class="mi-label">Study Rooms</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6"/><circle cx="17.4" cy="9" r="2.4"/><path d="M16.6 14.3c2.6.3 4.6 2.3 4.6 5"/></svg></span><span class="mi-label">Study Rooms</span><span class="mi-chevron">›</span>
         </div>
         <div class="more-item" onclick="cycleTheme()" role="button" tabindex="0" aria-label="Change appearance">
-          <span class="icon-badge badge-violet"><span class="mi-icon">🌗</span></span><span class="mi-label">Appearance</span><span class="mi-value" id="theme-mode-label">Auto</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor"/></svg></span><span class="mi-label">Appearance</span><span class="mi-value" id="theme-mode-label">Auto</span>
         </div>
         <div class="more-item" onclick="alert('Synapse 12 — a personalized study platform for Class 9-12, built step by step.')">
-          <span class="icon-badge badge-teal"><span class="mi-icon">ℹ️</span></span><span class="mi-label">About Synapse 12</span><span class="mi-chevron">›</span>
+          <span class="icon-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.9" r=".7" fill="currentColor"/></svg></span><span class="mi-label">About Synapse 12</span><span class="mi-chevron">›</span>
         </div>
       </div>
     </div>
@@ -2184,7 +2210,7 @@
 <!-- ============ EXAM COUNTDOWN ============ -->
 <section id="screen-exam" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Exam Countdown</div>
     </div>
@@ -2219,7 +2245,7 @@
 <!-- ============ GLOBAL SEARCH ============ -->
 <section id="screen-search" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="search-input-wrap">
       <input type="text" class="search-input" id="global-search-input" placeholder="Search chapters, topics, questions, tasks..." oninput="performGlobalSearch(this.value)">
     </div>
@@ -2232,7 +2258,7 @@
 <!-- ============ RESOURCES ============ -->
 <section id="screen-resources" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Resources</div>
     </div>
@@ -2245,7 +2271,7 @@
 <!-- ============ SMART REVISION ============ -->
 <section id="screen-revision" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Smart Revision</div>
     </div>
@@ -2258,7 +2284,7 @@
 <!-- ============ EXAM MODE: SETUP ============ -->
 <section id="screen-exammode-setup" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Exam Mode</div>
     </div>
@@ -2280,7 +2306,7 @@
 <section id="screen-exammode" class="screen">
   <div class="em-topbar">
     <span class="em-timer" id="em-timer-display">00:00</span>
-    <span class="read-aloud-btn" onclick="readExamQuestionAloud()" aria-label="Read question aloud">🔊</span>
+    <span class="read-aloud-btn" onclick="readExamQuestionAloud()" aria-label="Read question aloud"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span>
     <button class="em-submit-btn" onclick="submitExam(false)">Submit</button>
   </div>
   <div class="quiz-body">
@@ -2289,15 +2315,15 @@
   </div>
   <div class="em-palette" id="em-palette"></div>
   <div class="em-nav-row">
-    <button class="btn" onclick="emNav(-1)">← Previous</button>
-    <button class="btn btn-primary" onclick="emNav(1)">Next →</button>
+    <button class="btn" onclick="emNav(-1)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg> Previous</button>
+    <button class="btn btn-primary" onclick="emNav(1)">Next <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
   </div>
 </section>
 
 <!-- ============ EXAM MODE: RESULT ============ -->
 <section id="screen-exammode-result" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="result-hero">
       <div class="result-score" id="em-result-score">0/0</div>
       <div class="result-sub" id="em-result-sub">0% accuracy</div>
@@ -2316,7 +2342,7 @@
 <!-- ============ STUDY ROOMS: SETUP ============ -->
 <section id="screen-rooms" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top"><div class="stitle">Study Rooms</div></div>
 
     <div class="rz-actions">
@@ -2351,7 +2377,7 @@
 <section id="screen-room" class="screen" data-ct="sage">
   <div class="rm2-wrap">
     <div class="rm2-head">
-      <div class="back-arrow-btn" onclick="closeRoomScreen()" role="button" aria-label="Back to rooms" tabindex="0">←</div>
+      <div class="back-arrow-btn" onclick="closeRoomScreen()" role="button" aria-label="Back to rooms" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div>
       <div class="rm2-av" id="rm2-av">R</div>
       <div class="rm2-htext"><div class="rm2-name" id="room-title">Room</div><div class="rm2-sub" id="room-sub"></div></div>
       <div class="rm2-iconbtn" onclick="toggleChatThemePicker()" role="button" aria-label="Chat theme" tabindex="0"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 2-1.8 0-1.3-1-1.6-1-2.7 0-.9.7-1.5 1.7-1.5H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.2" r="1"/><circle cx="15.2" cy="7.6" r="1"/></svg></div>
@@ -2375,8 +2401,8 @@
       <div class="rm2-chat" id="room-chat-box"></div>
       <div class="rz-pending" id="pending-chat" style="display:none;"></div>
       <div class="rz-attach-menu" id="attach-menu-chat" style="display:none;">
-        <button onclick="pickAttachment('chat','image')"><span>🖼️</span>Photo</button>
-        <button onclick="pickAttachment('chat','pdf')"><span>📄</span>PDF</button>
+        <button onclick="pickAttachment('chat','image')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3"/></svg> Photo</button>
+        <button onclick="pickAttachment('chat','pdf')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5"/></svg> PDF</button>
       </div>
       <div class="rm2-inputbar">
         <button class="rm2-attach" onclick="toggleAttachMenu('chat')" aria-label="Attach"><svg viewBox="0 0 24 24"><path d="M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.6 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7"/></svg></button>
@@ -2394,7 +2420,7 @@
           <span class="board-color" style="background:#3B82F6;" onclick="setBoardColor('#3B82F6')"></span>
           <span class="board-color" style="background:#3FBF7F;" onclick="setBoardColor('#3FBF7F')"></span>
           <span class="board-color" style="background:#F0B429;" onclick="setBoardColor('#F0B429')"></span>
-          <span class="board-eraser-btn" id="board-eraser-btn" onclick="toggleBoardEraser()">🧹 Eraser</span>
+          <span class="board-eraser-btn" id="board-eraser-btn" onclick="toggleBoardEraser()"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19.5h10M5.2 15.8a2 2 0 0 1 0-2.8l7-7a2 2 0 0 1 2.8 0l3.3 3.3a2 2 0 0 1 0 2.8l-6 6H8.6l-3.4-3.3Z"/></svg> Eraser</span>
           <span class="board-clear-btn" onclick="clearBoard()">Clear</span>
         </div>
         <canvas id="room-board-canvas" width="600" height="600"></canvas>
@@ -2411,8 +2437,8 @@
           <textarea id="note-text-input" maxlength="1000" rows="4" placeholder="Write something your room can read..."></textarea>
           <div class="rz-pending show" id="pending-note"></div>
           <div class="rz-attach-row">
-            <button class="rz-attach-btn" onclick="pickAttachment('note','image')">🖼️ Photo</button>
-            <button class="rz-attach-btn" onclick="pickAttachment('note','pdf')">📄 PDF</button>
+            <button class="rz-attach-btn" onclick="pickAttachment('note','image')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3"/></svg> Photo</button>
+            <button class="rz-attach-btn" onclick="pickAttachment('note','pdf')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5"/></svg> PDF</button>
           </div>
           <button class="btn btn-primary" id="note-share-btn" onclick="addRoomNote()">Share note</button>
         </div>
@@ -2426,7 +2452,7 @@
         <div class="rz-card">
           <div class="rz-card-top"><div class="rz-card-name" id="info-name"></div><span class="rz-badge" id="info-badge"></span></div>
           <div class="rz-desc" id="info-desc"></div>
-          <div class="room-code-display"><span id="room-code-text">------</span><span class="room-copy-btn" onclick="copyRoomCode()">📋 Copy</span></div>
+          <div class="room-code-display"><span id="room-code-text">------</span><span class="room-copy-btn" onclick="copyRoomCode()"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></svg> Copy</span></div>
           <button class="btn" style="width:100%; margin-top:10px;" onclick="shareRoomInvite()">Share invite</button>
         </div>
 
@@ -2490,8 +2516,8 @@
       </div>
       <div class="rm-form-label">Who can join?</div>
       <div class="rz-vis" id="create-vis">
-        <div class="rz-vis-opt on" data-pub="0" onclick="pickVis(false)"><b>🔒 Private</b><small>Only people with the code</small></div>
-        <div class="rz-vis-opt" data-pub="1" onclick="pickVis(true)"><b>🌍 Public</b><small>Anyone can find and join</small></div>
+        <div class="rz-vis-opt on" data-pub="0" onclick="pickVis(false)"><b><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg> Private</b><small>Only people with the code</small></div>
+        <div class="rz-vis-opt" data-pub="1" onclick="pickVis(true)"><b><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg> Public</b><small>Anyone can find and join</small></div>
       </div>
       <button class="btn btn-primary" onclick="createRoom()">Create room</button>
     </div>
@@ -2502,7 +2528,7 @@
 <!-- ============ QUESTION BANK SETUP ============ -->
 <section id="screen-qbank" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Question Bank</div>
     </div>
@@ -2524,7 +2550,7 @@
 <!-- ============ QUESTION BANK: QUESTIONS ============ -->
 <section id="screen-qbank-questions" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle" id="qbank-chapter-title">Chapter</div>
     </div>
@@ -2543,7 +2569,7 @@
 </section>
 <section id="screen-achievements" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Achievements</div>
       <div class="sprogress-label"><span id="ach-summary">0 of 0 unlocked</span></div>
@@ -2564,7 +2590,7 @@
 </section>
 <section id="screen-bookmarks" class="screen">
   <div class="container-max">
-    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0">←</div></div>
+    <div class="top-back-row"><div class="back-arrow-btn" onclick="goBack()" role="button" aria-label="Go back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div></div>
     <div class="syllabus-top">
       <div class="stitle">Bookmarks</div>
     </div>
@@ -2590,6 +2616,7 @@
 </section>
 
 <script>
+const ICO = {"quiz": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"3\"/><path d=\"M9 4V3h6v1\"/><path d=\"m9 13.2 2 2 4-4.6\"/></svg>", "library": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3 21 8l-9 5-9-5 9-5Z\"/><path d=\"m3 12.5 9 5 9-5\"/><path d=\"m3 17 9 5 9-5\"/></svg>", "stats": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 20v-7M12 20V5M19 20v-10\"/></svg>", "rooms": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"3.3\"/><path d=\"M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6\"/><circle cx=\"17.4\" cy=\"9\" r=\"2.4\"/><path d=\"M16.6 14.3c2.6.3 4.6 2.3 4.6 5\"/></svg>", "user": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"3.7\"/><path d=\"M4.5 20c0-4 3.4-6.3 7.5-6.3s7.5 2.3 7.5 6.3\"/></svg>", "trophy": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 4h8v5a4 4 0 0 1-8 0V4Z\"/><path d=\"M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4\"/><path d=\"M12 13v4M8.5 20h7M10 17h4\"/></svg>", "bookmark": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z\"/></svg>", "help": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9\"/><circle cx=\"12\" cy=\"16.8\" r=\".6\" fill=\"currentColor\"/></svg>", "book": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 6.6C10 5 7 4.5 3.5 5v13.2c3.5-.5 6.5 0 8.5 1.6 2-1.6 5-2.1 8.5-1.6V5c-3.5-.5-6.5 0-8.5 1.6Z\"/><path d=\"M12 6.6v13\"/></svg>", "hourglass": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10M7 20.5h10\"/><path d=\"M8 3.5c0 4 4 5 4 8.5s-4 4.5-4 8.5M16 3.5c0 4-4 5-4 8.5s4 4.5 4 8.5\"/></svg>", "repeat": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 11V9a3 3 0 0 1 3-3h11\"/><path d=\"m15 3 3 3-3 3\"/><path d=\"M20 13v2a3 3 0 0 1-3 3H6\"/><path d=\"m9 21-3-3 3-3\"/></svg>", "stopwatch": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"13.6\" r=\"7.4\"/><path d=\"M12 9.6v4.2l2.6 1.6M9.6 2.8h4.8M12 2.8v3.4\"/></svg>", "contrast": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 3.5a8.5 8.5 0 0 1 0 17Z\" fill=\"currentColor\"/></svg>", "info": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v5\"/><circle cx=\"12\" cy=\"7.9\" r=\".7\" fill=\"currentColor\"/></svg>", "lock": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"3\"/><path d=\"M8 10.5V8a4 4 0 0 1 8 0v2.5\"/></svg>", "globe": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18\"/></svg>", "volume": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z\"/><path d=\"M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11\"/></svg>", "play": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 5.2v13.6L19.4 12 8 5.2Z\" fill=\"currentColor\" stroke=\"none\"/></svg>", "pause": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"6\" y=\"5\" width=\"4.2\" height=\"14\" rx=\"1.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"13.8\" y=\"5\" width=\"4.2\" height=\"14\" rx=\"1.3\" fill=\"currentColor\" stroke=\"none\"/></svg>", "stop": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"3\" fill=\"currentColor\" stroke=\"none\"/></svg>", "image": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"3\"/><circle cx=\"9\" cy=\"10\" r=\"1.6\"/><path d=\"m4 17 5-4.5 4 3.5 3-2.5 4 3\"/></svg>", "file": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z\"/><path d=\"M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5\"/></svg>", "crown": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m4 8 4 4 4-6 4 6 4-4-1.5 10h-13L4 8Z\"/></svg>", "copy": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"8.5\" y=\"8.5\" width=\"11\" height=\"11\" rx=\"2.5\"/><path d=\"M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5\"/></svg>", "chat": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 5h14a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 19 17h-7l-5 4v-4H5a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 5 5Z\"/></svg>", "eraser": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 19.5h10M5.2 15.8a2 2 0 0 1 0-2.8l7-7a2 2 0 0 1 2.8 0l3.3 3.3a2 2 0 0 1 0 2.8l-6 6H8.6l-3.4-3.3Z\"/></svg>", "notes": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10A1.5 1.5 0 0 1 18.5 5v14a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z\"/><path d=\"M9 8.5h6M9 12h6M9 15.5h3.5\"/></svg>", "chevl": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m15 5-7 7 7 7\"/></svg>", "chevr": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m9 5 7 7-7 7\"/></svg>", "chevd": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg>", "arrowr": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>", "close": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg>", "star": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8L12 3.5Z\"/></svg>", "check": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5 12.5 4.5 4.5L19 7.5\"/></svg>", "x": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg>", "ext": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 17 17 7M9 7h8v8\"/></svg>", "refresh": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4\"/></svg>", "wave": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 12V6.5a1.5 1.5 0 0 1 3 0V11M11 10V5a1.5 1.5 0 0 1 3 0v6M14 10V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.5a5 5 0 0 1-4-2L4.5 14.5a1.5 1.5 0 0 1 2.3-1.9L8 14\"/></svg>", "share": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"12\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"6\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"18\" r=\"2.5\"/><path d=\"m8.2 10.8 7-3.6M8.2 13.2l7 3.6\"/></svg>", "calc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"3.5\" width=\"14\" height=\"17\" rx=\"3\"/><path d=\"M8.5 7.5h7\"/><path d=\"M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01\" stroke-width=\"2.4\"/></svg>", "flask": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 3.5h6M10 3.5v6l-4.3 8A2 2 0 0 0 7.4 20.5h9.2a2 2 0 0 0 1.7-3L14 9.5v-6\"/><path d=\"M8 15.5h8\"/></svg>", "atom": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" transform=\"rotate(60 12 12)\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" transform=\"rotate(-60 12 12)\"/></svg>", "tube": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 3.5h8M9.5 3.5v13a2.5 2.5 0 0 0 5 0v-13\"/><path d=\"M9.5 12h5\"/></svg>", "sprout": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21V11\"/><path d=\"M12 13c-5 .5-8-2-8.5-7 5 0 8.2 2 8.5 7Z\"/><path d=\"M12 11c0-4 2.6-6.6 8-7 .3 5-2.6 7.6-8 7Z\"/></svg>", "type": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 6.5V5h14v1.5M12 5v14M9 19h6\"/></svg>", "playc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m10 8.5 5 3.5-5 3.5V8.5Z\"/></svg>", "cap": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m2.5 9 9.5-4.5L21.5 9 12 13.5 2.5 9Z\"/><path d=\"M6.5 11.5v4c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3v-4M21.5 9v5\"/></svg>", "target": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.3\" fill=\"currentColor\"/></svg>", "calm": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.5 13.5c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2M9 9.5h.01M15 9.5h.01\" stroke-width=\"2\"/></svg>", "flame": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21c-4 0-6.5-2.8-6.5-6.2 0-3 2-4.6 3.2-7 .4 1.2 1.2 2 2.3 2.4C11 7 12.2 4.5 13.5 3c.3 3.4 5 5.4 5 11.4C18.5 18.2 16 21 12 21Z\"/></svg>", "bolt": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M13 3 5 13.5h6L10 21l9-11h-6.2L13 3Z\"/></svg>", "medal": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"14.5\" r=\"5.5\"/><path d=\"m8.5 3.5 3.5 6 3.5-6M12 12.2v4.6\"/></svg>", "checkc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12.4 2.8 2.8 5.2-5.6\"/></svg>", "sparkle": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z\"/></svg>", "landmark": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3.5 9 12 4l8.5 5M5.5 9.5v8M9.5 9.5v8M14.5 9.5v8M18.5 9.5v8M3.5 20h17\"/></svg>", "pulse": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20Z\"/><path d=\"M6 12h3l1.5-2.5 2 4 1.5-1.5H18\"/></svg>"};
 /* =========================================================
    SYNAPSE 12 — Firebase now connected (Google Auth live).
    ========================================================= */
@@ -2899,7 +2926,7 @@ function loadDashboard(profile){
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
   document.getElementById('dash-time-greeting').textContent = `${greeting},`;
-  document.getElementById('dash-greeting').textContent = `${user.name} 👋`;
+  document.getElementById('dash-greeting').innerHTML = `${esc(user.name)} <span class="wave">${ICO.wave}</span>`;
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
   document.getElementById('dash-quote').textContent = `"${DASH_QUOTES[dayOfYear % DASH_QUOTES.length]}"`;
 
@@ -4277,9 +4304,9 @@ function finishQuiz(){
     <div class="review-item">
       <div class="rq" style="display:flex; justify-content:space-between; gap:8px;">
         <span>${a.question}</span>
-        <span class="bookmark-star ${isBookmarked(makeId('q_'+a.question))?'active':''}" onclick='toggleBookmarkQuestion(${JSON.stringify(a.question)}, ${JSON.stringify(a.options)}, ${a.correctIndex}, ${JSON.stringify(a.explanation)}, ${JSON.stringify(quiz.subject)}); this.textContent=this.textContent==="★"?"☆":"★"; this.classList.toggle("active");'>${isBookmarked(makeId('q_'+a.question))?'★':'☆'}</span>
+        <span class="bookmark-star ${isBookmarked(makeId('q_'+a.question))?'active':''}" onclick='toggleBookmarkQuestion(${JSON.stringify(a.question)}, ${JSON.stringify(a.options)}, ${a.correctIndex}, ${JSON.stringify(a.explanation)}, ${JSON.stringify(quiz.subject)}); this.classList.toggle("active");'>${isBookmarked(makeId('q_'+a.question))?ICO.star:ICO.star}</span>
       </div>
-      <div class="ra ${a.isCorrect?'correct':'incorrect'}">${a.isCorrect ? '✓ Correct' : '✗ Your answer was wrong'}</div>
+      <div class="ra ${a.isCorrect?'correct':'incorrect'}">${a.isCorrect ? ICO.check + ' Correct' : ICO.x + ' Your answer was wrong'}</div>
       <div class="ra" style="color:var(--text-dim);">${a.explanation}</div>
     </div>
   `).join('');
@@ -4594,7 +4621,7 @@ function loadDiscover(){
 function roomCardHTML(r, discover){
   const user = getCurrentUser();
   const n = (r.memberUids || []).length, isMember = user && (r.memberUids || []).includes(user.uid);
-  const lock = r.isPublic ? '🌍 Public' : '🔒 Private';
+  const lock = r.isPublic ? ICO.globe + ' Public' : ICO.lock + ' Private';
   const action = discover
     ? `<button class="rz-join-btn ${isMember ? 'open' : ''}" onclick="event.stopPropagation(); ${isMember ? `openRoom('${r.id}')` : `joinRoom('${r.id}')`}">${isMember ? 'Open' : (n >= MAX_MEMBERS ? 'Full' : 'Join')}</button>`
     : `<span class="res-arrow">›</span>`;
@@ -4610,12 +4637,12 @@ function renderRoomsList(){
   const el = document.getElementById('rooms-list');
   if(roomsTab === 'mine'){
     if(myRoomsCache === null) el.innerHTML = `<div class="rm-empty">Loading…</div>`;
-    else if(!myRoomsCache.length) el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">👥</div><div><b>No rooms yet</b></div><div>Create a room or join with a code. You can also find public rooms in Discover.</div></div>`;
+    else if(!myRoomsCache.length) el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">${ICO.rooms}</div><div><b>No rooms yet</b></div><div>Create a room or join with a code. You can also find public rooms in Discover.</div></div>`;
     else el.innerHTML = myRoomsCache.map((r) => roomCardHTML(r, false)).join('');
   } else {
     const q = (document.getElementById('rz-search').value || '').trim().toLowerCase();
     const list = publicRoomsCache.filter((r) => !q || (r.name || '').toLowerCase().includes(q) || (r.topic || '').toLowerCase().includes(q) || (r.description || '').toLowerCase().includes(q));
-    el.innerHTML = list.length ? list.map((r) => roomCardHTML(r, true)).join('') : `<div class="rz-empty"><div class="rz-empty-ic">🌍</div><div><b>No public rooms found</b></div><div>Be the first, create a public room.</div></div>`;
+    el.innerHTML = list.length ? list.map((r) => roomCardHTML(r, true)).join('') : `<div class="rz-empty"><div class="rz-empty-ic">${ICO.globe}</div><div><b>No public rooms found</b></div><div>Be the first, create a public room.</div></div>`;
   }
   const n = myRoomsCache === null ? null : myRoomsCache.length;
   document.getElementById('rooms-joined-footer').innerHTML = n === null ? 'Rooms joined: —' : `Rooms joined: <b>${n}</b>`;
@@ -4729,13 +4756,13 @@ function renderRoomScreen(room){
   document.getElementById('room-sub').textContent = `${n} member${n === 1 ? '' : 's'} · ${room.isPublic ? 'Public' : 'Private'}`;
   const av = document.getElementById('rm2-av'); av.textContent = (room.name || '?').charAt(0).toUpperCase(); av.style.background = avColor(room.name);
   document.getElementById('info-name').textContent = room.name;
-  const badge = document.getElementById('info-badge'); badge.textContent = room.isPublic ? '🌍 Public' : '🔒 Private'; badge.className = 'rz-badge ' + (room.isPublic ? 'pub' : '');
+  const badge = document.getElementById('info-badge'); badge.innerHTML = room.isPublic ? ICO.globe + ' Public' : ICO.lock + ' Private'; badge.className = 'rz-badge ' + (room.isPublic ? 'pub' : '');
   document.getElementById('info-desc').textContent = room.description || (room.topic ? room.topic + ' room' : '');
   document.getElementById('room-code-text').textContent = currentRoomCode;
   document.getElementById('room-member-count').textContent = `Members (${n}/${MAX_MEMBERS})`;
   document.getElementById('room-member-list').innerHTML = (room.members || []).map((m) => `
     <div class="room-member-row"><div class="rm-avatar" style="background:${avColor(m.name)}">${esc((m.name || '?').charAt(0).toUpperCase())}</div>
-    <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">👑</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div></div>`).join('');
+    <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">' + ICO.crown + '</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div></div>`).join('');
   document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
   renderRoomNotes(); renderRoomChallenges(); renderChatMessages(chatCache);
 }
@@ -4884,7 +4911,7 @@ function startChatListener(code){
 }
 function renderChatMessages(messages){
   const user = getCurrentUser(); const box = document.getElementById('room-chat-box'); if(!box || !user) return;
-  if(!messages.length){ box.innerHTML = `<div class="rz-empty" style="margin:auto;"><div class="rz-empty-ic">💬</div><div><b>No messages yet</b></div><div>Say hi to your room.</div></div>`; return; }
+  if(!messages.length){ box.innerHTML = `<div class="rz-empty" style="margin:auto;"><div class="rz-empty-ic">${ICO.chat}</div><div><b>No messages yet</b></div><div>Say hi to your room.</div></div>`; return; }
   let last = '', lastSender = '', html = '';
   messages.forEach((m) => {
     const ms = tsMs(m.createdAt) || Date.now(), label = dayLabel(ms), own = m.senderUid === user.uid;
@@ -4935,7 +4962,7 @@ function toggleNoteComposer(){
 function renderRoomNotes(){
   const el = document.getElementById('room-notes-list'); if(!el) return;
   const me = getCurrentUser();
-  if(!roomNotesCache.length){ el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">📝</div><div><b>No notes yet</b></div><div>Share formulas, summaries, photos of your notes or PDFs.</div></div>`; return; }
+  if(!roomNotesCache.length){ el.innerHTML = `<div class="rz-empty"><div class="rz-empty-ic">${ICO.notes}</div><div><b>No notes yet</b></div><div>Share formulas, summaries, photos of your notes or PDFs.</div></div>`; return; }
   el.innerHTML = roomNotesCache.map((n) => {
     const ms = tsMs(n.createdAt);
     const canDel = me && (n.authorUid === me.uid || me.uid === roomOwnerUid);
@@ -5018,7 +5045,7 @@ function renderRoomChallenges(){
     return `<div class="ch-card"><div class="ch-head"><div><div class="ch-title">${esc(c.title)}</div>
       <div class="ch-meta">Goal ${fmtMin(c.goalMinutes)} each · by ${esc(c.createdByName)}</div></div>
       <span class="ch-badge ${ended ? 'ended' : ''}">${ended ? 'Ended' : left + (left === 1 ? ' day left' : ' days left')}</span></div>
-      ${rows.map((r, i) => `<div class="ch-row"><div class="ch-row-top"><span>${ended && i === 0 && r.min > 0 ? '🏆 ' : (i + 1) + '. '}${esc(r.name)}${me && r.uid === me.uid ? ' (you)' : ''}</span><span class="v">${fmtMin(r.min)}</span></div>
+      ${rows.map((r, i) => `<div class="ch-row"><div class="ch-row-top"><span>${ended && i === 0 && r.min > 0 ? ICO.trophy + ' ' : (i + 1) + '. '}${esc(r.name)}${me && r.uid === me.uid ? ' (you)' : ''}</span><span class="v">${fmtMin(r.min)}</span></div>
         <div class="ch-bar"><i style="width:${Math.min(100, Math.round(r.min / c.goalMinutes * 100))}%"></i></div></div>`).join('')}
       ${canDel ? `<button class="ch-del" onclick="deleteChallenge('${esc(c.id)}')">Delete challenge</button>` : ''}</div>`;
   }).join('');
@@ -5067,14 +5094,14 @@ function openMoreMenu(){
 // Real, working external links — not fake buttons.
 // =========================================================
 const RESOURCES_BASE = [
-  {title:"NCERT Textbooks", desc:"Official NCERT textbook PDFs for every class and subject", url:"https://ncert.nic.in/textbook.php", icon:"📕", color:"red"},
-  {title:"NCERT Official Site", desc:"Curriculum, syllabus documents and NCERT publications", url:"https://ncert.nic.in/", icon:"🏛️", color:"orange"}
+  {title:"NCERT Textbooks", desc:"Official NCERT textbook PDFs for every class and subject", url:"https://ncert.nic.in/textbook.php", icon:"book", color:"red"},
+  {title:"NCERT Official Site", desc:"Curriculum, syllabus documents and NCERT publications", url:"https://ncert.nic.in/", icon:"landmark", color:"orange"}
 ];
 const RESOURCES_JEE = [
-  {title:"JEE Main (NTA)", desc:"Official JEE Main exam info, dates and notifications", url:"https://jeemain.nta.nic.in/", icon:"🎯", color:"violet"}
+  {title:"JEE Main (NTA)", desc:"Official JEE Main exam info, dates and notifications", url:"https://jeemain.nta.nic.in/", icon:"target", color:"violet"}
 ];
 const RESOURCES_NEET = [
-  {title:"NEET (NTA)", desc:"Official NEET exam info, dates and notifications", url:"https://neet.nta.nic.in/", icon:"🩺", color:"teal"}
+  {title:"NEET (NTA)", desc:"Official NEET exam info, dates and notifications", url:"https://neet.nta.nic.in/", icon:"pulse", color:"teal"}
 ];
 
 function openResources(){
@@ -5086,12 +5113,12 @@ function openResources(){
   }
   document.getElementById('resources-list').innerHTML = resources.map(r => `
     <div class="res-card" onclick="window.open('${r.url}', '_blank')">
-      <span class="icon-badge badge-${r.color}" style="width:42px;height:42px;font-size:19px;">${r.icon}</span>
+      <span class="icon-badge badge-${r.color}" style="width:42px;height:42px;font-size:19px;">${ICO[r.icon] || ICO.book}</span>
       <div style="flex:1;">
         <div class="res-title">${r.title}</div>
         <div class="res-desc">${r.desc}</div>
       </div>
-      <span class="res-arrow">↗</span>
+      <span class="res-arrow">${ICO.ext}</span>
     </div>
   `).join('');
   goTo('screen-resources');
@@ -5329,18 +5356,18 @@ function speakText(text){
   utter.onend = () => { document.getElementById('read-aloud-bar').classList.remove('show'); };
   window.speechSynthesis.speak(utter);
   document.getElementById('read-aloud-bar').classList.add('show');
-  document.getElementById('ra-play-pause-btn').textContent = '⏸';
+  document.getElementById('ra-play-pause-btn').innerHTML = ICO.pause;
 }
 function toggleReadAloudPause(){
   if(!('speechSynthesis' in window)) return;
   if(readAloudPaused){
     window.speechSynthesis.resume();
     readAloudPaused = false;
-    document.getElementById('ra-play-pause-btn').textContent = '⏸';
+    document.getElementById('ra-play-pause-btn').innerHTML = ICO.pause;
   } else {
     window.speechSynthesis.pause();
     readAloudPaused = true;
-    document.getElementById('ra-play-pause-btn').textContent = '▶';
+    document.getElementById('ra-play-pause-btn').innerHTML = ICO.play;
   }
 }
 function stopReadAloud(){
@@ -5398,7 +5425,7 @@ function showCelebration(achievement){
   const toast = document.createElement('div');
   toast.className = 'celebration-toast';
   toast.innerHTML = `
-    <span class="ct-icon">${achievement.icon}</span>
+    <span class="ct-icon">${ICO[achievement.icon] || ''}</span>
     <div>
       <div class="ct-title">Achievement unlocked: ${achievement.title}</div>
       <div class="ct-desc">${achievement.desc}</div>
@@ -5446,7 +5473,7 @@ function renderExamList(){
     const passed = days < 0;
     let daysLabel, daysText;
     if(passed){ daysLabel = 'Exam day passed'; daysText = '—'; }
-    else if(days === 0){ daysLabel = 'Today!'; daysText = '🎯'; }
+    else if(days === 0){ daysLabel = 'Today!'; daysText = ICO.target; }
     else { daysLabel = 'days left'; daysText = days; }
     return `
       <div class="exam-card ${passed?'passed':''}">
@@ -5459,7 +5486,7 @@ function renderExamList(){
             <div class="ec-days">${daysText}</div>
             <div class="ec-days-label">${daysLabel}</div>
           </div>
-          <div class="ec-delete" onclick="deleteExam('${exam.id}')">✕</div>
+          <div class="ec-delete" onclick="deleteExam('${exam.id}')">${ICO.close}</div>
         </div>
       </div>
     `;
@@ -5535,26 +5562,26 @@ function openBookmarks(){
   const questions = list.filter(b => b.type === 'question');
 
   document.getElementById('bm-topics-list').innerHTML = topics.length === 0
-    ? `<div class="empty-note">No topics bookmarked yet. Tap the ☆ next to any topic in the syllabus.</div>`
+    ? `<div class="empty-note">No topics bookmarked yet. Tap the star next to any topic in the syllabus.</div>`
     : topics.map(b => `
         <div class="bm-item" onclick="reviewWeakChapter('${b.cls}','${b.subject}','${b.chapter.replace(/'/g,"\\'")}')" style="cursor:pointer;">
           <div>
             <div class="bm-title">${b.title}</div>
             <div class="bm-sub">${b.subtitle}</div>
           </div>
-          <div class="bm-remove" onclick="event.stopPropagation(); removeBookmark('${b.id}')">✕</div>
+          <div class="bm-remove" onclick="event.stopPropagation(); removeBookmark('${b.id}')">${ICO.close}</div>
         </div>
       `).join('');
 
   document.getElementById('bm-questions-list').innerHTML = questions.length === 0
-    ? `<div class="empty-note">No questions bookmarked yet. Tap the ☆ on a quiz review answer to save it.</div>`
+    ? `<div class="empty-note">No questions bookmarked yet. Tap the star on a quiz review answer to save it.</div>`
     : questions.map(b => `
         <div class="bm-item">
           <div>
             <div class="bm-title">${b.title}</div>
             <div class="bm-sub">${b.subject || ''} · Answer: ${b.options[b.correctIndex]}</div>
           </div>
-          <div class="bm-remove" onclick="removeBookmark('${b.id}')">✕</div>
+          <div class="bm-remove" onclick="removeBookmark('${b.id}')">${ICO.close}</div>
         </div>
       `).join('');
 
@@ -5590,20 +5617,20 @@ function computeAchievements(profile){
   });
 
   return [
-    {id:'first_steps', title:'First Steps', desc:'Set up your Synapse 12 profile', icon:'🎬', color:'violet', unlocked:true},
-    {id:'first_quiz', title:'First Quiz', desc:'Complete your first quiz', icon:'📝', color:'blue', unlocked:quizHistory.length>=1},
-    {id:'quiz_master', title:'Quiz Master', desc:'Complete 10 quizzes', icon:'🎓', color:'blue', unlocked:quizHistory.length>=10, progress:`${Math.min(quizHistory.length,10)}/10`},
-    {id:'perfect_score', title:'Perfect Score', desc:'Score 100% in a quiz', icon:'💯', color:'gold', unlocked:perfectQuizzes>=1},
-    {id:'focused_mind', title:'Focused Mind', desc:'Complete your first focus session', icon:'⏱️', color:'orange', unlocked:stats.focusMinutes>=1},
-    {id:'deep_focus', title:'Deep Focus', desc:'Accumulate 10 hours of focus time', icon:'🧘', color:'orange', unlocked:stats.focusMinutes>=600, progress:`${Math.min(Math.round(stats.focusMinutes/60),10)}/10h`},
-    {id:'on_fire', title:'On Fire', desc:'Reach a 3-day streak', icon:'🔥', color:'red', unlocked:stats.streak>=3},
-    {id:'unstoppable', title:'Unstoppable', desc:'Reach a 7-day streak', icon:'⚡', color:'red', unlocked:stats.streak>=7, progress:`${Math.min(stats.streak,7)}/7`},
-    {id:'century', title:'Century Streak', desc:'Reach a 30-day streak', icon:'🏅', color:'red', unlocked:stats.streak>=30, progress:`${Math.min(stats.streak,30)}/30`},
-    {id:'topic_master', title:'Topic Master', desc:'Mark 10 topics as Mastered', icon:'⭐', color:'green', unlocked:masteredCount>=10, progress:`${Math.min(masteredCount,10)}/10`},
-    {id:'planner_pro', title:'Planner Pro', desc:'Complete 10 planned tasks', icon:'✅', color:'teal', unlocked:completedTasks>=10, progress:`${Math.min(completedTasks,10)}/10`},
-    {id:'bookworm', title:'Bookworm', desc:'Bookmark 5 items', icon:'🔖', color:'pink', unlocked:bookmarksCount>=5, progress:`${Math.min(bookmarksCount,5)}/5`},
-    {id:'xp_500', title:'Rising Star', desc:'Reach 500 XP', icon:'🌟', color:'gold', unlocked:stats.xp>=500, progress:`${Math.min(stats.xp,500)}/500`},
-    {id:'xp_2000', title:'XP Legend', desc:'Reach 2000 XP', icon:'👑', color:'gold', unlocked:stats.xp>=2000, progress:`${Math.min(stats.xp,2000)}/2000`}
+    {id:'first_steps', title:'First Steps', desc:'Set up your Synapse 12 profile', icon:'playc', color:'violet', unlocked:true},
+    {id:'first_quiz', title:'First Quiz', desc:'Complete your first quiz', icon:'quiz', color:'blue', unlocked:quizHistory.length>=1},
+    {id:'quiz_master', title:'Quiz Master', desc:'Complete 10 quizzes', icon:'cap', color:'blue', unlocked:quizHistory.length>=10, progress:`${Math.min(quizHistory.length,10)}/10`},
+    {id:'perfect_score', title:'Perfect Score', desc:'Score 100% in a quiz', icon:'target', color:'gold', unlocked:perfectQuizzes>=1},
+    {id:'focused_mind', title:'Focused Mind', desc:'Complete your first focus session', icon:'stopwatch', color:'orange', unlocked:stats.focusMinutes>=1},
+    {id:'deep_focus', title:'Deep Focus', desc:'Accumulate 10 hours of focus time', icon:'calm', color:'orange', unlocked:stats.focusMinutes>=600, progress:`${Math.min(Math.round(stats.focusMinutes/60),10)}/10h`},
+    {id:'on_fire', title:'On Fire', desc:'Reach a 3-day streak', icon:'flame', color:'red', unlocked:stats.streak>=3},
+    {id:'unstoppable', title:'Unstoppable', desc:'Reach a 7-day streak', icon:'bolt', color:'red', unlocked:stats.streak>=7, progress:`${Math.min(stats.streak,7)}/7`},
+    {id:'century', title:'Century Streak', desc:'Reach a 30-day streak', icon:'medal', color:'red', unlocked:stats.streak>=30, progress:`${Math.min(stats.streak,30)}/30`},
+    {id:'topic_master', title:'Topic Master', desc:'Mark 10 topics as Mastered', icon:'star', color:'green', unlocked:masteredCount>=10, progress:`${Math.min(masteredCount,10)}/10`},
+    {id:'planner_pro', title:'Planner Pro', desc:'Complete 10 planned tasks', icon:'checkc', color:'teal', unlocked:completedTasks>=10, progress:`${Math.min(completedTasks,10)}/10`},
+    {id:'bookworm', title:'Bookworm', desc:'Bookmark 5 items', icon:'bookmark', color:'pink', unlocked:bookmarksCount>=5, progress:`${Math.min(bookmarksCount,5)}/5`},
+    {id:'xp_500', title:'Rising Star', desc:'Reach 500 XP', icon:'sparkle', color:'gold', unlocked:stats.xp>=500, progress:`${Math.min(stats.xp,500)}/500`},
+    {id:'xp_2000', title:'XP Legend', desc:'Reach 2000 XP', icon:'crown', color:'gold', unlocked:stats.xp>=2000, progress:`${Math.min(stats.xp,2000)}/2000`}
   ];
 }
 
@@ -5685,13 +5712,13 @@ function openQBankChapter(cls, subject, chapter){
       <div class="qb-question-card">
         <div class="qb-q-top">
           <div class="qb-q-text">${i+1}. ${q.q}</div>
-          <span class="bookmark-star" onclick='readQBankQuestionAloud(${JSON.stringify(q.q)}, ${JSON.stringify(q.options)})' aria-label="Read question aloud">🔊</span>
-          <span class="bookmark-star ${bookmarked?'active':''}" onclick='toggleQBankBookmark(${JSON.stringify(q.q)}, ${JSON.stringify(q.options)}, ${q.correct}, ${JSON.stringify(q.explanation)}, ${JSON.stringify(subject)}, this)'>${bookmarked?'★':'☆'}</span>
-          <div class="qb-solved-check ${solved?'solved':''}" onclick="toggleQBankSolved('${qid}', this)">${solved?'✓':''}</div>
+          <span class="bookmark-star" onclick='readQBankQuestionAloud(${JSON.stringify(q.q)}, ${JSON.stringify(q.options)})' aria-label="Read question aloud">${ICO.volume}</span>
+          <span class="bookmark-star ${bookmarked?'active':''}" onclick='toggleQBankBookmark(${JSON.stringify(q.q)}, ${JSON.stringify(q.options)}, ${q.correct}, ${JSON.stringify(q.explanation)}, ${JSON.stringify(subject)}, this)'>${bookmarked?ICO.star:ICO.star}</span>
+          <div class="qb-solved-check ${solved?'solved':''}" onclick="toggleQBankSolved('${qid}', this)">${solved?ICO.check:''}</div>
         </div>
         <div class="qb-reveal-btn" onclick="toggleQBankAnswer(this)">Show answer & explanation</div>
         <div class="qb-answer-panel">
-          ${q.options.map((opt, idx) => `<div class="qb-opt ${idx===q.correct?'correct':''}">${idx===q.correct?'✓ ':''}${opt}</div>`).join('')}
+          ${q.options.map((opt, idx) => `<div class="qb-opt ${idx===q.correct?'correct':''}">${idx===q.correct?ICO.check+' ':''}${opt}</div>`).join('')}
           <div class="qb-exp">${q.explanation}</div>
         </div>
       </div>
@@ -5707,12 +5734,12 @@ function toggleQBankAnswer(el){
 function toggleQBankSolved(qid, el){
   const nowSolved = toggleSolved(qid);
   el.classList.toggle('solved', nowSolved);
-  el.textContent = nowSolved ? '✓' : '';
+  el.innerHTML = nowSolved ? ICO.check : '';
 }
 function toggleQBankBookmark(question, options, correctIndex, explanation, subject, el){
   const id = makeId('q_'+question);
   const nowActive = toggleBookmark({id, type:'question', title:question, options, correctIndex, explanation, subject});
-  el.textContent = nowActive ? '★' : '☆';
+  el.innerHTML = ICO.star;
   el.classList.toggle('active', nowActive);
 }
 
@@ -5726,7 +5753,7 @@ function openAchievements(){
 
   document.getElementById('ach-list').innerHTML = achievements.map(a => `
     <div class="ach-card ${a.unlocked?'':'locked'}">
-      <span class="icon-badge badge-${a.color}" style="width:44px;height:44px;font-size:20px;">${a.unlocked ? a.icon : '🔒'}</span>
+      <span class="icon-badge badge-${a.color}" style="width:44px;height:44px;font-size:20px;">${ICO[a.unlocked ? a.icon : 'lock']}</span>
       <div>
         <div class="ach-title">${a.title}</div>
         <div class="ach-desc">${a.desc}</div>
@@ -5939,8 +5966,8 @@ function renderBacklog(){
           Missed · was for ${t.date}
         </div>
       </div>
-      <div class="task-delete" onclick="rescheduleToToday('${t.id}')" title="Move to today">↻</div>
-      <div class="task-delete" onclick="deleteTask('${t.id}')">✕</div>
+      <div class="task-delete" onclick="rescheduleToToday('${t.id}')" title="Move to today">${ICO.refresh}</div>
+      <div class="task-delete" onclick="deleteTask('${t.id}')">${ICO.close}</div>
     </div>
   `).join('');
 }
@@ -5957,7 +5984,7 @@ function renderTaskList(){
   }
   listEl.innerHTML = tasks.map(t => `
     <div class="task-row">
-      <div class="task-check ${t.done?'done':''}" onclick="toggleTaskDone('${t.id}')">${t.done?'✓':''}</div>
+      <div class="task-check ${t.done?'done':''}" onclick="toggleTaskDone('${t.id}')">${t.done?ICO.check:''}</div>
       <div class="task-body">
         <div class="task-title ${t.done?'done':''}">${t.title}</div>
         <div class="task-meta">
@@ -5965,7 +5992,7 @@ function renderTaskList(){
           ${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)} priority${t.subject ? ' · '+t.subject : ''}
         </div>
       </div>
-      <div class="task-delete" onclick="deleteTask('${t.id}')">✕</div>
+      <div class="task-delete" onclick="deleteTask('${t.id}')">${ICO.close}</div>
     </div>
   `).join('');
 }
@@ -6461,16 +6488,16 @@ function resumeLastStudied(){
 }
 
 const SUBJECT_ICON = {
-  "Maths": {emoji:"➗", color:"violet"},
-  "Science": {emoji:"🔬", color:"green"},
-  "Physics": {emoji:"⚛️", color:"blue"},
-  "Chemistry": {emoji:"🧪", color:"teal"},
-  "Biology": {emoji:"🧬", color:"green"},
-  "English": {emoji:"📖", color:"gold"},
-  "Social Science": {emoji:"🌍", color:"orange"}
+  "Maths": {emoji:"calc", color:"violet"},
+  "Science": {emoji:"flask", color:"green"},
+  "Physics": {emoji:"atom", color:"blue"},
+  "Chemistry": {emoji:"tube", color:"teal"},
+  "Biology": {emoji:"sprout", color:"green"},
+  "English": {emoji:"book", color:"gold"},
+  "Social Science": {emoji:"globe", color:"orange"}
 };
 function getSubjectIcon(subject){
-  return SUBJECT_ICON[subject] || {emoji:"📘", color:"violet"};
+  return SUBJECT_ICON[subject] || {emoji:"book", color:"violet"};
 }
 
 function renderChapters(){
@@ -6494,12 +6521,12 @@ function renderChapters(){
     return `
       <div class="chapter-card ${isOpen?'open':''}">
         <div class="chapter-head" onclick="toggleChapter('${chapter.replace(/'/g,"\\'")}')">
-          <span class="icon-badge badge-${icon.color}" style="width:36px;height:36px;font-size:16px;margin-right:12px;">${icon.emoji}</span>
+          <span class="icon-badge badge-${icon.color}" style="width:36px;height:36px;font-size:16px;margin-right:12px;">${ICO[icon.emoji] || ICO.book}</span>
           <div class="ch-left">
             <div class="ch-title">${chapter}</div>
             <div class="ch-meta">${chPct}% complete</div>
           </div>
-          <div class="chapter-caret">▾</div>
+          <div class="chapter-caret">${ICO.chevd}</div>
         </div>
         <div class="topic-list">
           ${topics.map(topic => {
@@ -6507,7 +6534,7 @@ function renderChapters(){
             return `
               <div class="topic-row">
                 <div class="topic-name">${topic}</div>
-                <span class="bookmark-star ${isBookmarked(makeId(`topic_${cls}_${subject}_${chapter}_${topic}`))?'active':''}" onclick="toggleBookmarkTopic('${cls}','${subject}','${chapter.replace(/'/g,"\\'")}', '${topic.replace(/'/g,"\\'")}')">${isBookmarked(makeId(`topic_${cls}_${subject}_${chapter}_${topic}`))?'★':'☆'}</span>
+                <span class="bookmark-star ${isBookmarked(makeId(`topic_${cls}_${subject}_${chapter}_${topic}`))?'active':''}" onclick="toggleBookmarkTopic('${cls}','${subject}','${chapter.replace(/'/g,"\\'")}', '${topic.replace(/'/g,"\\'")}')">${isBookmarked(makeId(`topic_${cls}_${subject}_${chapter}_${topic}`))?ICO.star:ICO.star}</span>
                 <div class="status-pill" data-status="${status}" onclick="cycleTopicStatus('${cls}','${subject}','${chapter.replace(/'/g,"\\'")}', '${topic.replace(/'/g,"\\'")}')">${STATUS_LABEL[status]}</div>
               </div>
             `;
@@ -6563,8 +6590,8 @@ introPlay();
 
 <div class="read-aloud-bar" id="read-aloud-bar">
   <div class="ra-controls">
-    <button onclick="toggleReadAloudPause()" id="ra-play-pause-btn" aria-label="Play or pause reading">⏸</button>
-    <button onclick="stopReadAloud()" aria-label="Stop reading">⏹</button>
+    <button onclick="toggleReadAloudPause()" id="ra-play-pause-btn" aria-label="Play or pause reading"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.3" fill="currentColor" stroke="none"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.3" fill="currentColor" stroke="none"/></svg></button>
+    <button onclick="stopReadAloud()" aria-label="Stop reading"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3" fill="currentColor" stroke="none"/></svg></button>
   </div>
   <button class="ra-speed" onclick="cycleReadAloudSpeed()" id="ra-speed-btn" aria-label="Change reading speed">1x</button>
 </div>
