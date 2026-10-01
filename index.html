@@ -1507,6 +1507,24 @@
   .rz-attach-menu button .ico,.rz-attach-btn .ico{width:18px; height:18px;} .room-copy-btn .ico{width:14px; height:14px;}
   .board-eraser-btn .ico{width:16px; height:16px;} .ct-icon .ico{width:28px; height:28px; color:#fff;}
   .btn .ico{width:16px; height:16px; vertical-align:-0.2em;}
+
+  /* ---------- AI Ask ---------- */
+  #screen-ai{padding:0 !important;
+    --ct-own:#CDEFDD; --ct-own-ink:#0F2B20; --ct-oth:#FFFFFF; --ct-oth-ink:#0F1C17; --ct-wall:#E8F0EB; --ct-send:#2E6B52; --ct-send-ink:#fff;}
+  :root[data-theme="dark"] #screen-ai{--ct-own:#1F5A43; --ct-own-ink:#EAF3EE; --ct-oth:#16211D; --ct-oth-ink:#EAF3EE; --ct-wall:#0C1613; --ct-send:#8FE3B8; --ct-send-ink:#0A1A13;}
+  .ai-av{background:var(--grad-violet); color:var(--on-accent);} .ai-av .ico{width:22px; height:22px;}
+  .cm.ai{max-width:92%;} .cm.ai .cm-text{padding-right:0;} .cm.ai .cm-time{display:none;}
+  .cm-name .ico{width:12px; height:12px; vertical-align:-1px;}
+  .cm.ai .cm-text b{font-weight:800;} .cm.ai code{background:rgba(0,0,0,.08); padding:1px 5px; border-radius:6px; font-size:.92em;}
+  :root[data-theme="dark"] .cm.ai code{background:rgba(255,255,255,.1);}
+  .cm.ai pre{background:rgba(0,0,0,.08); padding:8px 10px; border-radius:10px; overflow-x:auto; font-size:12.5px; margin:6px 0;}
+  .ai-chips{display:flex; flex-wrap:wrap; gap:8px; padding:6px 4px 4px; justify-content:center;}
+  .ai-chip{padding:10px 14px; border-radius:18px; background:var(--card); border:1px solid var(--card-border); color:var(--text); font-size:13px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-sm); font-family:inherit; text-align:left;}
+  .ai-hello{text-align:center; margin:auto 0 10px; padding:0 14px;} .ai-hello .rz-empty-ic .ico{color:var(--violet); width:44px; height:44px;}
+  .ai-hello h3{font-size:20px; font-weight:800; margin:6px 0 4px;} .ai-hello p{font-size:13.5px; color:var(--text-dim); line-height:1.5;}
+  .typing{display:inline-flex; gap:5px; padding:4px 2px;} .typing i{width:7px; height:7px; border-radius:50%; background:var(--text-dim); animation:aityping 1.2s infinite ease-in-out;}
+  .typing i:nth-child(2){animation-delay:.18s;} .typing i:nth-child(3){animation-delay:.36s;}
+  @keyframes aityping{0%,80%,100%{opacity:.25; transform:translateY(0)}40%{opacity:1; transform:translateY(-3px)}}
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1679,7 +1697,7 @@
         <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.6" r="7.4"/><path d="M12 9.6v4.2l2.6 1.6M9.6 2.8h4.8M12 2.8v3.4"/></svg></div>
         <div class="d2-quick-label">Focus</div>
       </div>
-      <div class="d2-quick-card ai" onclick="alert('Ask Synapse AI — wiring this up next, once we pick an AI provider/backend.')" role="button" tabindex="0">
+      <div class="d2-quick-card ai" onclick="openAI()" role="button" tabindex="0">
         <div class="d2-quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z"/></svg></div>
         <div class="d2-quick-label">AI Ask</div>
       </div>
@@ -2373,6 +2391,26 @@
   </nav>
 </section>
 
+
+<section id="screen-ai" class="screen">
+  <div class="rm2-wrap">
+    <div class="rm2-head">
+      <div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div>
+      <div class="rm2-av ai-av"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z"/></svg></div>
+      <div class="rm2-htext"><div class="rm2-name">Synapse AI</div><div class="rm2-sub">Ask doubts. Get step by step answers.</div></div>
+      <div class="rm2-iconbtn" onclick="clearAIChat()" role="button" aria-label="Clear chat" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5"/></svg></div>
+    </div>
+    <div class="rm2-chat ai-chat" id="ai-chat"></div>
+    <div class="rz-pending" id="ai-pending" style="display:none;"></div>
+    <div class="rm2-inputbar">
+      <button class="rm2-attach" onclick="document.getElementById('ai-file').click()" aria-label="Attach photo of a question"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 8.5A1.5 1.5 0 0 1 6 7h2l1.2-2h5.6L16 7h2a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19H6a1.5 1.5 0 0 1-1.5-1.5v-9Z"/><circle cx="12" cy="12.8" r="3.4"/></svg></button>
+      <input type="text" id="ai-input" placeholder="Ask a doubt..." maxlength="1000" onkeydown="if(event.key==='Enter') sendAI();">
+      <button class="rm2-send" id="ai-send" onclick="sendAI()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.5-6.5L4 12Z"/><path d="m12 13.5 8-9.5"/></svg></button>
+    </div>
+  </div>
+</section>
+<input type="file" id="ai-file" accept="image/*" hidden onchange="onAIImageChosen(this)">
+
 <!-- ============ STUDY ROOMS: ROOM (Chat / Board / Notes / Info) ============ -->
 <section id="screen-room" class="screen" data-ct="sage">
   <div class="rm2-wrap">
@@ -2617,6 +2655,8 @@
 
 <script>
 const ICO = {"quiz": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"3\"/><path d=\"M9 4V3h6v1\"/><path d=\"m9 13.2 2 2 4-4.6\"/></svg>", "library": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3 21 8l-9 5-9-5 9-5Z\"/><path d=\"m3 12.5 9 5 9-5\"/><path d=\"m3 17 9 5 9-5\"/></svg>", "stats": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 20v-7M12 20V5M19 20v-10\"/></svg>", "rooms": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"3.3\"/><path d=\"M2.8 20c0-3.4 2.8-6 6.2-6s6.2 2.6 6.2 6\"/><circle cx=\"17.4\" cy=\"9\" r=\"2.4\"/><path d=\"M16.6 14.3c2.6.3 4.6 2.3 4.6 5\"/></svg>", "user": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"3.7\"/><path d=\"M4.5 20c0-4 3.4-6.3 7.5-6.3s7.5 2.3 7.5 6.3\"/></svg>", "trophy": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 4h8v5a4 4 0 0 1-8 0V4Z\"/><path d=\"M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4\"/><path d=\"M12 13v4M8.5 20h7M10 17h4\"/></svg>", "bookmark": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z\"/></svg>", "help": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9\"/><circle cx=\"12\" cy=\"16.8\" r=\".6\" fill=\"currentColor\"/></svg>", "book": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 6.6C10 5 7 4.5 3.5 5v13.2c3.5-.5 6.5 0 8.5 1.6 2-1.6 5-2.1 8.5-1.6V5c-3.5-.5-6.5 0-8.5 1.6Z\"/><path d=\"M12 6.6v13\"/></svg>", "hourglass": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10M7 20.5h10\"/><path d=\"M8 3.5c0 4 4 5 4 8.5s-4 4.5-4 8.5M16 3.5c0 4-4 5-4 8.5s4 4.5 4 8.5\"/></svg>", "repeat": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 11V9a3 3 0 0 1 3-3h11\"/><path d=\"m15 3 3 3-3 3\"/><path d=\"M20 13v2a3 3 0 0 1-3 3H6\"/><path d=\"m9 21-3-3 3-3\"/></svg>", "stopwatch": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"13.6\" r=\"7.4\"/><path d=\"M12 9.6v4.2l2.6 1.6M9.6 2.8h4.8M12 2.8v3.4\"/></svg>", "contrast": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 3.5a8.5 8.5 0 0 1 0 17Z\" fill=\"currentColor\"/></svg>", "info": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v5\"/><circle cx=\"12\" cy=\"7.9\" r=\".7\" fill=\"currentColor\"/></svg>", "lock": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"3\"/><path d=\"M8 10.5V8a4 4 0 0 1 8 0v2.5\"/></svg>", "globe": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18\"/></svg>", "volume": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z\"/><path d=\"M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11\"/></svg>", "play": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 5.2v13.6L19.4 12 8 5.2Z\" fill=\"currentColor\" stroke=\"none\"/></svg>", "pause": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"6\" y=\"5\" width=\"4.2\" height=\"14\" rx=\"1.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"13.8\" y=\"5\" width=\"4.2\" height=\"14\" rx=\"1.3\" fill=\"currentColor\" stroke=\"none\"/></svg>", "stop": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"3\" fill=\"currentColor\" stroke=\"none\"/></svg>", "image": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"3\"/><circle cx=\"9\" cy=\"10\" r=\"1.6\"/><path d=\"m4 17 5-4.5 4 3.5 3-2.5 4 3\"/></svg>", "file": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z\"/><path d=\"M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5\"/></svg>", "crown": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m4 8 4 4 4-6 4 6 4-4-1.5 10h-13L4 8Z\"/></svg>", "copy": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"8.5\" y=\"8.5\" width=\"11\" height=\"11\" rx=\"2.5\"/><path d=\"M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5\"/></svg>", "chat": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 5h14a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 19 17h-7l-5 4v-4H5a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 5 5Z\"/></svg>", "eraser": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 19.5h10M5.2 15.8a2 2 0 0 1 0-2.8l7-7a2 2 0 0 1 2.8 0l3.3 3.3a2 2 0 0 1 0 2.8l-6 6H8.6l-3.4-3.3Z\"/></svg>", "notes": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10A1.5 1.5 0 0 1 18.5 5v14a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z\"/><path d=\"M9 8.5h6M9 12h6M9 15.5h3.5\"/></svg>", "chevl": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m15 5-7 7 7 7\"/></svg>", "chevr": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m9 5 7 7-7 7\"/></svg>", "chevd": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg>", "arrowr": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>", "close": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg>", "star": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8L12 3.5Z\"/></svg>", "check": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5 12.5 4.5 4.5L19 7.5\"/></svg>", "x": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg>", "ext": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 17 17 7M9 7h8v8\"/></svg>", "refresh": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4\"/></svg>", "wave": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 12V6.5a1.5 1.5 0 0 1 3 0V11M11 10V5a1.5 1.5 0 0 1 3 0v6M14 10V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.5a5 5 0 0 1-4-2L4.5 14.5a1.5 1.5 0 0 1 2.3-1.9L8 14\"/></svg>", "share": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"12\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"6\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"18\" r=\"2.5\"/><path d=\"m8.2 10.8 7-3.6M8.2 13.2l7 3.6\"/></svg>", "calc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"5\" y=\"3.5\" width=\"14\" height=\"17\" rx=\"3\"/><path d=\"M8.5 7.5h7\"/><path d=\"M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01\" stroke-width=\"2.4\"/></svg>", "flask": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 3.5h6M10 3.5v6l-4.3 8A2 2 0 0 0 7.4 20.5h9.2a2 2 0 0 0 1.7-3L14 9.5v-6\"/><path d=\"M8 15.5h8\"/></svg>", "atom": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" transform=\"rotate(60 12 12)\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"3.6\" transform=\"rotate(-60 12 12)\"/></svg>", "tube": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M8 3.5h8M9.5 3.5v13a2.5 2.5 0 0 0 5 0v-13\"/><path d=\"M9.5 12h5\"/></svg>", "sprout": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21V11\"/><path d=\"M12 13c-5 .5-8-2-8.5-7 5 0 8.2 2 8.5 7Z\"/><path d=\"M12 11c0-4 2.6-6.6 8-7 .3 5-2.6 7.6-8 7Z\"/></svg>", "type": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 6.5V5h14v1.5M12 5v14M9 19h6\"/></svg>", "playc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m10 8.5 5 3.5-5 3.5V8.5Z\"/></svg>", "cap": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m2.5 9 9.5-4.5L21.5 9 12 13.5 2.5 9Z\"/><path d=\"M6.5 11.5v4c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3v-4M21.5 9v5\"/></svg>", "target": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.3\" fill=\"currentColor\"/></svg>", "calm": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.5 13.5c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2M9 9.5h.01M15 9.5h.01\" stroke-width=\"2\"/></svg>", "flame": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 21c-4 0-6.5-2.8-6.5-6.2 0-3 2-4.6 3.2-7 .4 1.2 1.2 2 2.3 2.4C11 7 12.2 4.5 13.5 3c.3 3.4 5 5.4 5 11.4C18.5 18.2 16 21 12 21Z\"/></svg>", "bolt": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M13 3 5 13.5h6L10 21l9-11h-6.2L13 3Z\"/></svg>", "medal": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"14.5\" r=\"5.5\"/><path d=\"m8.5 3.5 3.5 6 3.5-6M12 12.2v4.6\"/></svg>", "checkc": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12.4 2.8 2.8 5.2-5.6\"/></svg>", "sparkle": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z\"/></svg>", "landmark": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3.5 9 12 4l8.5 5M5.5 9.5v8M9.5 9.5v8M14.5 9.5v8M18.5 9.5v8M3.5 20h17\"/></svg>", "pulse": "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20Z\"/><path d=\"M6 12h3l1.5-2.5 2 4 1.5-1.5H18\"/></svg>"};
+ICO.camera = "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4.5 8.5A1.5 1.5 0 0 1 6 7h2l1.2-2h5.6L16 7h2a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19H6a1.5 1.5 0 0 1-1.5-1.5v-9Z\"/><circle cx=\"12\" cy=\"12.8\" r=\"3.4\"/></svg>";
+ICO.trash = "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5\"/></svg>";
 /* =========================================================
    SYNAPSE 12 — Firebase now connected (Google Auth live).
    ========================================================= */
@@ -5083,6 +5123,108 @@ function scheduleChallengeRefresh(){
       });
     }).catch(() => {});
   }, 4000);
+}
+
+
+// =========================================================
+// AI ASK — talks to the Cloudflare Worker (see AI-SETUP.md).
+// The Gemini key lives only inside the Worker, never in this file.
+// =========================================================
+const AI_WORKER_URL = 'https://synapse1.gurjarvijay250309.workers.dev';
+const AI_KEY = 'synapse12_ai_chat';
+let aiMessages = [], aiBusy = false, aiPendingImage = null;
+function aiLoad(){ try{ aiMessages = JSON.parse(localStorage.getItem(AI_KEY) || '[]') || []; }catch(e){ aiMessages = []; } }
+function aiSave(){ try{ localStorage.setItem(AI_KEY, JSON.stringify(aiMessages.slice(-30).map((m) => ({ role: m.role, text: m.text, t: m.t })))); }catch(e){} }
+function openAI(){
+  requireGoogleAuth('Synapse AI', () => { aiLoad(); renderAIChat(); goTo('screen-ai'); setTimeout(() => { const b = document.getElementById('ai-chat'); b.scrollTop = b.scrollHeight; }, 50); });
+}
+function aiFormat(t){
+  let h = esc(t);
+  h = h.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+  h = h.replace(/^[ \t]*[\*\-] /gm, '\u2022 ');
+  h = h.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  return h;
+}
+function aiSuggestions(){
+  const out = [];
+  const ls = getLastStudied();
+  if(ls && (ls.chapter || ls.subject)) out.push('Explain ' + (ls.chapter || ls.subject) + ' in simple words');
+  out.push('Give me 3 practice questions to test myself', 'Make a 7 day study plan for my weakest subject', 'How do I stop getting distracted while studying?');
+  return out.slice(0, 4);
+}
+function renderAIChat(){
+  const box = document.getElementById('ai-chat'); if(!box) return;
+  let html = '';
+  if(!aiMessages.length){
+    html += `<div class="ai-hello"><div class="rz-empty-ic">${ICO.sparkle}</div><h3>Ask me anything</h3><p>Type a doubt or attach a photo of a question. I will explain step by step.</p></div>
+      <div class="ai-chips">${aiSuggestions().map((q) => `<button class="ai-chip" onclick="sendAI(this.textContent)">${esc(q)}</button>`).join('')}</div>`;
+  }
+  let last = '';
+  aiMessages.forEach((m) => {
+    const label = dayLabel(m.t || Date.now());
+    if(label !== last){ html += `<div class="cm-day"><span>${label}</span></div>`; last = label; }
+    if(m.role === 'user') html += `<div class="cm own"><div class="cm-text">${esc(m.text)}</div><span class="cm-time">${fmtTime(m.t)}</span></div>`;
+    else html += `<div class="cm other ai first"><div class="cm-name" style="color:var(--violet)">${ICO.sparkle} Synapse AI</div><div class="cm-text">${aiFormat(m.text)}</div></div>`;
+  });
+  if(aiBusy) html += `<div class="cm other ai first"><div class="cm-name" style="color:var(--violet)">${ICO.sparkle} Synapse AI</div><div class="typing"><i></i><i></i><i></i></div></div>`;
+  box.innerHTML = html; box.scrollTop = box.scrollHeight;
+}
+function clearAIChat(){
+  if(!aiMessages.length) return;
+  if(confirm('Clear this chat?')){ aiMessages = []; aiSave(); aiPendingImage = null; renderAIPending(); renderAIChat(); }
+}
+function onAIImageChosen(input){
+  const f = input.files && input.files[0]; input.value = '';
+  if(!f) return;
+  loadImageFromFile(f).then((img) => {
+    const url = drawScaled(img, 1024, 0.72);
+    aiPendingImage = { mime: 'image/jpeg', data: url.split(',')[1], thumb: drawScaled(img, 120, 0.6) };
+    renderAIPending();
+  }).catch((err) => alert(err.message));
+}
+function renderAIPending(){
+  const el = document.getElementById('ai-pending'); if(!el) return;
+  el.style.display = aiPendingImage ? 'flex' : 'none';
+  el.innerHTML = aiPendingImage ? `<div class="rz-chip"><img src="${aiPendingImage.thumb}" alt=""><span class="rz-chip-n">Photo attached</span><button onclick="aiPendingImage=null; renderAIPending();" aria-label="Remove">\u00d7</button></div>` : '';
+}
+function getIdTokenSafe(){
+  return new Promise((resolve) => {
+    if(auth.currentUser){ auth.currentUser.getIdToken().then(resolve).catch(() => resolve(null)); return; }
+    let done = false;
+    const unsub = auth.onAuthStateChanged((u) => { if(done) return; done = true; unsub && unsub(); u ? u.getIdToken().then(resolve).catch(() => resolve(null)) : resolve(null); });
+    setTimeout(() => { if(!done){ done = true; resolve(null); } }, 4000);
+  });
+}
+function aiReply(text){ aiMessages.push({ role: 'assistant', text, t: Date.now() }); aiSave(); }
+async function sendAI(textOverride){
+  if(aiBusy) return;
+  const input = document.getElementById('ai-input');
+  const text = (typeof textOverride === 'string' ? textOverride : input.value).trim();
+  if(!text && !aiPendingImage) return;
+  const q = text || 'Please solve the question in this photo step by step.';
+  aiMessages.push({ role: 'user', text: aiPendingImage ? q + '  [photo attached]' : q, t: Date.now() });
+  const image = aiPendingImage; aiPendingImage = null; renderAIPending(); input.value = '';
+  if(AI_WORKER_URL.indexOf('PASTE') !== -1){ aiReply('AI Ask is almost ready. The AI server link has not been added to the app yet.'); renderAIChat(); return; }
+  aiBusy = true; renderAIChat(); document.getElementById('ai-send').disabled = true;
+  try{
+    const token = await getIdTokenSafe();
+    if(!token) throw { status: 401 };
+    const profile = JSON.parse(localStorage.getItem('synapse12_profile') || '{}');
+    const history = aiMessages.slice(-10).map((m, i, arr) => ({ role: m.role, text: m.text.replace('  [photo attached]', '') }));
+    const res = await fetch(AI_WORKER_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ messages: history, image: image ? { mime: image.mime, data: image.data } : undefined, context: { class: profile.class, goal: profile.goal && profile.goal.title } })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw { status: res.status, msg: data.error };
+    aiReply(data.reply || 'No answer came back. Try again.');
+  }catch(err){
+    const st = err && err.status;
+    aiReply(st === 401 ? 'Please log out and log in again, then ask again.'
+      : st === 429 ? (err.msg || 'AI is busy right now. Try again in a minute.')
+      : (err && err.msg) || 'Could not reach the AI. Check your internet and try again.');
+  }
+  aiBusy = false; document.getElementById('ai-send').disabled = false; renderAIChat();
 }
 
 function openMoreMenu(){
