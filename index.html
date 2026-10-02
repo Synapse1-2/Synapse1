@@ -2397,7 +2397,7 @@
     <div class="rm2-head">
       <div class="back-arrow-btn" onclick="goTo('screen-dashboard')" role="button" aria-label="Back" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></div>
       <div class="rm2-av ai-av"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c.7 4.8 3 8.1 9.8 9.8-6.8 1.7-9.1 5-9.8 9.8-.7-4.8-3-8.1-9.8-9.8C9 10.3 11.3 7 12 2.2Z"/></svg></div>
-      <div class="rm2-htext"><div class="rm2-name">Synapse AI</div><div class="rm2-sub">Ask doubts. Get step by step answers.</div></div>
+      <div class="rm2-htext"><div class="rm2-name">Synapse AI</div><div class="rm2-sub" id="ai-sub">Ask doubts. Get step by step answers.</div></div>
       <div class="rm2-iconbtn" onclick="clearAIChat()" role="button" aria-label="Clear chat" tabindex="0"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5"/></svg></div>
     </div>
     <div class="rm2-chat ai-chat" id="ai-chat"></div>
@@ -2518,6 +2518,7 @@
           <button class="btn btn-primary" onclick="createChallenge()">Start challenge</button>
         </div>
 
+        <div class="rm-empty" style="margin-top:16px;">To save space, chat messages and files older than 30 days and whiteboard drawings older than 7 days are removed automatically. Notes stay.</div>
         <div class="rz-danger">
           <button class="btn" onclick="leaveRoom()">Leave room</button>
           <button class="btn" id="room-end-btn" style="display:none; color:#E63950; border-color:#E63950;" onclick="endRoomForEveryone()">Delete room</button>
@@ -4788,6 +4789,26 @@ function showRoomPanel(p){
   if(p === 'board') setTimeout(redrawBoardFromCache, 30);
   if(p === 'chat'){ const b = document.getElementById('room-chat-box'); b.scrollTop = b.scrollHeight; }
 }
+
+// ---------- automatic cleanup (keeps Firebase free-plan storage small) ----------
+// Run by the room owner at most once a day when they open the room:
+// chat messages and chat files older than 30 days, whiteboard strokes older than 7 days.
+// Files attached to notes are kept.
+const ROOM_KEEP_DAYS = 30, BOARD_KEEP_DAYS = 7;
+function maybeCleanupRoom(room){
+  const me = getCurrentUser();
+  if(!me || !currentRoomCode || room.ownerUid !== me.uid) return;
+  const key = 'synapse12_cleanup_' + currentRoomCode;
+  if(Date.now() - Number(localStorage.getItem(key) || 0) < 86400000) return;
+  localStorage.setItem(key, String(Date.now()));
+  const ref = roomRef(); const TS = firebase.firestore.Timestamp;
+  const sweep = (col, days, keep) => ref.collection(col).where('createdAt', '<', TS.fromMillis(Date.now() - days * 86400000)).limit(300).get().then((snap) => {
+    const docs = snap.docs.filter((d) => !keep || !keep(d.data()));
+    if(!docs.length) return;
+    const batch = db.batch(); docs.forEach((d) => batch.delete(d.ref)); return batch.commit();
+  }).catch((err) => console.error('Cleanup ' + col + ' failed:', err));
+  sweep('messages', ROOM_KEEP_DAYS); sweep('files', ROOM_KEEP_DAYS, (d) => d.kind === 'note'); sweep('strokes', BOARD_KEEP_DAYS);
+}
 function renderRoomScreen(room){
   const user = getCurrentUser();
   roomMembersCache = room.members || []; roomOwnerUid = room.ownerUid;
@@ -4805,6 +4826,7 @@ function renderRoomScreen(room){
     <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">' + ICO.crown + '</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div></div>`).join('');
   document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
   renderRoomNotes(); renderRoomChallenges(); renderChatMessages(chatCache);
+  maybeCleanupRoom(room);
 }
 function copyRoomCode(){
   if(navigator.clipboard) navigator.clipboard.writeText(currentRoomCode);
@@ -4906,7 +4928,7 @@ function removePending(ctx, i){ pendingAtt[ctx].splice(i, 1); renderPending(ctx)
 function uploadPending(ctx){
   const me = getCurrentUser();
   return Promise.all(pendingAtt[ctx].map((a) => roomRef().collection('files').add({
-    content: a.content, mime: a.mime, name: a.name, size: a.size, type: a.type, uploaderUid: me.uid,
+    content: a.content, mime: a.mime, name: a.name, size: a.size, type: a.type, kind: ctx, uploaderUid: me.uid,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }).then((ref) => ({ type: a.type, fileId: ref.id, fileName: a.name, fileSize: a.size, thumb: a.thumb || null }))));
 }
@@ -5133,10 +5155,22 @@ function scheduleChallengeRefresh(){
 const AI_WORKER_URL = 'https://synapse1.gurjarvijay250309.workers.dev';
 const AI_KEY = 'synapse12_ai_chat';
 let aiMessages = [], aiBusy = false, aiPendingImage = null;
+function aiSetRemaining(n, limit){
+  const el = document.getElementById('ai-sub'); if(!el) return;
+  el.textContent = n == null ? 'Ask doubts. Get step by step answers.' : (n === 0 ? 'Daily limit reached. Back tomorrow!' : n + ' of ' + limit + ' questions left today');
+}
+function istDayNum(){ const t = new Date(Date.now() + 330 * 60000); return t.getUTCFullYear() * 10000 + (t.getUTCMonth() + 1) * 100 + t.getUTCDate(); }
+function aiLoadRemaining(){
+  const u = getCurrentUser(); if(!u || u.isGuest) return;
+  db.collection('aiUsage').doc(u.uid).get().then((d) => {
+    const used = d.exists && d.data().d === istDayNum() ? d.data().count : 0;
+    aiSetRemaining(Math.max(0, 20 - used), 20);
+  }).catch(() => {});
+}
 function aiLoad(){ try{ aiMessages = JSON.parse(localStorage.getItem(AI_KEY) || '[]') || []; }catch(e){ aiMessages = []; } }
 function aiSave(){ try{ localStorage.setItem(AI_KEY, JSON.stringify(aiMessages.slice(-30).map((m) => ({ role: m.role, text: m.text, t: m.t })))); }catch(e){} }
 function openAI(){
-  requireGoogleAuth('Synapse AI', () => { aiLoad(); renderAIChat(); goTo('screen-ai'); setTimeout(() => { const b = document.getElementById('ai-chat'); b.scrollTop = b.scrollHeight; }, 50); });
+  requireGoogleAuth('Synapse AI', () => { aiLoad(); renderAIChat(); aiLoadRemaining(); goTo('screen-ai'); setTimeout(() => { const b = document.getElementById('ai-chat'); b.scrollTop = b.scrollHeight; }, 50); });
 }
 function aiFormat(t){
   let h = esc(t);
@@ -5216,8 +5250,9 @@ async function sendAI(textOverride){
       body: JSON.stringify({ messages: history, image: image ? { mime: image.mime, data: image.data } : undefined, context: { class: profile.class, goal: profile.goal && profile.goal.title } })
     });
     const data = await res.json().catch(() => ({}));
-    if(!res.ok) throw { status: res.status, msg: data.error };
+    if(!res.ok){ if(data.remaining === 0) aiSetRemaining(0, data.limit); throw { status: res.status, msg: data.error }; }
     aiReply(data.reply || 'No answer came back. Try again.');
+    if(data.remaining != null) aiSetRemaining(data.remaining, data.limit);
   }catch(err){
     const st = err && err.status;
     aiReply(st === 401 ? 'Please log out and log in again, then ask again.'
