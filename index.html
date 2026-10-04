@@ -2608,7 +2608,7 @@
           <button class="btn btn-primary" onclick="createChallenge()">Start challenge</button>
         </div>
 
-        <div class="rm-empty" style="margin-top:16px;">To save space, chat messages and files older than 30 days and whiteboard drawings older than 7 days are removed automatically. Notes stay.</div>
+        <div class="rm-empty" style="margin-top:16px;">To save space, chat messages older than 30 days, chat files and whiteboard drawings older than 7 days are removed from the server automatically. Files you opened stay saved on your phone. Notes stay.</div>
         <div class="rz-danger">
           <button class="btn" onclick="leaveRoom()">Leave room</button>
           <button class="btn" id="room-end-btn" style="display:none; color:#E63950; border-color:#E63950;" onclick="endRoomForEveryone()">Delete room</button>
@@ -2622,10 +2622,19 @@
 <input type="file" id="att-input-pdf" accept="application/pdf" hidden onchange="onAttachmentChosen('pdf', this)">
 
 <div class="rz-viewer" id="att-viewer" style="display:none;">
-  <div class="rz-viewer-bar"><span id="att-viewer-name"></span><div><a id="att-viewer-dl" class="rz-viewer-btn" download>Save</a><button class="rz-viewer-btn" onclick="closeViewer()">Close</button></div></div>
+  <div class="rz-viewer-bar"><span id="att-viewer-name"></span><div><button class="rz-viewer-btn" onclick="imageSave()">Save to phone</button><button class="rz-viewer-btn" onclick="closeViewer()">Close</button></div></div>
   <img id="att-viewer-img" alt="">
 </div>
 
+<div class="rz-sheet-bg" id="pdf-sheet" style="display:none;" onclick="if(event.target===this) closePdfSheet()">
+  <div class="rz-sheet">
+    <div class="rz-sheet-grab"></div>
+    <div class="rz-sheet-title" id="pdf-sheet-name">document.pdf</div>
+    <div class="rz-sheet-sub">A copy is also kept inside the app, so it opens next time without internet.</div>
+    <button class="btn btn-primary" onclick="pdfOpen()">Open</button>
+    <button class="btn" onclick="pdfSave()">Save to phone</button>
+  </div>
+</div>
 <div class="rz-sheet-bg" id="room-sheet" style="display:none;" onclick="if(event.target===this) closeRoomSheet()">
   <div class="rz-sheet">
     <div class="rz-sheet-grab"></div>
@@ -2677,8 +2686,8 @@
       </div>
       <p>I made Synapse 12 because I wanted one app that does everything I need for studying, and one that helps me stay away from distractions. Instead of jumping between five different apps, I wanted my plan, my timer, my syllabus, my practice and my study group in one calm place.</p>
       <p>I built it step by step, one feature at a time, and I am still adding more. If you are a student like me, I hope it helps you too.</p>
-      <div class="ab-goal"><span class="ab-goal-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg></span><div><small>My goal</small><b>To earn money and build something of my own</b></div></div>
-      <div class="ab-quote">&ldquo;Paisa!!&rdquo;</div>
+      <div class="ab-goal"><span class="ab-goal-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg></span><div><small>My goal</small><b>To build something of my own and keep growing</b></div></div>
+      <div class="ab-quote">&ldquo;Believe&rdquo;</div>
       <a class="ab-insta" href="https://instagram.com/_nao.core" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.7"/><circle cx="17" cy="7" r=".8" fill="currentColor"/></svg><span>@_nao.core</span><small>Say hi on Instagram</small></a>
       <a class="ab-insta" href="mailto:25snaypse@gmail.com?subject=Synapse%2012%20feedback" style="margin-top:10px;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="m4.5 8 7.5 5.5L19.5 8"/></svg><span>25snaypse@gmail.com</span><small>Feedback</small></a>
     </div>
@@ -2689,8 +2698,8 @@
     <div class="section-title" style="margin-top:18px;">Your data</div>
     <div class="ab-card ab-note">
       <p>When you sign in with Google, your progress is saved to your account so it follows you to any phone. Guests keep everything on their own phone only.</p>
-      <p>Questions you ask Synapse AI are sent to Google's Gemini through a private server to get an answer. Please do not type personal details. Each student gets a limited number of AI questions per day.</p>
-      <p>Room chats and files older than 30 days are removed automatically.</p>
+      <p>Questions you ask Synapse AI are sent through a private server to an AI service to get an answer. Please do not type personal details. Each student gets a limited number of AI questions per day.</p>
+      <p>Room chats older than 30 days and chat files older than 7 days are removed from the server automatically. Files you open are saved on your own phone.</p>
     </div>
 
     
@@ -2822,6 +2831,17 @@ ICO.trash = "<svg class=\"ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path
    ========================================================= */
 
 // ---------- Firebase init ----------
+// ---- offline safety: if the Firebase scripts could not load (no internet on a first visit),
+// use a harmless stand-in so the local features (planner, focus, syllabus, quizzes) still work.
+if(typeof firebase === 'undefined'){
+  const rej = () => Promise.reject({ code: 'offline', message: 'You are offline' });
+  const chain = () => { const c = { doc: chain, collection: chain, where: chain, orderBy: chain, limit: chain, limitToLast: chain, get: rej, set: rej, add: rej, update: rej, delete: rej, onSnapshot: () => () => {} }; return c; };
+  window.firebase = {
+    initializeApp(){}, apps: [],
+    auth: Object.assign(() => ({ currentUser: null, onAuthStateChanged(){ return () => {}; }, signInWithPopup: rej, signOut: () => Promise.resolve() }), { GoogleAuthProvider: function(){} }),
+    firestore: Object.assign(() => Object.assign(chain(), { batch: () => ({ delete(){}, commit: rej }) }), { FieldValue: { serverTimestamp: () => 0, arrayUnion: (x) => x, arrayRemove: (x) => x }, Timestamp: { fromMillis: (m) => m, now: () => Date.now() } })
+  };
+}
 const firebaseConfig = {
   apiKey: "AIzaSyCJ4TZ_Ku3uWiRz4ttXubgzDTNURsqbnO4",
   authDomain: "snaypse-12.firebaseapp.com",
@@ -2910,6 +2930,7 @@ function clearLocalSyncedData(){
   SYNC_KEYS.concat([SYNC_TS_KEY, SYNC_PUSHED_KEY]).forEach((k) => localStorage.removeItem(k));
 }
 document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') pushProgress(); });
+window.addEventListener('online', () => { pushProgress(); });
 
 
 const FOCUS_ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></svg>';
@@ -4951,9 +4972,9 @@ function showRoomPanel(p){
 
 // ---------- automatic cleanup (keeps Firebase free-plan storage small) ----------
 // Run by the room owner at most once a day when they open the room:
-// chat messages and chat files older than 30 days, whiteboard strokes older than 7 days.
+// chat messages older than 30 days, chat files older than 7 days, whiteboard strokes older than 7 days.
 // Files attached to notes are kept.
-const ROOM_KEEP_DAYS = 30, BOARD_KEEP_DAYS = 7;
+const ROOM_KEEP_DAYS = 30, FILE_KEEP_DAYS = 7, BOARD_KEEP_DAYS = 7;
 function maybeCleanupRoom(room){
   const me = getCurrentUser();
   if(!me || !currentRoomCode || room.ownerUid !== me.uid) return;
@@ -4966,7 +4987,7 @@ function maybeCleanupRoom(room){
     if(!docs.length) return;
     const batch = db.batch(); docs.forEach((d) => batch.delete(d.ref)); return batch.commit();
   }).catch((err) => console.error('Cleanup ' + col + ' failed:', err));
-  sweep('messages', ROOM_KEEP_DAYS); sweep('files', ROOM_KEEP_DAYS, (d) => d.kind === 'note'); sweep('strokes', BOARD_KEEP_DAYS);
+  sweep('messages', ROOM_KEEP_DAYS); sweep('files', FILE_KEEP_DAYS, (d) => d.kind === 'note'); sweep('strokes', BOARD_KEEP_DAYS);
 }
 function renderRoomScreen(room){
   const user = getCurrentUser();
@@ -5086,31 +5107,91 @@ function removePending(ctx, i){ pendingAtt[ctx].splice(i, 1); renderPending(ctx)
 // upload each pending file into rooms/{code}/files and return light metadata for the message/note
 function uploadPending(ctx){
   const me = getCurrentUser();
+  const room = currentRoomCode;
   return Promise.all(pendingAtt[ctx].map((a) => roomRef().collection('files').add({
     content: a.content, mime: a.mime, name: a.name, size: a.size, type: a.type, kind: ctx, uploaderUid: me.uid,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then((ref) => ({ type: a.type, fileId: ref.id, fileName: a.name, fileSize: a.size, thumb: a.thumb || null }))));
+  }).then((ref) => { fdbPut({ key: room + '/' + ref.id, name: a.name, mime: a.mime, size: a.size, content: a.content }); return ref; }).then((ref) => ({ type: a.type, fileId: ref.id, fileName: a.name, fileSize: a.size, thumb: a.thumb || null }))));
+}
+// ---------- private on-phone storage (IndexedDB): files you open or send are kept on this phone ----------
+// No permission is needed. The browser keeps them inside the app, they do not show in Gallery or Files.
+const FILE_DB = { name: 'synapse12_files', store: 'files', max: 80 };
+function fdbOpen(){
+  return new Promise((resolve, reject) => {
+    if(!window.indexedDB){ reject(new Error('no indexedDB')); return; }
+    const r = indexedDB.open(FILE_DB.name, 1);
+    r.onupgradeneeded = () => { const os = r.result.createObjectStore(FILE_DB.store, { keyPath: 'key' }); os.createIndex('savedAt', 'savedAt'); };
+    r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error);
+  });
+}
+function fdbGet(key){
+  return fdbOpen().then((db) => new Promise((resolve, reject) => {
+    const q = db.transaction(FILE_DB.store).objectStore(FILE_DB.store).get(key);
+    q.onsuccess = () => resolve(q.result || null); q.onerror = () => reject(q.error);
+  })).catch(() => null);
+}
+let fdbAskedPersist = false;
+function fdbPut(rec){
+  return fdbOpen().then((db) => new Promise((resolve, reject) => {
+    const tx = db.transaction(FILE_DB.store, 'readwrite'); const st = tx.objectStore(FILE_DB.store);
+    rec.savedAt = Date.now(); st.put(rec);
+    const cnt = st.count();
+    cnt.onsuccess = () => {            // keep the newest 80 files, drop the oldest
+      let extra = cnt.result - FILE_DB.max;
+      if(extra > 0){ const cur = st.index('savedAt').openCursor(); cur.onsuccess = () => { const c = cur.result; if(c && extra > 0){ c.delete(); extra--; c.continue(); } }; }
+    };
+    tx.oncomplete = () => resolve(true); tx.onerror = () => reject(tx.error);
+  })).then((ok) => {
+    if(!fdbAskedPersist && navigator.storage && navigator.storage.persist){ fdbAskedPersist = true; navigator.storage.persist().catch(() => {}); }
+    return ok;
+  }).catch(() => false);
+}
+function dataUrlToBlob(url, mime){
+  const b64 = (url.split(',')[1]) || ''; const bin = atob(b64); const arr = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+function saveToPhone(blobUrl, filename){
+  const a = document.createElement('a'); a.href = blobUrl; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+}
+let pdfCurrent = null;
+function showPdfActions(d, name){
+  pdfCurrent = { url: URL.createObjectURL(dataUrlToBlob(d.content, 'application/pdf')), name: name || d.name || 'document.pdf' };
+  document.getElementById('pdf-sheet-name').textContent = pdfCurrent.name;
+  document.getElementById('pdf-sheet').style.display = 'flex';
+}
+function closePdfSheet(){ document.getElementById('pdf-sheet').style.display = 'none'; }
+function pdfOpen(){
+  if(!pdfCurrent) return;
+  const w = window.open(pdfCurrent.url, '_blank');
+  if(!w) saveToPhone(pdfCurrent.url, pdfCurrent.name);
+  closePdfSheet();
+}
+function pdfSave(){ if(pdfCurrent) saveToPhone(pdfCurrent.url, pdfCurrent.name); closePdfSheet(); }
+function imageSave(){
+  const img = document.getElementById('att-viewer-img');
+  if(!img.src) return;
+  saveToPhone(URL.createObjectURL(dataUrlToBlob(img.src, 'image/jpeg')), document.getElementById('att-viewer-name').textContent || 'photo.jpg');
 }
 function openAttachment(fileId, type, name){
+  const room = currentRoomCode, key = room + '/' + fileId;
   const show = (d) => {
     if(type === 'image'){
       document.getElementById('att-viewer-img').src = d.content;
-      document.getElementById('att-viewer-name').textContent = name || '';
-      const dl = document.getElementById('att-viewer-dl'); dl.href = d.content; dl.setAttribute('download', name || 'photo.jpg');
+      document.getElementById('att-viewer-name').textContent = name || d.name || '';
       document.getElementById('att-viewer').style.display = 'flex';
-    } else {
-      const b64 = d.content.split(',')[1] || ''; const bin = atob(b64); const arr = new Uint8Array(bin.length);
-      for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-      const url = URL.createObjectURL(new Blob([arr], { type: 'application/pdf' }));
-      const w = window.open(url, '_blank');
-      if(!w){ const a = document.createElement('a'); a.href = url; a.download = name || 'document.pdf'; document.body.appendChild(a); a.click(); a.remove(); }
-    }
+    } else showPdfActions(d, name);
   };
   if(fileCache[fileId]){ show(fileCache[fileId]); return; }
-  roomRef().collection('files').doc(fileId).get().then((doc) => {
-    if(!doc.exists){ alert('This file is no longer available.'); return; }
-    fileCache[fileId] = doc.data(); show(fileCache[fileId]);
-  }).catch((err) => { console.error(err); alert('Could not open the file.'); });
+  fdbGet(key).then((rec) => {
+    if(rec){ fileCache[fileId] = rec; show(rec); return; }          // already on this phone
+    return roomRef(room).collection('files').doc(fileId).get().then((doc) => {
+      if(!doc.exists){ alert('This file is not on the server any more. Chat files are kept for 7 days. If someone opened it earlier, it is saved on their phone.'); return; }
+      const d = doc.data(); fileCache[fileId] = d;
+      fdbPut({ key, name: d.name || name, mime: d.mime, size: d.size, content: d.content });   // keep a copy on this phone
+      show(d);
+    });
+  }).catch((err) => { console.error(err); alert('Could not open the file. Check your internet connection.'); });
 }
 function closeViewer(){ document.getElementById('att-viewer').style.display = 'none'; document.getElementById('att-viewer-img').src = ''; }
 function attachmentsHTML(list){
@@ -5309,7 +5390,7 @@ function scheduleChallengeRefresh(){
 
 // =========================================================
 // AI ASK — talks to the Cloudflare Worker (see AI-SETUP.md).
-// The Gemini key lives only inside the Worker, never in this file.
+// The AI key lives only inside the Worker, never in this file.
 // =========================================================
 const AI_WORKER_URL = 'https://synapse1.gurjarvijay250309.workers.dev';
 const AI_KEY = 'synapse12_ai_chat';
@@ -5397,6 +5478,7 @@ async function sendAI(textOverride){
   const q = text || 'Please solve the question in this photo step by step.';
   aiMessages.push({ role: 'user', text: aiPendingImage ? q + '  [photo attached]' : q, t: Date.now() });
   const image = aiPendingImage; aiPendingImage = null; renderAIPending(); input.value = '';
+  if(!navigator.onLine){ aiReply('You are offline. Synapse AI needs internet. Try again when you are connected.'); renderAIChat(); return; }
   if(AI_WORKER_URL.indexOf('PASTE') !== -1){ aiReply('AI Ask is almost ready. The AI server link has not been added to the app yet.'); renderAIChat(); return; }
   aiBusy = true; renderAIChat(); document.getElementById('ai-send').disabled = true;
   try{
