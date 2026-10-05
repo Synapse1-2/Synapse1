@@ -1,4 +1,4 @@
-const CACHE_NAME = 'synapse12-v17';
+const CACHE_NAME = 'synapse12-v19';
 const APP_SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 // Files from other sites that the app needs to start. They are saved once so the app also opens with no internet.
 const EXTERNAL = [
