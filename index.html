@@ -1635,6 +1635,68 @@
   .lb-bar{height:7px; border-radius:5px; background:var(--ring-track); margin-top:6px; overflow:hidden;} .lb-bar i{display:block; height:100%; border-radius:5px; background:var(--violet);}
   .lb-side{text-align:right; flex:0 0 auto;} .lb-min{font-weight:800; font-size:14px; color:var(--val);} .lb-streak{font-size:12px; color:var(--text-dim); margin-top:2px; display:flex; align-items:center; justify-content:flex-end; gap:3px;} .lb-streak .ico{width:13px; height:13px; color:#E58A3A;}
   .lb-warn{font-size:11px; color:#D25555; font-weight:700; margin-top:3px;}
+
+  /* ===== CHAT v3: composer, sheets, voice, stickers, polls, events ===== */
+  .rm2-inputbar .rm2-attach.plus{background:var(--surface-2); width:40px; height:40px;}
+  .rm2-mic{width:44px; height:44px; border-radius:50%; border:0; background:var(--ct-send); color:var(--ct-send-ink); display:flex; align-items:center; justify-content:center; cursor:pointer; flex:0 0 auto;}
+  .rm2-mic svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .rm2-recbar{display:flex; align-items:center; gap:12px; padding:8px 12px calc(10px + env(safe-area-inset-bottom)); background:var(--card); border-top:1px solid var(--line);}
+  .rm2-recbar .rec-dot{width:11px; height:11px; border-radius:50%; background:#E63950; animation:recpulse 1s infinite;}
+  @keyframes recpulse{50%{opacity:.25}}
+  .rm2-recbar .rec-time{font-weight:800; font-size:16px; flex:1; font-variant-numeric:tabular-nums;}
+  .rm2-recbar .rec-cancel{width:42px; height:42px; border-radius:50%; border:0; background:var(--surface-2); color:#E63950; display:flex; align-items:center; justify-content:center; cursor:pointer;}
+  .rm2-recbar .rec-cancel svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+  .rm2-readonly{display:flex; align-items:center; gap:10px; padding:14px 16px calc(14px + env(safe-area-inset-bottom)); background:var(--card); border-top:1px solid var(--line); font-size:13px; color:var(--text-dim); line-height:1.35;}
+  .rm2-readonly .ico{width:18px; height:18px; flex:0 0 auto;}
+  .att-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px 8px; padding:6px 0 4px;}
+  .att-grid button{border:0; background:none; color:var(--text); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:12.5px; font-weight:700; font-family:inherit; cursor:pointer;}
+  .att-grid button span.ai{width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff;}
+  .att-grid button span.ai svg{width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .rz-sheet > .att-grid{display:grid; grid-template-columns:repeat(3,1fr);}
+  .rz-sheet > .sticker-grid{display:grid; grid-template-columns:repeat(4,1fr);}
+  .sticker-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; max-height:46vh; overflow-y:auto; padding:4px 0;}
+  .sticker-grid button{border:0; background:none; padding:0; cursor:pointer;} .sticker-grid svg{width:100%; height:auto; display:block;}
+  .rz-sheet textarea{width:100%; padding:14px; border-radius:14px; border:1px solid var(--line); background:var(--surface-2); color:var(--text); font-size:15px; font-family:inherit; resize:none;}
+  .sheet-row{display:flex; gap:8px;} .sheet-row > *{flex:1; min-width:0;}
+  .sheet-lbl{font-size:12px; font-weight:800; color:var(--text-dim); text-transform:uppercase; letter-spacing:.04em; margin-bottom:-4px;}
+  .ev-themes{display:flex; gap:8px; flex-wrap:wrap;}
+  .ev-themes span{padding:8px 14px; border-radius:16px; font-size:13px; font-weight:700; border:1.5px solid var(--line); cursor:pointer; text-transform:capitalize;}
+  .ev-themes span.on{border-color:var(--ct-send); background:var(--surface-2);}
+  .ev-poster-pick{display:flex; align-items:center; gap:10px; padding:12px; border-radius:14px; border:1.5px dashed var(--line); cursor:pointer; font-size:14px; font-weight:700; color:var(--text-dim);}
+  .ev-poster-pick img{width:48px; height:48px; border-radius:10px; object-fit:cover;}
+  .cm.sticker{background:none; box-shadow:none; padding:0; max-width:150px;} .cm.sticker svg{width:130px; height:130px; display:block;}
+  .cm.sticker .cm-time{display:block; float:none; text-align:right; margin:0; padding:1px 8px; font-size:10.5px; opacity:.7;}
+  .cm.card{min-width:250px; max-width:88%;} .cm.card .cm-time{float:none; display:block; text-align:right; margin-top:4px;}
+  .role-chip{display:inline-block; font-size:9.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:1px 6px; border-radius:8px; margin-left:6px; vertical-align:1px; background:rgba(46,107,82,.14); color:var(--ct-send);}
+  :root[data-theme="dark"] .role-chip{background:rgba(143,227,184,.14);}
+  .cm-voice{display:flex; align-items:center; gap:10px; min-width:210px; padding:2px 0 4px; cursor:pointer;}
+  .cm-voice .vplay{width:38px; height:38px; border-radius:50%; background:var(--ct-send); color:var(--ct-send-ink); display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .cm-voice .vplay svg{width:18px; height:18px; fill:currentColor; stroke:none;}
+  .cm-voice .vplay .pa{display:none;} .cm-voice.playing .vplay .pl{display:none;} .cm-voice.playing .vplay .pa{display:block;}
+  .cm-voice .vbar{flex:1; height:5px; border-radius:3px; background:rgba(0,0,0,.15); overflow:hidden;} :root[data-theme="dark"] .cm-voice .vbar{background:rgba(255,255,255,.2);}
+  .cm-voice .vbar i{display:block; height:100%; width:0; background:var(--ct-send);}
+  .cm-voice .vdur{font-size:12px; font-weight:700; opacity:.75; font-variant-numeric:tabular-nums;}
+  .cm-q{font-weight:800; font-size:15px; margin:2px 0 8px; padding-right:4px;}
+  .cm-opt{position:relative; overflow:hidden; display:flex; justify-content:space-between; gap:10px; padding:10px 12px; margin-bottom:6px; border-radius:12px; border:1.5px solid rgba(0,0,0,.12); font-size:14px; cursor:pointer;}
+  :root[data-theme="dark"] .cm-opt{border-color:rgba(255,255,255,.16);}
+  .cm-opt i{position:absolute; left:0; top:0; bottom:0; background:rgba(46,107,82,.2); z-index:0;} :root[data-theme="dark"] .cm-opt i{background:rgba(143,227,184,.2);}
+  .cm-opt span{position:relative; z-index:1;} .cm-opt.mine{border-color:var(--ct-send); font-weight:800;} .cm-opt .o-n{font-weight:800;}
+  .cm-pollfoot{font-size:11.5px; opacity:.7; display:flex; justify-content:space-between; gap:8px; margin-top:2px;} .cm-pollfoot b{cursor:pointer; text-decoration:underline;}
+  .cm-event{margin:-2px -4px 4px; border-radius:14px; overflow:hidden; background:rgba(0,0,0,.05);} :root[data-theme="dark"] .cm-event{background:rgba(255,255,255,.06);}
+  .cm-event .ev-top{height:120px; display:flex; align-items:center; justify-content:center; color:#fff;} .cm-event .ev-top svg{width:46px; height:46px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; opacity:.95;}
+  .cm-event img.ev-poster{display:block; width:100%; max-height:240px; object-fit:cover; cursor:pointer;}
+  .cm-event .ev-body{padding:10px 12px 12px;} .cm-event .ev-title{font-size:16px; font-weight:800; margin-bottom:4px;}
+  .cm-event .ev-line{display:flex; align-items:center; gap:6px; font-size:13px; opacity:.85; margin:2px 0;} .cm-event .ev-line .ico{width:15px; height:15px; flex:0 0 auto;}
+  .cm-event .ev-desc{font-size:13.5px; margin-top:6px; white-space:pre-wrap; word-break:break-word;}
+  .ev-rsvp{display:flex; gap:6px; margin-top:10px;} .ev-rsvp button{flex:1; padding:8px 4px; border-radius:12px; border:1.5px solid rgba(0,0,0,.14); background:none; color:inherit; font-size:12.5px; font-weight:800; font-family:inherit; cursor:pointer;}
+  :root[data-theme="dark"] .ev-rsvp button{border-color:rgba(255,255,255,.2);} .ev-rsvp button.on{background:var(--ct-send); border-color:var(--ct-send); color:var(--ct-send-ink);}
+  .ev-cal{display:block; margin-top:8px; font-size:12.5px; font-weight:800; color:var(--ct-send); cursor:pointer; text-align:center;}
+  .th-study{background:linear-gradient(135deg,#2E6B52,#6FB594);} .th-diwali{background:linear-gradient(135deg,#C2410C,#F5B93A);} .th-exam{background:linear-gradient(135deg,#334155,#64748B);}
+  .th-party{background:linear-gradient(135deg,#9333EA,#EC4899);} .th-sports{background:linear-gradient(135deg,#1D4ED8,#38BDF8);}
+  .mem-role{margin-left:auto; font-size:11px; font-weight:800; color:var(--text-dim);} .room-member-row.tap{cursor:pointer;}
+  .pm-box{margin-top:18px; padding:14px; border-radius:16px; background:var(--card); border:1px solid var(--line);} .pm-box .pm-t{font-weight:800; margin-bottom:2px;} .pm-box .pm-s{font-size:12.5px; color:var(--text-dim); margin-bottom:10px;}
+  .pm-box .pm-opts{display:flex; gap:8px;} .pm-box .pm-opts span{flex:1; text-align:center; padding:10px 6px; border-radius:14px; border:1.5px solid var(--line); font-size:13px; font-weight:800; cursor:pointer;} .pm-box .pm-opts span.on{border-color:var(--ct-send,#2E6B52); background:var(--surface-2);}
+  .pm-box.ro .pm-opts span{pointer-events:none;}
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -2587,14 +2649,18 @@
     <div class="rm2-panel on" id="rp-chat">
       <div class="rm2-chat" id="room-chat-box"></div>
       <div class="rz-pending" id="pending-chat" style="display:none;"></div>
-      <div class="rz-attach-menu" id="attach-menu-chat" style="display:none;">
-        <button onclick="pickAttachment('chat','image')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3"/></svg> Photo</button>
-        <button onclick="pickAttachment('chat','pdf')"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5"/></svg> PDF</button>
+      <div class="rm2-readonly" id="rm2-readonly" style="display:none;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span>Only the host and approved members can send messages in this room.</span></div>
+      <div class="rm2-recbar" id="rm2-recbar" style="display:none;">
+        <button class="rec-cancel" onclick="cancelVoice()" aria-label="Cancel recording"><svg viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5"/></svg></button>
+        <span class="rec-dot"></span><span class="rec-time" id="rec-time">0:00</span>
+        <button class="rm2-send" onclick="finishVoice()" aria-label="Send voice message"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.5-6.5L4 12Z"/><path d="m12 13.5 8-9.5"/></svg></button>
       </div>
-      <div class="rm2-inputbar">
-        <button class="rm2-attach" onclick="toggleAttachMenu('chat')" aria-label="Attach"><svg viewBox="0 0 24 24"><path d="M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.6 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7"/></svg></button>
-        <input type="text" id="room-chat-input" placeholder="Message" maxlength="1000" onkeydown="if(event.key==='Enter') sendChatMessage();">
-        <button class="rm2-send" id="rm2-send" onclick="sendChatMessage()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.5-6.5L4 12Z"/><path d="m12 13.5 8-9.5"/></svg></button>
+      <div class="rm2-inputbar" id="rm2-inputbar">
+        <button class="rm2-attach plus" onclick="openSheet('att-sheet')" aria-label="Attach"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <input type="text" id="room-chat-input" placeholder="Message" maxlength="1000" oninput="syncSendMic()" onkeydown="if(event.key==='Enter') sendChatMessage();">
+        <button class="rm2-attach" onclick="openStickers()" aria-label="Stickers"><svg viewBox="0 0 24 24"><path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5"/><path d="M20.5 12.5h-5a3 3 0 0 0-3 3v5"/><path d="M8.5 10h.01M14.5 9.5h.01M8.5 14.2c1 1.2 2.2 1.8 3.5 1.8"/></svg></button>
+        <button class="rm2-mic" id="rm2-mic" onclick="startVoice()" aria-label="Record voice message"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg></button>
+        <button class="rm2-send" id="rm2-send" style="display:none;" onclick="sendChatMessage()" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4.5 16-3.5-6.5L4 12Z"/><path d="m12 13.5 8-9.5"/></svg></button>
       </div>
     </div>
 
@@ -2643,6 +2709,8 @@
           <button class="btn" style="width:100%; margin-top:10px;" onclick="shareRoomInvite()">Share invite</button>
         </div>
 
+        <div class="pm-box" id="pm-box"><div class="pm-t">Who can send messages</div><div class="pm-s" id="pm-sub"></div>
+          <div class="pm-opts"><span data-m="everyone" onclick="setPostMode('everyone')">Everyone</span><span data-m="staff" onclick="setPostMode('staff')">Host and approved</span></div></div>
         <div class="section-title" id="room-member-count" style="margin-top:18px;">Members</div>
         <div id="room-member-list"></div>
 
@@ -2687,6 +2755,64 @@
 <div class="rz-viewer" id="att-viewer" style="display:none;">
   <div class="rz-viewer-bar"><span id="att-viewer-name"></span><div><button class="rz-viewer-btn" onclick="imageSave()">Save to phone</button><button class="rz-viewer-btn" onclick="closeViewer()">Close</button></div></div>
   <img id="att-viewer-img" alt="">
+</div>
+
+
+<input type="file" id="att-input-camera" accept="image/*" capture="environment" hidden onchange="onAttachmentChosen('image', this)">
+<input type="file" id="ev-poster-input" accept="image/*" hidden onchange="onPosterChosen(this)">
+
+<div class="rz-sheet-bg" id="att-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('att-sheet')">
+  <div class="rz-sheet"><div class="rz-sheet-grab"></div>
+    <div class="att-grid">
+      <button onclick="closeSheet('att-sheet');pickAttachment('chat','image')"><span class="ai" style="background:#7C6FD0"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3"/></svg></span>Photo</button>
+      <button onclick="closeSheet('att-sheet');pickAttachment('chat','camera')"><span class="ai" style="background:#D9803F"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 8.5A1.5 1.5 0 0 1 6 7h2l1.2-2h5.6L16 7h2a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5v-9Z"/><circle cx="12" cy="12.5" r="3.2"/></svg></span>Camera</button>
+      <button onclick="closeSheet('att-sheet');pickAttachment('chat','pdf')"><span class="ai" style="background:#E63950"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4.5M8.5 13h7M8.5 16.5h5"/></svg></span>PDF</button>
+      <button onclick="closeSheet('att-sheet');openPollSheet()"><span class="ai" style="background:#3B82C4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span>Poll</button>
+      <button onclick="closeSheet('att-sheet');openEventSheet()"><span class="ai" style="background:#2E6B52"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>Event</button>
+      <button onclick="closeSheet('att-sheet');openStickers()"><span class="ai" style="background:#9333EA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5"/><path d="M20.5 12.5h-5a3 3 0 0 0-3 3v5"/><path d="M8.5 10h.01M14.5 9.5h.01M8.5 14.2c1 1.2 2.2 1.8 3.5 1.8"/></svg></span>Sticker</button>
+    </div>
+  </div>
+</div>
+
+<div class="rz-sheet-bg" id="sticker-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('sticker-sheet')">
+  <div class="rz-sheet"><div class="rz-sheet-grab"></div><div class="rz-sheet-title">Stickers</div>
+    <div class="sticker-grid" id="sticker-grid"></div>
+  </div>
+</div>
+
+<div class="rz-sheet-bg" id="poll-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('poll-sheet')">
+  <div class="rz-sheet"><div class="rz-sheet-grab"></div><div class="rz-sheet-title">Create poll</div>
+    <div>
+      <input type="text" id="poll-q" maxlength="120" placeholder="Question">
+      <div id="poll-opts" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <button class="btn" id="poll-add" onclick="pollAddOption()">+ Add option</button>
+      <button class="btn btn-primary" onclick="sendPoll()">Send poll</button>
+    </div>
+  </div>
+</div>
+
+<div class="rz-sheet-bg" id="event-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('event-sheet')">
+  <div class="rz-sheet" style="max-height:88vh; overflow-y:auto;"><div class="rz-sheet-grab"></div><div class="rz-sheet-title">New event</div>
+    <div>
+      <input type="text" id="ev-title" maxlength="70" placeholder="Event name (e.g. Diwali study break)">
+      <textarea id="ev-desc" rows="2" maxlength="300" placeholder="Details (optional)"></textarea>
+      <div class="sheet-lbl">Date and time</div>
+      <input type="datetime-local" id="ev-when">
+      <input type="text" id="ev-place" maxlength="70" placeholder="Place or link (optional)">
+      <div class="sheet-lbl">Style</div>
+      <div class="ev-themes" id="ev-themes"></div>
+      <div class="ev-poster-pick" id="ev-poster-pick" onclick="document.getElementById('ev-poster-input').click()"><svg class="ico" style="width:22px;height:22px" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3"/></svg><span id="ev-poster-lbl">Add poster (optional)</span></div>
+      <button class="btn btn-primary" onclick="sendEvent()">Send event</button>
+    </div>
+  </div>
+</div>
+
+<div class="rz-sheet-bg" id="member-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('member-sheet')">
+  <div class="rz-sheet"><div class="rz-sheet-grab"></div>
+    <div class="rz-sheet-title" id="member-sheet-name">Member</div><div class="rz-sheet-sub" id="member-sheet-role"></div>
+    <button class="btn" id="ms-cohost" onclick="memberAction('cohost')"></button>
+    <button class="btn" id="ms-speaker" onclick="memberAction('speaker')"></button>
+  </div>
 </div>
 
 <div class="rz-sheet-bg" id="pdf-sheet" style="display:none;" onclick="if(event.target===this) closePdfSheet()">
@@ -3054,7 +3180,7 @@ function goBack(){
   if(screenHistory.length) history.back(); else showScreen('screen-dashboard');
 }
 function openOverlayIds(){
-  return ['att-viewer', 'pdf-sheet', 'room-sheet', 'auth-gate-overlay'].filter((id) => { const e = document.getElementById(id); return e && e.style.display && e.style.display !== 'none'; });
+  return ['att-viewer', 'pdf-sheet', 'room-sheet', 'auth-gate-overlay', 'att-sheet', 'sticker-sheet', 'poll-sheet', 'event-sheet', 'member-sheet'].filter((id) => { const e = document.getElementById(id); return e && e.style.display && e.style.display !== 'none'; });
 }
 window.addEventListener('popstate', () => {
   if(ignorePops > 0){ ignorePops--; return; }
@@ -4992,7 +5118,8 @@ function createRoom(){
     return db.collection('rooms').doc(code).set({
       name, description: desc, topic: newRoomTopic, isPublic: newRoomPublic, maxMembers: newRoomPublic ? MAX_PUBLIC : MAX_PRIVATE,
       ownerUid: user.uid, ownerName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      memberUids: [user.uid], members: [{ uid: user.uid, name: user.name }]
+      memberUids: [user.uid], members: [{ uid: user.uid, name: user.name }],
+      postMode: newRoomPublic ? 'staff' : 'everyone', coHostUids: [], speakerUids: []
     }).then(() => { closeRoomSheet(); myRoomsCache = null; openRoom(code); });
   }).catch((err) => { console.error('Room creation failed:', err); alert('Could not create room: ' + err.message); });
 }
@@ -5061,7 +5188,6 @@ function closeRoomScreen(){
 function showRoomPanel(p){
   document.querySelectorAll('#rm2-tabs span').forEach((s) => s.classList.toggle('on', s.dataset.p === p));
   document.querySelectorAll('.rm2-panel').forEach((el) => el.classList.toggle('on', el.id === 'rp-' + p));
-  document.getElementById('attach-menu-chat').style.display = 'none';
   if(p === 'board') setTimeout(redrawBoardFromCache, 30);
   if(p === 'chat'){ const b = document.getElementById('room-chat-box'); b.scrollTop = b.scrollHeight; }
 }
@@ -5098,8 +5224,9 @@ function renderRoomScreen(room){
   document.getElementById('room-code-text').textContent = currentRoomCode;
   document.getElementById('room-member-count').textContent = `Members (${n}/${roomMax(room)})`;
   document.getElementById('room-member-list').innerHTML = (room.members || []).map((m) => `
-    <div class="room-member-row"><div class="rm-avatar" style="background:${avColor(m.name)}">${esc((m.name || '?').charAt(0).toUpperCase())}</div>
-    <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">' + ICO.crown + '</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div></div>`).join('');
+    <div class="room-member-row ${canManage(m.uid) ? 'tap' : ''}" ${canManage(m.uid) ? `onclick="openMemberSheet('${esc(m.uid)}')"` : ''}><div class="rm-avatar" style="background:${avColor(m.name)}">${esc((m.name || '?').charAt(0).toUpperCase())}</div>
+    <div class="rm-name">${esc(m.name)}${m.uid === room.ownerUid ? ' <span class="rm-crown">' + ICO.crown + '</span>' : ''}${user && m.uid === user.uid ? ' <span class="rm-you">(you)</span>' : ''}</div><span class="mem-role">${roleLabel(m.uid)}</span></div>`).join('');
+  applyPostPermission();
   document.getElementById('room-end-btn').style.display = (user && user.uid === room.ownerUid) ? 'block' : 'none';
   renderRoomNotes(); renderRoomChallenges(); renderChatMessages(chatCache); renderLeaderboard();
   if(statsPushedFor !== currentRoomCode){ statsPushedFor = currentRoomCode; pushMyRoomStats(currentRoomCode); }
@@ -5152,8 +5279,7 @@ function toggleChatThemePicker(){ const p = document.getElementById('rz-theme-po
 function toggleAttachMenu(ctx){ const m = document.getElementById('attach-menu-' + ctx); m.style.display = m.style.display === 'none' ? 'flex' : 'none'; }
 function pickAttachment(ctx, kind){
   attCtx = ctx;
-  const m = document.getElementById('attach-menu-chat'); if(m) m.style.display = 'none';
-  document.getElementById(kind === 'image' ? 'att-input-image' : 'att-input-pdf').click();
+  document.getElementById(kind === 'image' ? 'att-input-image' : kind === 'camera' ? 'att-input-camera' : 'att-input-pdf').click();
 }
 function onAttachmentChosen(kind, input){
   const f = input.files && input.files[0]; input.value = '';
@@ -5197,7 +5323,7 @@ function processPdf(f){
 function renderPending(ctx){
   const el = document.getElementById('pending-' + ctx); if(!el) return;
   const list = pendingAtt[ctx];
-  if(ctx === 'chat') el.style.display = list.length ? 'flex' : 'none';
+  if(ctx === 'chat'){ el.style.display = list.length ? 'flex' : 'none'; syncSendMic(); }
   el.innerHTML = list.map((a, i) => `<div class="rz-chip">${a.type === 'image' ? `<img src="${a.thumb}" alt="">` : '<span class="rz-pdf-mini">PDF</span>'}<span class="rz-chip-n">${esc(a.name)}</span><button onclick="removePending('${ctx}',${i})" aria-label="Remove">×</button></div>`).join('');
 }
 function removePending(ctx, i){ pendingAtt[ctx].splice(i, 1); renderPending(ctx); }
@@ -5306,34 +5432,16 @@ function startChatListener(code){
   if(chatUnsubscribe) chatUnsubscribe();
   chatCache = [];
   chatUnsubscribe = db.collection('rooms').doc(code).collection('messages').orderBy('createdAt', 'asc').limitToLast(80)
-    .onSnapshot((snapshot) => { chatCache = snapshot.docs.map((d) => d.data()); renderChatMessages(chatCache); }, (err) => console.error('Chat listener error:', err));
-}
-function renderChatMessages(messages){
-  const user = getCurrentUser(); const box = document.getElementById('room-chat-box'); if(!box || !user) return;
-  if(!messages.length){ box.innerHTML = `<div class="rz-empty" style="margin:auto;"><div class="rz-empty-ic">${ICO.chat}</div><div><b>No messages yet</b></div><div>Say hi to your room.</div></div>`; return; }
-  let last = '', lastSender = '', html = '';
-  messages.forEach((m) => {
-    const ms = tsMs(m.createdAt) || Date.now(), label = dayLabel(ms), own = m.senderUid === user.uid;
-    if(label !== last){ html += `<div class="cm-day"><span>${label}</span></div>`; last = label; lastSender = ''; }
-    const att = m.type === 'image' ? attachmentsHTML([{ type: 'image', thumb: m.thumb, fileId: m.fileId, fileName: m.fileName }])
-      : m.type === 'pdf' ? pdfCardHTML(m) : '';
-    const first = lastSender !== m.senderUid; lastSender = m.senderUid;
-    html += `<div class="cm ${own ? 'own' : 'other'} ${first ? 'first' : ''}">
-      ${!own && first ? `<div class="cm-name" style="color:${avColor(m.senderName)}">${esc(m.senderName)}</div>` : ''}
-      ${att}${m.text ? `<div class="cm-text">${esc(m.text)}</div>` : ''}<span class="cm-time">${fmtTime(ms)}</span></div>`;
-  });
-  const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 160;
-  box.innerHTML = html;
-  if(nearBottom || !box.dataset.init){ box.scrollTop = box.scrollHeight; box.dataset.init = '1'; }
+    .onSnapshot((snapshot) => { chatCache = snapshot.docs.map((d) => Object.assign({ id: d.id }, d.data())); renderChatMessages(chatCache); }, (err) => console.error('Chat listener error:', err));
 }
 function sendChatMessage(){
   const user = getCurrentUser(); const input = document.getElementById('room-chat-input');
   const text = input.value.trim(); const files = pendingAtt.chat.slice();
-  if((!text && !files.length) || !currentRoomCode) return;
+  if((!text && !files.length) || !currentRoomCode || !canPostNow()) return;
   const btn = document.getElementById('rm2-send'); btn.disabled = true;
   const col = roomRef().collection('messages');
   const base = () => ({ senderUid: user.uid, senderName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-  const done = () => { btn.disabled = false; };
+  const done = () => { btn.disabled = false; syncSendMic(); };
   if(!files.length){
     input.value = '';
     col.add(Object.assign(base(), { type: 'text', text })).then(done).catch((err) => { done(); alert('Message failed to send: ' + err.message); });
@@ -5709,6 +5817,310 @@ function inviteFriends(){
   if(navigator.share){ navigator.share({ title: 'Synapse 12', text, url }).catch(() => {}); }
   else if(navigator.clipboard){ navigator.clipboard.writeText(text + ' ' + url); alert('Invite link copied. Paste it in WhatsApp.'); }
 }
+
+// ================================================================== CHAT v3
+Object.assign(ICO, {
+  cal: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+  pin: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>'
+});
+function openSheet(id){ document.getElementById(id).style.display = 'flex'; }
+function closeSheet(id){ document.getElementById(id).style.display = 'none'; }
+// ---------- roles ----------
+function isOwnerMe(){ const u = getCurrentUser(), r = currentRoomData; return !!(u && r && r.ownerUid === u.uid); }
+function isCoHostMe(){ const u = getCurrentUser(), r = currentRoomData; return !!(u && r && (r.coHostUids || []).includes(u.uid)); }
+function isStaffMe(){ return isOwnerMe() || isCoHostMe(); }
+function canPostNow(){
+  const u = getCurrentUser(), r = currentRoomData; if(!u || !r) return false;
+  if((r.postMode || 'everyone') !== 'staff') return true;
+  return r.ownerUid === u.uid || (r.coHostUids || []).includes(u.uid) || (r.speakerUids || []).includes(u.uid);
+}
+function roleOf(uid){
+  const r = currentRoomData || {};
+  if(r.ownerUid === uid) return 'host';
+  if((r.coHostUids || []).includes(uid)) return 'cohost';
+  if((r.speakerUids || []).includes(uid)) return 'speaker';
+  return 'member';
+}
+function roleLabel(uid){ const k = roleOf(uid); return k === 'host' ? 'Host' : k === 'cohost' ? 'Co-host' : (k === 'speaker' && (currentRoomData.postMode === 'staff')) ? 'Can message' : ''; }
+function roleChip(uid){ const k = roleOf(uid); return k === 'host' ? '<span class="role-chip">Host</span>' : k === 'cohost' ? '<span class="role-chip">Co-host</span>' : ''; }
+function canManage(uid){
+  const u = getCurrentUser(); if(!u || uid === u.uid || !currentRoomData) return false;
+  if(roleOf(uid) === 'host') return false;
+  return isOwnerMe() || (isCoHostMe() && roleOf(uid) !== 'cohost');
+}
+function applyPostPermission(){
+  const r = currentRoomData; if(!r) return;
+  const ok = canPostNow();
+  const bar = document.getElementById('rm2-inputbar'); if(bar) bar.style.display = (ok && !recState) ? 'flex' : 'none';
+  const ro = document.getElementById('rm2-readonly'); if(ro) ro.style.display = ok ? 'none' : 'flex';
+  if(!ok){ const p = document.getElementById('pending-chat'); if(p) p.style.display = 'none'; }
+  const mode = r.postMode || 'everyone';
+  document.querySelectorAll('#pm-box .pm-opts span').forEach((s) => s.classList.toggle('on', s.dataset.m === mode));
+  const box = document.getElementById('pm-box'); box.classList.toggle('ro', !isOwnerMe());
+  document.getElementById('pm-sub').textContent = isOwnerMe()
+    ? (mode === 'staff' ? 'Only you, co-hosts and members you approve can send. Tap a member to approve.' : 'Every member can send messages.')
+    : (mode === 'staff' ? 'Only the host, co-hosts and approved members can send.' : 'Every member can send messages.');
+}
+function setPostMode(m){
+  if(!isOwnerMe()) return;
+  roomRef().update({ postMode: m }).catch((e) => alert('Could not change: ' + e.message));
+}
+let memberTarget = null;
+function openMemberSheet(uid){
+  if(!canManage(uid)) return;
+  memberTarget = uid;
+  const m = (currentRoomData.members || []).find((x) => x.uid === uid) || { name: 'Member' };
+  document.getElementById('member-sheet-name').textContent = m.name;
+  const k = roleOf(uid);
+  document.getElementById('member-sheet-role').textContent = k === 'cohost' ? 'Co-host' : k === 'speaker' ? 'Allowed to message' : 'Member';
+  const ch = document.getElementById('ms-cohost'); ch.style.display = isOwnerMe() ? 'block' : 'none';
+  ch.textContent = k === 'cohost' ? 'Remove co-host' : 'Make co-host (max 3)';
+  document.getElementById('ms-speaker').textContent = (currentRoomData.speakerUids || []).includes(uid) ? 'Stop allowing to message' : 'Allow to message';
+  document.getElementById('ms-speaker').style.display = k === 'cohost' ? 'none' : 'block';
+  openSheet('member-sheet');
+}
+function memberAction(kind){
+  const uid = memberTarget; if(!uid) return; const FV = firebase.firestore.FieldValue; const r = currentRoomData;
+  let upd;
+  if(kind === 'cohost'){
+    if(roleOf(uid) === 'cohost') upd = { coHostUids: FV.arrayRemove(uid) };
+    else { if((r.coHostUids || []).length >= 3){ alert('A room can have up to 3 co-hosts.'); return; } upd = { coHostUids: FV.arrayUnion(uid) }; }
+  } else upd = { speakerUids: (r.speakerUids || []).includes(uid) ? FV.arrayRemove(uid) : FV.arrayUnion(uid) };
+  closeSheet('member-sheet');
+  roomRef().update(upd).catch((e) => alert('Could not update: ' + e.message));
+}
+// ---------- composer: send / mic toggle ----------
+function syncSendMic(){
+  const inp = document.getElementById('room-chat-input'); if(!inp) return;
+  const has = !!inp.value.trim() || pendingAtt.chat.length > 0;
+  document.getElementById('rm2-send').style.display = has ? 'flex' : 'none';
+  document.getElementById('rm2-mic').style.display = has ? 'none' : 'flex';
+}
+function sendSpecial(obj){
+  const u = getCurrentUser(); if(!u || !currentRoomCode || !canPostNow()) return Promise.resolve();
+  return roomRef().collection('messages').add(Object.assign({ senderUid: u.uid, senderName: u.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() }, obj))
+    .catch((e) => { alert('Could not send: ' + e.message); });
+}
+// ---------- stickers (drawn vector, no emoji) ----------
+const STICKERS = {
+  great:  ['Great!',   '#2E6B52', 'M7 11v9H4v-9h3Zm0 0 4-7c1.5 0 2.5 1 2 2.5L12.5 10H19a1.5 1.5 0 0 1 1.4 2l-2 6.5a1.5 1.5 0 0 1-1.4 1H7'],
+  focus:  ['Focus',    '#3B82C4', 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM12 11.2v1.6'],
+  study:  ['Study',    '#7C6FD0', 'M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5v-13ZM12 6v13'],
+  chai:   ['Chai time','#B5651D', 'M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9ZM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c0 1.5 1 1.5 1 3M12 3.5c0 1.5 1 1.5 1 3'],
+  doubt:  ['Doubt?',   '#D9803F', 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 16.8v.4'],
+  thanks: ['Thanks',   '#E0527A', 'M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.5 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z'],
+  idea:   ['Idea',     '#E0A100', 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z'],
+  fire:   ['On fire',  '#E5532D', 'M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4.2.2 1.2.8 2 1.6 2.4C10.2 8.5 10.8 5.5 12 3Z'],
+  diwali: ['Happy Diwali','#C2410C','M3.5 13h17a8.5 8.5 0 0 1-17 0ZM12 3c1.6 2 2.4 3.4 0 6-2.4-2.6-1.6-4 0-6Z'],
+  party:  ['Celebrate','#9333EA', 'M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z'],
+  night:  ['Night study','#334155','M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z'],
+  goal:   ['Goal!',    '#0F8B8D', 'M6 21V4M6 5h11l-2 3.5 2 3.5H6']
+};
+function stickerSVG(id){
+  const s = STICKERS[id]; if(!s) return '';
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="${esc(s[0])}"><circle cx="60" cy="52" r="46" fill="${s[1]}"/><g transform="translate(26 18) scale(2.83)" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${s[2]}"/></g><rect x="${60 - s[0].length * 3.6 - 8}" y="98" width="${s[0].length * 7.2 + 16}" height="18" rx="9" fill="rgba(0,0,0,.62)"/><text x="60" y="110.8" text-anchor="middle" font-size="10.5" font-weight="800" fill="#fff" font-family="sans-serif">${esc(s[0])}</text></svg>`;
+}
+function openStickers(){
+  const g = document.getElementById('sticker-grid');
+  if(!g.dataset.ready){ g.innerHTML = Object.keys(STICKERS).map((k) => `<button onclick="sendSticker('${k}')" aria-label="${esc(STICKERS[k][0])}">${stickerSVG(k)}</button>`).join(''); g.dataset.ready = '1'; }
+  closeSheet('att-sheet'); openSheet('sticker-sheet');
+}
+function sendSticker(id){ closeSheet('sticker-sheet'); sendSpecial({ type: 'sticker', stickerId: id }); }
+// ---------- voice messages ----------
+let recState = null;
+function startVoice(){
+  if(recState || !canPostNow()) return;
+  if(!navigator.mediaDevices || !window.MediaRecorder){ alert('Voice recording is not supported on this phone or browser.'); return; }
+  navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    let mime = ''; ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].some((t) => { if(MediaRecorder.isTypeSupported(t)){ mime = t; return true; } });
+    const rec = new MediaRecorder(stream, Object.assign({ audioBitsPerSecond: 24000 }, mime ? { mimeType: mime } : {}));
+    recState = { rec, stream, chunks: [], t0: Date.now(), send: false, timer: null };
+    rec.ondataavailable = (e) => { if(e.data && e.data.size) recState.chunks.push(e.data); };
+    const st = recState;
+    rec.onstop = () => {
+      stream.getTracks().forEach((t) => t.stop()); clearInterval(st.timer);
+      const secs = Math.round((Date.now() - st.t0) / 1000);
+      if(recState === st) recState = null;
+      document.getElementById('rm2-recbar').style.display = 'none'; applyPostPermission();
+      if(!st.send) return;
+      if(secs < 1){ return; }
+      const blob = new Blob(st.chunks, { type: st.rec.mimeType || mime || 'audio/webm' });
+      const fr = new FileReader();
+      fr.onload = () => uploadVoice(fr.result, blob.type, Math.min(secs, 60));
+      fr.readAsDataURL(blob);
+    };
+    rec.start();
+    document.getElementById('rm2-inputbar').style.display = 'none';
+    document.getElementById('rm2-recbar').style.display = 'flex';
+    const tick = () => { const s = Math.floor((Date.now() - st.t0) / 1000); document.getElementById('rec-time').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); if(s >= 60) finishVoice(); };
+    tick(); st.timer = setInterval(tick, 250);
+  }).catch(() => alert('Microphone permission is needed to record. Allow it in your phone settings and try again.'));
+}
+function cancelVoice(){ if(recState){ recState.send = false; try{ recState.rec.stop(); }catch(e){} } }
+function finishVoice(){ if(recState && recState.rec.state !== 'inactive'){ recState.send = true; try{ recState.rec.stop(); }catch(e){} } }
+function uploadVoice(dataUrl, mime, secs){
+  if(dataUrl.length > 800000){ alert('That voice message is too long. Keep it under 60 seconds.'); return; }
+  const me = getCurrentUser(), room = currentRoomCode; if(!me || !room || !canPostNow()) return;
+  roomRef().collection('files').add({ content: dataUrl, mime, name: 'voice', size: Math.round(dataUrl.length * 0.75), type: 'voice', kind: 'chat', uploaderUid: me.uid, createdAt: firebase.firestore.FieldValue.serverTimestamp() })
+    .then((ref) => { fdbPut({ key: room + '/' + ref.id, name: 'voice', mime, size: 0, content: dataUrl }); fileCache[ref.id] = { content: dataUrl, mime }; return sendSpecial({ type: 'voice', fileId: ref.id, duration: secs }); })
+    .catch((e) => alert('Could not send voice message: ' + e.message));
+}
+let voiceAudio = null, voiceEl = null;
+function getFileRec(fileId){
+  const room = currentRoomCode, key = room + '/' + fileId;
+  if(fileCache[fileId]) return Promise.resolve(fileCache[fileId]);
+  return fdbGet(key).then((rec) => rec || roomRef(room).collection('files').doc(fileId).get().then((doc) => {
+    if(!doc.exists) return null;
+    const d = doc.data(); fdbPut({ key, name: d.name, mime: d.mime, size: d.size, content: d.content }); return d;
+  })).then((d) => { if(d) fileCache[fileId] = d; return d; });
+}
+function stopVoice(){ if(voiceAudio){ voiceAudio.pause(); voiceAudio = null; } if(voiceEl){ voiceEl.classList.remove('playing'); const b = voiceEl.querySelector('.vbar i'); if(b) b.style.width = '0'; voiceEl = null; } }
+function playVoice(fileId, el){
+  if(voiceEl === el){ stopVoice(); return; }
+  stopVoice();
+  getFileRec(fileId).then((d) => {
+    if(!d){ alert('This voice message is not on the server any more. Voice messages are kept for 7 days.'); return; }
+    const a = new Audio(URL.createObjectURL(dataUrlToBlob(d.content, (d.mime || 'audio/webm').split(';')[0])));
+    voiceAudio = a; voiceEl = el; el.classList.add('playing');
+    a.ontimeupdate = () => { const b = el.querySelector('.vbar i'); if(b && a.duration) b.style.width = Math.min(100, a.currentTime * 100 / a.duration) + '%'; };
+    a.onended = () => { if(voiceAudio === a) stopVoice(); };
+    a.play().catch(() => stopVoice());
+  }).catch(() => alert('Could not play the voice message. Check your internet connection.'));
+}
+function fmtDur(s){ s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+// ---------- polls ----------
+function openPollSheet(){
+  document.getElementById('poll-q').value = '';
+  document.getElementById('poll-opts').innerHTML = '';
+  pollAddOption(); pollAddOption();
+  openSheet('poll-sheet');
+}
+function pollAddOption(){
+  const box = document.getElementById('poll-opts'); const n = box.children.length;
+  if(n >= 6) return;
+  const i = document.createElement('input'); i.type = 'text'; i.maxLength = 60; i.placeholder = 'Option ' + (n + 1); box.appendChild(i);
+  document.getElementById('poll-add').style.display = box.children.length >= 6 ? 'none' : 'block';
+}
+function sendPoll(){
+  const q = document.getElementById('poll-q').value.trim();
+  const opts = Array.from(document.querySelectorAll('#poll-opts input')).map((i) => i.value.trim()).filter(Boolean);
+  if(!q){ alert('Write the poll question.'); return; }
+  if(opts.length < 2){ alert('Add at least 2 options.'); return; }
+  closeSheet('poll-sheet');
+  sendSpecial({ type: 'poll', question: q, options: opts, votes: {}, closed: false });
+}
+function votePoll(id, idx){
+  const u = getCurrentUser(); const m = chatCache.find((x) => x.id === id); if(!u || !m || m.closed) return;
+  roomRef().collection('messages').doc(id).update({ ['votes.' + u.uid]: idx }).catch((e) => alert('Could not vote: ' + e.message));
+}
+function closePoll(id){ if(confirm('Close this poll? Nobody can vote after this.')) roomRef().collection('messages').doc(id).update({ closed: true }).catch((e) => alert(e.message)); }
+// ---------- events ----------
+let evTheme = 'study', evPoster = null;
+const EV_THEMES = ['study', 'diwali', 'exam', 'party', 'sports'];
+function openEventSheet(){
+  ['ev-title', 'ev-desc', 'ev-place', 'ev-when'].forEach((id) => { document.getElementById(id).value = ''; });
+  evPoster = null; document.getElementById('ev-poster-lbl').textContent = 'Add poster (optional)';
+  const pk = document.getElementById('ev-poster-pick'); const im = pk.querySelector('img'); if(im) im.remove();
+  pickEvTheme('study'); openSheet('event-sheet');
+}
+function pickEvTheme(t){
+  evTheme = t;
+  document.getElementById('ev-themes').innerHTML = EV_THEMES.map((k) => `<span class="${k === t ? 'on' : ''}" onclick="pickEvTheme('${k}')">${k}</span>`).join('');
+}
+function onPosterChosen(input){
+  const f = input.files && input.files[0]; input.value = ''; if(!f) return;
+  loadImageFromFile(f).then((img) => {
+    let side = 900, q = 0.72, d = drawScaled(img, side, q);
+    while(d.length > 260000 && side > 400){ side = Math.round(side * 0.82); q = Math.max(0.5, q - 0.04); d = drawScaled(img, side, q); }
+    if(d.length > 330000) throw new Error('This poster is too big. Try a smaller image.');
+    evPoster = d;
+    const pk = document.getElementById('ev-poster-pick'); const old = pk.querySelector('img'); if(old) old.remove();
+    const im = document.createElement('img'); im.src = d; pk.insertBefore(im, pk.firstChild);
+    document.getElementById('ev-poster-lbl').textContent = 'Poster added. Tap to change';
+  }).catch((e) => alert(e.message || 'Could not use that image.'));
+}
+function sendEvent(){
+  const title = document.getElementById('ev-title').value.trim(), when = document.getElementById('ev-when').value;
+  if(!title){ alert('Give the event a name.'); return; }
+  if(!when){ alert('Pick a date and time.'); return; }
+  const ms = new Date(when).getTime(); if(!ms){ alert('Pick a valid date and time.'); return; }
+  closeSheet('event-sheet');
+  sendSpecial({ type: 'event', title, desc: document.getElementById('ev-desc').value.trim(), place: document.getElementById('ev-place').value.trim(), startsAt: ms, theme: evTheme, poster: evPoster || null, rsvp: {} });
+}
+function whenLabel(ms){ return new Date(ms).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }); }
+function rsvpEvent(id, v){
+  const u = getCurrentUser(); if(!u) return;
+  roomRef().collection('messages').doc(id).update({ ['rsvp.' + u.uid]: v }).catch((e) => alert('Could not save: ' + e.message));
+}
+function eventICS(id){
+  const m = chatCache.find((x) => x.id === id); if(!m) return;
+  const z = (t) => new Date(t).toISOString().replace(/[-:]|\.\d{3}/g, '');
+  const clean = (s) => String(s || '').replace(/[\;,]/g, (c) => '\\' + c).replace(/\n/g, '\\n');
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Synapse 12//EN', 'BEGIN:VEVENT', 'UID:' + id + '@synapse12', 'DTSTAMP:' + z(Date.now()), 'DTSTART:' + z(m.startsAt), 'DTEND:' + z(m.startsAt + 3600000),
+    'SUMMARY:' + clean(m.title), 'DESCRIPTION:' + clean(m.desc), 'LOCATION:' + clean(m.place), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  saveToPhone(URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })), (m.title || 'event').replace(/[^\w]+/g, '-') + '.ics');
+}
+function viewPoster(id){
+  const m = chatCache.find((x) => x.id === id); if(!m || !m.poster) return;
+  document.getElementById('att-viewer-img').src = m.poster;
+  document.getElementById('att-viewer-name').textContent = m.title || 'poster';
+  document.getElementById('att-viewer').style.display = 'flex';
+}
+// ---------- delete a message (long press / right click) ----------
+function deleteMessage(id){
+  const u = getCurrentUser(); const m = chatCache.find((x) => x.id === id); if(!u || !m) return;
+  if(m.senderUid !== u.uid && !isStaffMe()) return;
+  if(!confirm('Delete this message for everyone?')) return;
+  roomRef().collection('messages').doc(id).delete().catch((e) => alert('Could not delete: ' + e.message));
+}
+(function(){
+  const box = document.getElementById('room-chat-box'); if(!box) return;
+  let t = null;
+  const idOf = (e) => { const c = e.target.closest && e.target.closest('.cm[data-id]'); return c ? c.dataset.id : null; };
+  box.addEventListener('contextmenu', (e) => { const id = idOf(e); if(id){ e.preventDefault(); deleteMessage(id); } });
+  box.addEventListener('touchstart', (e) => { const id = idOf(e); if(!id) return; clearTimeout(t); t = setTimeout(() => deleteMessage(id), 650); }, { passive: true });
+  ['touchend', 'touchmove', 'touchcancel'].forEach((ev) => box.addEventListener(ev, () => clearTimeout(t), { passive: true }));
+})();
+// ---------- chat renderer (text / image / pdf / sticker / voice / poll / event) ----------
+function renderChatMessages(messages){
+  const user = getCurrentUser(); const box = document.getElementById('room-chat-box'); if(!box || !user) return;
+  if(!messages.length){ box.innerHTML = `<div class="rz-empty" style="margin:auto;"><div class="rz-empty-ic">${ICO.chat}</div><div><b>No messages yet</b></div><div>Say hi to your room.</div></div>`; return; }
+  let last = '', lastSender = '', html = '';
+  messages.forEach((m) => {
+    const ms = tsMs(m.createdAt) || Date.now(), label = dayLabel(ms), own = m.senderUid === user.uid;
+    if(label !== last){ html += `<div class="cm-day"><span>${label}</span></div>`; last = label; lastSender = ''; }
+    const first = lastSender !== m.senderUid; lastSender = m.senderUid;
+    const nm = !own && first ? `<div class="cm-name" style="color:${avColor(m.senderName)}">${esc(m.senderName)}${roleChip(m.senderUid)}</div>` : '';
+    const time = `<span class="cm-time">${fmtTime(ms)}</span>`;
+    const head = (extra) => `<div class="cm ${own ? 'own' : 'other'} ${first ? 'first' : ''} ${extra || ''}" data-id="${esc(m.id || '')}">`;
+    if(m.type === 'sticker'){ html += head('sticker') + nm + stickerSVG(m.stickerId) + time + '</div>'; return; }
+    if(m.type === 'voice'){
+      html += head() + nm + `<div class="cm-voice" onclick="playVoice('${esc(m.fileId)}', this)"><span class="vplay"><svg class="pl" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="pa" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></span><span class="vbar"><i></i></span><span class="vdur">${fmtDur(m.duration)}</span></div>` + time + '</div>'; return;
+    }
+    if(m.type === 'poll'){
+      const votes = m.votes || {}, vals = Object.values(votes), total = vals.length, mine = votes[user.uid];
+      const opts = (m.options || []).map((o, i) => { const c = vals.filter((v) => v === i).length, pct = total ? Math.round(c * 100 / total) : 0;
+        return `<div class="cm-opt ${mine === i ? 'mine' : ''}" onclick="votePoll('${esc(m.id)}',${i})"><i style="width:${pct}%"></i><span>${esc(o)}</span><span class="o-n">${c}</span></div>`; }).join('');
+      const canClose = !m.closed && (m.senderUid === user.uid || isStaffMe());
+      html += head('card') + nm + `<div class="cm-q">${esc(m.question)}</div>${opts}<div class="cm-pollfoot"><span>${total} vote${total === 1 ? '' : 's'}${m.closed ? ' · Closed' : ''}</span>${canClose ? `<b onclick="closePoll('${esc(m.id)}')">Close poll</b>` : ''}</div>` + time + '</div>'; return;
+    }
+    if(m.type === 'event'){
+      const rs = m.rsvp || {}, rv = Object.values(rs), my = rs[user.uid];
+      const cnt = (k) => rv.filter((v) => v === k).length;
+      const btn = (k, t) => `<button class="${my === k ? 'on' : ''}" onclick="rsvpEvent('${esc(m.id)}','${k}')">${t}${cnt(k) ? ' ' + cnt(k) : ''}</button>`;
+      const th = EV_THEMES.includes(m.theme) ? m.theme : 'study';
+      html += head('card') + nm + `<div class="cm-event">${m.poster ? `<img class="ev-poster" src="${m.poster}" alt="" onclick="viewPoster('${esc(m.id)}')">` : `<div class="ev-top th-${th}">${ICO.cal}</div>`}
+        <div class="ev-body"><div class="ev-title">${esc(m.title)}</div><div class="ev-line">${ICO.cal}<span>${whenLabel(m.startsAt)}</span></div>${m.place ? `<div class="ev-line">${ICO.pin}<span>${esc(m.place)}</span></div>` : ''}${m.desc ? `<div class="ev-desc">${esc(m.desc)}</div>` : ''}
+        <div class="ev-rsvp">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('no', 'Can\'t')}</div><span class="ev-cal" onclick="eventICS('${esc(m.id)}')">Add to calendar</span></div></div>` + time + '</div>'; return;
+    }
+    const att = m.type === 'image' ? attachmentsHTML([{ type: 'image', thumb: m.thumb, fileId: m.fileId, fileName: m.fileName }]) : m.type === 'pdf' ? pdfCardHTML(m) : '';
+    html += head() + nm + att + (m.text ? `<div class="cm-text">${esc(m.text)}</div>` : '') + time + '</div>';
+  });
+  const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 160;
+  box.innerHTML = html;
+  if(nearBottom || !box.dataset.init){ box.scrollTop = box.scrollHeight; box.dataset.init = '1'; }
+}
+
 function openMoreMenu(){
   goTo('screen-more');
 }
