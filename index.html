@@ -1697,6 +1697,18 @@
   .pm-box{margin-top:18px; padding:14px; border-radius:16px; background:var(--card); border:1px solid var(--line);} .pm-box .pm-t{font-weight:800; margin-bottom:2px;} .pm-box .pm-s{font-size:12.5px; color:var(--text-dim); margin-bottom:10px;}
   .pm-box .pm-opts{display:flex; gap:8px;} .pm-box .pm-opts span{flex:1; text-align:center; padding:10px 6px; border-radius:14px; border:1.5px solid var(--line); font-size:13px; font-weight:800; cursor:pointer;} .pm-box .pm-opts span.on{border-color:var(--ct-send,#2E6B52); background:var(--surface-2);}
   .pm-box.ro .pm-opts span{pointer-events:none;}
+
+  .rm2-replybar{display:none; align-items:center; gap:10px; padding:8px 12px; background:var(--card); border-top:1px solid var(--line); font-size:13px;}
+  .rm2-replybar .rb-in{flex:1; min-width:0; border-left:3px solid var(--ct-send); padding-left:8px;} .rm2-replybar b{display:block; font-size:12px; color:var(--ct-send);}
+  .rm2-replybar span.t{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-dim);}
+  .rm2-replybar button{border:0; background:none; color:var(--text-dim); font-size:22px; line-height:1; cursor:pointer; padding:4px 8px;}
+  .cm-reply{border-left:3px solid var(--ct-send); background:rgba(0,0,0,.06); border-radius:8px; padding:4px 8px; margin:2px 0 5px; font-size:12.5px; cursor:pointer;} :root[data-theme="dark"] .cm-reply{background:rgba(255,255,255,.07);}
+  .cm-reply b{display:block; font-size:11.5px; color:var(--ct-send);} .cm-reply span{display:block; opacity:.8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:230px;}
+  .cm.flash{animation:cmflash 1.2s;} @keyframes cmflash{0%,60%{box-shadow:0 0 0 3px var(--ct-send);}100%{box-shadow:0 1px 1px rgba(0,0,0,.08);}}
+  .rm2-pinned{display:none; align-items:center; gap:10px; padding:8px 12px; background:var(--card); border-bottom:1px solid var(--line); font-size:13px; cursor:pointer;}
+  .rm2-pinned .ico{width:17px; height:17px; flex:0 0 auto; color:var(--ct-send);}
+  .rm2-pinned .pn-in{flex:1; min-width:0;} .rm2-pinned b{display:block; font-size:11.5px; color:var(--ct-send);} .rm2-pinned span.t{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .rm2-pinned button{border:0; background:none; color:var(--text-dim); font-size:20px; cursor:pointer; padding:2px 6px;}
 </style>
 <!-- Firebase SDK (compat build — works with plain script tags, no bundler needed) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -2647,9 +2659,11 @@
 
     <!-- CHAT -->
     <div class="rm2-panel on" id="rp-chat">
+      <div class="rm2-pinned" id="rm2-pinned" onclick="jumpToPinned()"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5h6l-1 5.5 3 3.5H7L10 9 9 3.5ZM12 12.5V21"/></svg><div class="pn-in"><b>Pinned</b><span class="t" id="pn-text"></span></div><button id="pn-x" onclick="event.stopPropagation();unpinMessage()" aria-label="Unpin" style="display:none;">×</button></div>
       <div class="rm2-chat" id="room-chat-box"></div>
       <div class="rz-pending" id="pending-chat" style="display:none;"></div>
       <div class="rm2-readonly" id="rm2-readonly" style="display:none;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg><span>Only the host and approved members can send messages in this room.</span></div>
+      <div class="rm2-replybar" id="rm2-replybar"><div class="rb-in"><b id="rb-name"></b><span class="t" id="rb-text"></span></div><button onclick="clearReply()" aria-label="Cancel reply">×</button></div>
       <div class="rm2-recbar" id="rm2-recbar" style="display:none;">
         <button class="rec-cancel" onclick="cancelVoice()" aria-label="Cancel recording"><svg viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5"/></svg></button>
         <span class="rec-dot"></span><span class="rec-time" id="rec-time">0:00</span>
@@ -2812,6 +2826,14 @@
     <div class="rz-sheet-title" id="member-sheet-name">Member</div><div class="rz-sheet-sub" id="member-sheet-role"></div>
     <button class="btn" id="ms-cohost" onclick="memberAction('cohost')"></button>
     <button class="btn" id="ms-speaker" onclick="memberAction('speaker')"></button>
+  </div>
+</div>
+
+<div class="rz-sheet-bg" id="msg-sheet" style="display:none;" onclick="if(event.target===this) closeSheet('msg-sheet')">
+  <div class="rz-sheet"><div class="rz-sheet-grab"></div>
+    <button class="btn" onclick="msgAction('reply')">Reply</button>
+    <button class="btn" id="ms-pin" onclick="msgAction('pin')">Pin to top</button>
+    <button class="btn" id="ms-del" style="color:#E63950; border-color:#E63950;" onclick="msgAction('delete')">Delete</button>
   </div>
 </div>
 
@@ -3180,7 +3202,7 @@ function goBack(){
   if(screenHistory.length) history.back(); else showScreen('screen-dashboard');
 }
 function openOverlayIds(){
-  return ['att-viewer', 'pdf-sheet', 'room-sheet', 'auth-gate-overlay', 'att-sheet', 'sticker-sheet', 'poll-sheet', 'event-sheet', 'member-sheet'].filter((id) => { const e = document.getElementById(id); return e && e.style.display && e.style.display !== 'none'; });
+  return ['att-viewer', 'pdf-sheet', 'room-sheet', 'auth-gate-overlay', 'att-sheet', 'sticker-sheet', 'poll-sheet', 'event-sheet', 'member-sheet', 'msg-sheet'].filter((id) => { const e = document.getElementById(id); return e && e.style.display && e.style.display !== 'none'; });
 }
 window.addEventListener('popstate', () => {
   if(ignorePops > 0){ ignorePops--; return; }
@@ -5164,7 +5186,7 @@ function openRoom(code){
   startStatsListener(code);
   initBoardCanvas();
   startBoardListener(code);
-  pendingAtt.chat = []; pendingAtt.note = []; renderPending('chat'); renderPending('note');
+  pendingAtt.chat = []; pendingAtt.note = []; renderPending('chat'); renderPending('note'); clearReply();
   applyChatTheme();
   showRoomPanel('chat');
   goTo('screen-room');
@@ -5440,8 +5462,8 @@ function sendChatMessage(){
   if((!text && !files.length) || !currentRoomCode || !canPostNow()) return;
   const btn = document.getElementById('rm2-send'); btn.disabled = true;
   const col = roomRef().collection('messages');
-  const base = () => ({ senderUid: user.uid, senderName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-  const done = () => { btn.disabled = false; syncSendMic(); };
+  const base = () => Object.assign({ senderUid: user.uid, senderName: user.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() }, replyTo ? { replyTo } : {});
+  const done = () => { btn.disabled = false; syncSendMic(); clearReply(); };
   if(!files.length){
     input.value = '';
     col.add(Object.assign(base(), { type: 'text', text })).then(done).catch((err) => { done(); alert('Message failed to send: ' + err.message); });
@@ -5860,6 +5882,7 @@ function applyPostPermission(){
   document.getElementById('pm-sub').textContent = isOwnerMe()
     ? (mode === 'staff' ? 'Only you, co-hosts and members you approve can send. Tap a member to approve.' : 'Every member can send messages.')
     : (mode === 'staff' ? 'Only the host, co-hosts and approved members can send.' : 'Every member can send messages.');
+  renderPinned();
 }
 function setPostMode(m){
   if(!isOwnerMe()) return;
@@ -5898,7 +5921,8 @@ function syncSendMic(){
 }
 function sendSpecial(obj){
   const u = getCurrentUser(); if(!u || !currentRoomCode || !canPostNow()) return Promise.resolve();
-  return roomRef().collection('messages').add(Object.assign({ senderUid: u.uid, senderName: u.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() }, obj))
+  const rp = replyTo; clearReply();
+  return roomRef().collection('messages').add(Object.assign({ senderUid: u.uid, senderName: u.name, createdAt: firebase.firestore.FieldValue.serverTimestamp() }, rp ? { replyTo: rp } : {}, obj))
     .catch((e) => { alert('Could not send: ' + e.message); });
 }
 // ---------- stickers (drawn vector, no emoji) ----------
@@ -6077,8 +6101,8 @@ function deleteMessage(id){
   const box = document.getElementById('room-chat-box'); if(!box) return;
   let t = null;
   const idOf = (e) => { const c = e.target.closest && e.target.closest('.cm[data-id]'); return c ? c.dataset.id : null; };
-  box.addEventListener('contextmenu', (e) => { const id = idOf(e); if(id){ e.preventDefault(); deleteMessage(id); } });
-  box.addEventListener('touchstart', (e) => { const id = idOf(e); if(!id) return; clearTimeout(t); t = setTimeout(() => deleteMessage(id), 650); }, { passive: true });
+  box.addEventListener('contextmenu', (e) => { const id = idOf(e); if(id){ e.preventDefault(); openMsgSheet(id); } });
+  box.addEventListener('touchstart', (e) => { const id = idOf(e); if(!id) return; clearTimeout(t); t = setTimeout(() => openMsgSheet(id), 650); }, { passive: true });
   ['touchend', 'touchmove', 'touchcancel'].forEach((ev) => box.addEventListener(ev, () => clearTimeout(t), { passive: true }));
 })();
 // ---------- chat renderer (text / image / pdf / sticker / voice / poll / event) ----------
@@ -6090,7 +6114,8 @@ function renderChatMessages(messages){
     const ms = tsMs(m.createdAt) || Date.now(), label = dayLabel(ms), own = m.senderUid === user.uid;
     if(label !== last){ html += `<div class="cm-day"><span>${label}</span></div>`; last = label; lastSender = ''; }
     const first = lastSender !== m.senderUid; lastSender = m.senderUid;
-    const nm = !own && first ? `<div class="cm-name" style="color:${avColor(m.senderName)}">${esc(m.senderName)}${roleChip(m.senderUid)}</div>` : '';
+    let nm = !own && first ? `<div class="cm-name" style="color:${avColor(m.senderName)}">${esc(m.senderName)}${roleChip(m.senderUid)}</div>` : '';
+    if(m.replyTo) nm += `<div class="cm-reply" onclick="jumpTo('${esc(m.replyTo.id)}')"><b>${esc(m.replyTo.name)}</b><span>${esc(m.replyTo.text)}</span></div>`;
     const time = `<span class="cm-time">${fmtTime(ms)}</span>`;
     const head = (extra) => `<div class="cm ${own ? 'own' : 'other'} ${first ? 'first' : ''} ${extra || ''}" data-id="${esc(m.id || '')}">`;
     if(m.type === 'sticker'){ html += head('sticker') + nm + stickerSVG(m.stickerId) + time + '</div>'; return; }
@@ -6119,6 +6144,49 @@ function renderChatMessages(messages){
   const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 160;
   box.innerHTML = html;
   if(nearBottom || !box.dataset.init){ box.scrollTop = box.scrollHeight; box.dataset.init = '1'; }
+}
+
+// ================================================================== reply + pin
+let replyTo = null;
+function msgSnippet(m){
+  if(!m) return '';
+  return m.type === 'poll' ? 'Poll: ' + m.question : m.type === 'event' ? 'Event: ' + m.title : m.type === 'sticker' ? 'Sticker' : m.type === 'voice' ? 'Voice message'
+    : m.type === 'image' ? 'Photo' : m.type === 'pdf' ? 'PDF: ' + (m.fileName || '') : String(m.text || '');
+}
+let msgTarget = null;
+function openMsgSheet(id){
+  const u = getCurrentUser(); const m = chatCache.find((x) => x.id === id); if(!u || !m) return;
+  msgTarget = id;
+  document.getElementById('ms-pin').style.display = isStaffMe() ? 'block' : 'none';
+  document.getElementById('ms-del').style.display = (m.senderUid === u.uid || isStaffMe()) ? 'block' : 'none';
+  openSheet('msg-sheet');
+}
+function msgAction(k){
+  const id = msgTarget; closeSheet('msg-sheet'); const m = chatCache.find((x) => x.id === id); if(!m) return;
+  if(k === 'reply'){
+    if(!canPostNow()) return;
+    replyTo = { id, name: m.senderName || '', text: msgSnippet(m).slice(0, 80) };
+    document.getElementById('rb-name').textContent = replyTo.name; document.getElementById('rb-text').textContent = replyTo.text;
+    document.getElementById('rm2-replybar').style.display = 'flex';
+    const i = document.getElementById('room-chat-input'); if(i) i.focus();
+  } else if(k === 'pin'){
+    if(!isStaffMe()) return;
+    roomRef().update({ pinned: { id, name: m.senderName || '', text: msgSnippet(m).slice(0, 120) } }).catch((e) => alert('Could not pin: ' + e.message));
+  } else if(k === 'delete') deleteMessage(id);
+}
+function clearReply(){ replyTo = null; const b = document.getElementById('rm2-replybar'); if(b) b.style.display = 'none'; }
+function jumpTo(id){
+  const el = document.querySelector('#room-chat-box .cm[data-id="' + id + '"]');
+  if(!el){ alert('That message is older and not loaded.'); return; }
+  el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
+function jumpToPinned(){ const p = currentRoomData && currentRoomData.pinned; if(p) jumpTo(p.id); }
+function unpinMessage(){ if(isStaffMe()) roomRef().update({ pinned: null }).catch((e) => alert(e.message)); }
+function renderPinned(){
+  const el = document.getElementById('rm2-pinned'); if(!el) return;
+  const p = currentRoomData && currentRoomData.pinned;
+  el.style.display = p ? 'flex' : 'none';
+  if(p){ document.getElementById('pn-text').textContent = (p.name ? p.name + ': ' : '') + p.text; document.getElementById('pn-x').style.display = isStaffMe() ? 'block' : 'none'; }
 }
 
 function openMoreMenu(){
